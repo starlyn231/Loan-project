@@ -5,6 +5,8 @@ import { MyDesk } from '../pages/Desk/MyDesk';
 import { Home } from '../pages/Home/Home';
 
 import { Login } from '../pages/Login/Login';
+import { Product } from '../pages/product/Product';
+import { ProductList } from '../pages/ProductList/ProductList';
 
 
 import { ProtectedRoute, ProtetedRoute } from './ProtetedRoute';
@@ -28,7 +30,8 @@ export const MainRoute = () => {
 
     <Routes>
       <Route path="/" element={<Home />} />
-
+      <Route path="/productList" element={<ProductList />} />
+      <Route path="/product" element={<Product />} />
       <Route path="/login" element={<Login />} />
       <Route path="/mydesk" element={<ProtectedRoute />} />
 
