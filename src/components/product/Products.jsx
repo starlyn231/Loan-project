@@ -16,7 +16,7 @@ export const Products = () => {
 
         sx={{
           width: "100%",
-          backgroundColor: 'blue',
+
           alignItems: "center",
 
         }}

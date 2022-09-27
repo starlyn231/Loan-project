@@ -2,38 +2,49 @@
 import { styled } from '@mui/system';
 
 export const Info = styled('div')({
-  opacity: 0,
+  opacity: 1,
   width: ' 100%',
   height: '100%',
   position: 'absolute',
   top: 0,
   left: 0,
-  backgroundColor: 'rgba(0, 0, 0, 0.2)',
-  zIndex: 300,
+
+  // backgroundColor: 'rgba(0, 0, 0, 0.2)',
+
   display: 'flex',
-  alignItems: 'center',
+  alignItems: 'flex-end',
   justifyContent: 'center',
   transition: 'all 0.5s ease',
   cursor: 'pointer',
-  background: 'green'
+  flexDirection: 'column',
+
+  '&:hover ': {
+    opacity: 1,
+    boxShadow: "inset 0 0 0 2000px rgba(0, 0, 0, 0.1)",
+    //backgroundColor: 'rgba(0, 0, 0, 0.2)'
+  }
 
 });
 
 export const Container = styled('div')({
   //backgroundColor: 'red',
-  background: 'red',
+
 
   display: 'flex',
   margin: ' 5px',
-  height: '350px',
+  height: '400px',
 
   minWidth: ' 280px',
   alignItems: 'center',
   justifyContent: 'center',
-  //backgroundColor: '#f5fbfd',
-  //position: 'relative',
-
-  '&:hover': {
+  backgroundColor: '#f5fbfd',
+  position: 'relative',
+  /*
+  parentClass: {
+    "&:hover $childClass": {
+      display: 'flex'
+    }*/
+  '&:hover ${Info}': {
     opacity: 1
   }
 
@@ -46,13 +57,13 @@ export const Circle = styled('div')({
   borderRadius: ' 50%',
   backgroundColor: 'white',
   position: 'absolute',
-  zIndex: 1,
+
 })
 
 const Image = styled('img')({
   position: 'absolute',
   height: ' 75%',
-  zIndex: 2,
+
 
 })
 

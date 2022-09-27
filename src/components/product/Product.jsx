@@ -8,9 +8,9 @@ export const Product = ({ item }) => {
 
   return (
     <Container>
-      <Circle />
-      <Image src={item.img} />
-      <Info>
+      <Circle style={{ zIndex: 1 }} />
+      <Image style={{ zIndex: 2 }} src={item.img} />
+      <Info className="parentClass" style={{ zIndex: 3, }}>
         <Icon>
           <ShoppingCartCheckoutOutlinedIcon />
         </Icon>
@@ -18,7 +18,7 @@ export const Product = ({ item }) => {
           <ZoomOutOutlinedIcon />
         </Icon>
         <Icon>
-          <FavoriteBorderOutlinedIcon />
+          <FavoriteBorderOutlinedIcon sx={{ color: 'red' }} />
         </Icon>
       </Info>
     </Container>
