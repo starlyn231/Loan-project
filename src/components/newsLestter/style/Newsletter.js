@@ -1,49 +1,16 @@
 
 import { styled } from '@mui/system';
 
-export const Info = styled('div')({
-  opacity: 1,
-  width: ' 100%',
-  height: '100%',
-  position: 'absolute',
-  top: 0,
-  left: 0,
-
-  // backgroundColor: 'rgba(0, 0, 0, 0.2)',
-
-  display: 'flex',
-  alignItems: 'flex-end',
-  justifyContent: 'center',
-  transition: 'all 0.5s ease',
-  cursor: 'pointer',
-  flexDirection: 'column',
-
-  '&:hover ': {
-    opacity: 1,
-    boxShadow: "inset 0 0 0 2000px rgba(0, 0, 0, 0.1)",
-    //backgroundColor: 'rgba(0, 0, 0, 0.2)'
-  }
-
-});
 
 export const Container = styled('div')({
-  //backgroundColor: 'red',
-
-
   display: 'flex',
-
   height: '60vh',
-
   minWidth: ' 280px',
   alignItems: 'center',
   justifyContent: 'center',
   backgroundColor: '#fcf5f5',
   alignItems: 'center',
   flexDirection: 'column'
-
-
-
-
 });
 
 export const Title = styled('h1')({
