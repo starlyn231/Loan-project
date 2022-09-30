@@ -8,7 +8,7 @@ const Router = ({ routes }) => {
   const [authenticated, setAuthenticated] = useState(true);
   console.log(routes)
   return (
-    < Routes>{routes.map((route) =>
+    < >{routes.map((route) =>
     (
       route?.loginRequired == true && authenticated ? //IF LOGIN IS REQUIRED AND USER IS LOGGED IN CAN ACCESS TO ROUTE
         <Route key={route.path}  {...route} path={route.layout ? (route.layout + route.path) : route.path} />
@@ -22,7 +22,7 @@ const Router = ({ routes }) => {
           <Route key={route.path}  {...route} path={route.layout ? (route.layout + route.path) : route.path} /> //PUBLIC ROUTES
     )
     )}
-    </Routes>
+    </>
   )
 };
 
