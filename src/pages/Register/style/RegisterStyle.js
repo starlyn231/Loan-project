@@ -5,7 +5,8 @@ import { styled } from "@mui/system";
 export const Container = styled("div")({
   display: "flex",
   width: "100vw",
-  height: "100vh",
+  minHeight: "100vh",
+  position: "relative",
   background:
     'linear-gradient( rgba(255, 255, 255, 0.5),rgba(255, 255, 255, 0.5) ), url("https://images.pexels.com/photos/6984650/pexels-photo-6984650.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940")   center',
   backgroundSize: "cover",
@@ -19,7 +20,7 @@ export const Wrapper = styled("div")({
   padding: '20px',
   backgroundColor: 'white',
 
-
+  marginTop: '20px',
   "@media (min-width:320px)": {
     width: "75%",
   },

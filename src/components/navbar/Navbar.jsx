@@ -4,10 +4,17 @@ import SearchIcon from '@mui/icons-material/Search';
 
 
 import { Center, Container, Input, Language, Left, Logo, MenuItem, Right, SearchContainer, StyledTextInput, Wrapper } from "./style/StyleNavbar";
-
+import { useNavigate } from "react-router-dom";
 
 
 export const Navbar = () => {
+
+  const navigation = useNavigate();
+
+  const goRoute = (route) => {
+    navigation(route)
+  };
+
   return (
     <Container>
       <Wrapper>
@@ -22,8 +29,8 @@ export const Navbar = () => {
           <Logo>LAMA.</Logo>
         </Center>
         <Right>
-          <MenuItem>REGISTER</MenuItem>
-          <MenuItem>SIGN IN</MenuItem>
+          <MenuItem onClick={() => goRoute("/register")}>REGISTER</MenuItem>
+          <MenuItem onClick={() => goRoute("/login")} >SIGN IN</MenuItem>
           <MenuItem>
             <Badge badgeContent={4} color="primary">
               <AddShoppingCartOutlinedIcon />
