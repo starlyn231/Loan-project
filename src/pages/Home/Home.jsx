@@ -7,19 +7,20 @@ import { Newsletter } from '../../components/newsLestter/Newsletter'
 
 import { Products } from '../../components/product/Products'
 import Slider from '../../components/Slider/Slider'
+import { CardSlider } from './components/cardSlider/CardSlider'
 
 export const Home = () => {
 
 
   return (
-    <div>
+    <>
 
 
       <Slider />
       <Categories />
       <Products />
-      <Newsletter />
+      <CardSlider />
 
-    </div>
+    </>
   )
 }

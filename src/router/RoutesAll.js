@@ -15,19 +15,18 @@ import RootLayout from "../Layout/public/PublicLayout";
 
 export const routes = [
   {
-    path: "/",
+
     element: <RootLayout />,
     errorElement: <ErrorPage />,
     // loader: rootLoader,
     children: [
       {
-        path: "/home",
+        path: "/",
         element: <Home />,
 
         layout: "/public",
         loginRequired: false,
       },
-
 
       {
         path: "/contacts/:contactId",

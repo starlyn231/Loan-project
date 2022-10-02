@@ -10,8 +10,7 @@ import { Footer } from '../../components/footer/Footer'
 export const Product = () => {
   return (
     <Container>
-      <Navbar />
-      <Announcement />
+
       <Wrapper>
         <ImgContainer>
           <Image src="https://i.ibb.co/S6qMxwr/jean.jpg" />
@@ -55,7 +54,7 @@ export const Product = () => {
         </InfoContainer>
       </Wrapper>
       <Newsletter />
-      <Footer />
+
     </Container>
   )
 }

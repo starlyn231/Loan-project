@@ -9,8 +9,7 @@ import { Container, Filter, FilterContainer, FilterText, Option, Select, Title }
 export const ProductList = () => {
   return (
     <Container>
-      <Navbar />
-      <Announcement />
+
       <Title>Dresses</Title>
       <FilterContainer>
         <Filter>
@@ -48,7 +47,7 @@ export const ProductList = () => {
       </FilterContainer>
       <Products />
       <Newsletter />
-      <Footer />
+
     </Container>
   )
 }

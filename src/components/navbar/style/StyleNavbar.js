@@ -21,7 +21,7 @@ export const Container = styled('div')({
 export const Wrapper = styled('div')({
   padding: '10px 20px',
   display: 'flex',
-  //background: 'lightBlue',
+
   width: '100%',
   alignItems: 'center',
   justifyContent: 'space-between',
@@ -36,7 +36,7 @@ export const Wrapper = styled('div')({
 export const Left = styled('div')({
 
   display: 'flex',
-  alignItems: 'center'
+  alignItems: 'center',
 
 });
 export const Language = styled('div')({
@@ -119,12 +119,11 @@ export const Logo = styled('h1')({
 })
 export const Right = styled('div')({
   //flex: 1,
-
   display: 'flex',
   alignItems: 'center',
-  justifyContent: 'flex-end',
+
   '@media only screen and  (max-width:380px)': {
-    flex: 2,
+
     justifyContent: "center"
   },
 })
@@ -134,7 +133,7 @@ export const MenuItem = styled(Button)((props) => ({
 
   fontSize: "17px",
   cursor: 'pointer',
-  marginLeft: '25px',
+  marginLeft: '15px',
   color: 'black',
 
   '@media only screen and  (max-width:780px)': {

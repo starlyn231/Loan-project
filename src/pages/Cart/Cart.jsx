@@ -8,8 +8,7 @@ import { Bottom, ButtonCart, Container, Details, Hr, Image, Info, PriceDetail, P
 export const Cart = () => {
   return (
     <Container>
-      <Navbar />
-      <Announcement />
+
       <Wrapper>
         <Title>YOUR BAG</Title>
         <Top>
@@ -96,7 +95,7 @@ export const Cart = () => {
           </Summary>
         </Bottom>
       </Wrapper>
-      <Footer />
+
     </Container>
   )
 }
