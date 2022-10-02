@@ -1,51 +1,41 @@
-import React from "react"
-import "./style.css"
-import CreditScoreOutlinedIcon from '@mui/icons-material/CreditScoreOutlined';
-import DeliveryDiningOutlinedIcon from '@mui/icons-material/DeliveryDiningOutlined';
-import SecurityOutlinedIcon from '@mui/icons-material/SecurityOutlined';
-import RecommendOutlinedIcon from '@mui/icons-material/RecommendOutlined';
-const Wrapper = () => {
-  console.log('ss')
-  const data = [
-    {
-      cover: <DeliveryDiningOutlinedIcon />,
-      title: "Worldwide Delivery",
-      decs: "We offer competitive prices on our 100 million plus product any range.",
-    },
-    {
-      cover: <CreditScoreOutlinedIcon />,
-      title: "Safe Payment",
-      decs: "We offer competitive prices on our 100 million plus product any range.",
-    },
-    {
-      cover: <SecurityOutlinedIcon />,
-      title: "Shop With Confidence ",
-      decs: "We offer competitive prices on our 100 million plus product any range.",
-    },
-    {
-      cover: <RecommendOutlinedIcon />,
-      title: "24/7 Support ",
-      decs: "We offer competitive prices on our 100 million plus product any range.",
-    },
-  ]
+
+
+import { BodyText, Container, ContainerIcon, GridContainer, ImageContainer } from "./style/Wrapper";
+import { Grid } from "@mui/material";
+import { data } from "./DataWrapper";
+
+export const Wrapper = () => {
   return (
-    <>
-      <section className='wrapper background'>
-        <div className='container grid2'>
-          {data.map((val, index) => {
-            return (
-              <div className='product' key={index}>
-                <div className='img icon-circle'>
-                  <i>{val.cover}</i>
-                </div>
-                <h3>{val.title}</h3>
-                <p>{val.decs}</p>
-              </div>
-            )
-          })}
-        </div>
-      </section>
-    </>
+
+    <Container>
+      <Grid
+        gap={"10px"}
+        justifyContent={"center"}
+        sx={{ maxWidth: '100% ', }} container={true}>
+        {data.map((val, index) => {
+          return (
+
+            <Grid sx={{
+              background: '#fff',
+
+              padding: ' 20px',
+              position: 'relative',
+              borderRadius: ' 8px',
+              boxShadow: 'rgb(3 0 71 / 9%) 0px 1px 3px',
+              margin: '5px',
+            }} item key={index} xs={12} sm={6} md={4} xl={4}>
+
+              <ImageContainer >
+                <ContainerIcon>{val.cover}</ContainerIcon>
+              </ImageContainer>
+              <h3 style={{ fontWeight: 800 }}>{val.title}</h3>
+              <BodyText>{val.decs}</BodyText>
+            </Grid>
+          )
+        })}
+      </Grid>
+    </Container>
+
   )
 }
 

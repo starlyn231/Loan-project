@@ -1,4 +1,5 @@
 import React from "react"
+import { ContainerImg, ContainerSection, Image, RowContainer } from "./style/AnnocementStyle"
 
 const Annocument = () => {
   const mystyle = {
@@ -11,16 +12,16 @@ const Annocument = () => {
   }
   return (
     <>
-      <section className='annocument background'>
-        <div className='container d_flex'>
-          <div className='img' style={mystyle}>
-            <img src='./images/banner-1.png' width='100%' height='100%' />
-          </div>
-          <div className='img' style={mystyle1}>
-            <img src='./images/banner-2.png' width='100%' height='100%' />
-          </div>
-        </div>
-      </section>
+      <ContainerSection     >
+        <RowContainer style={{}}  >
+          <ContainerImg style={mystyle}>
+            <Image src='./images/banner-1.png' />
+          </ContainerImg>
+          <ContainerImg className='img' style={mystyle1}>
+            <Image src='./images/banner-2.png' />
+          </ContainerImg>
+        </RowContainer>
+      </ContainerSection>
     </>
   )
 }
