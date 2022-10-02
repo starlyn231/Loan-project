@@ -1,19 +1,22 @@
 import React from "react"
-import FlashCard from "./FlashCard"
-import "./style.css"
 
+
+import { Container, ContainerSection } from "./style/FlashDeals"
+import BoltOutlinedIcon from '@mui/icons-material/BoltOutlined';
+import FlashCard from "./components/FlashCard";
 const FlashDeals = ({ productItems, addToCart }) => {
   return (
     <>
-      <section className='flash'>
-        <div className='container'>
-          <div className='heading f_flex'>
-            <i className='fa fa-bolt'></i>
-            <h1>Flash Delas</h1>
+      <ContainerSection >
+        <Container>
+
+          <div style={{ display: 'flex', padding: '10px', alignItems: 'center' }} >
+            <BoltOutlinedIcon sx={{ color: 'teal', fontSize: '27px' }} />
+            <h1>Ofertas</h1>
           </div>
           <FlashCard productItems={productItems} addToCart={addToCart} />
-        </div>
-      </section>
+        </Container>
+      </ContainerSection>
     </>
   )
 }
