@@ -2,10 +2,10 @@
 import { styled } from '@mui/system';
 
 export const ContainerSection = styled('section')({
-  background: '#f6f9fc',
+  // background: '#f6f9fc',
   padding: '50px 0',
   fontFamily: '"Poppins" sans-serif',
-  // backgroundColor: '#ffffff'
+  backgroundColor: 'yellow',
 
   // padding: 0,
   margin: 0,

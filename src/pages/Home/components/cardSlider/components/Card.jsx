@@ -19,7 +19,7 @@ const Card = ({ data }) => {
       getPokemon();
     }, []);
   */
-  console.log(data)
+
   return (
     <Container >
       <div style={{

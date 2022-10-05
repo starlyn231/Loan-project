@@ -1,12 +1,13 @@
 
-import { Button } from '@mui/material';
+import { Button, Rating } from '@mui/material';
 import { styled } from '@mui/system';
-
+import StarIcon from '@mui/icons-material/Star';
 
 
 export const ContainerProduct = styled('div')({
   background: '#fff',
-  padding: '20px',
+
+  // padding: '20px',
   position: 'relative',
   borderRadius: '8px',
   boxShadow: 'rgb(3 0 71 / 9%) 0px 1px 3px',
@@ -21,9 +22,42 @@ export const ContainerProduct = styled('div')({
 });
 
 export const ContainerImage = styled('div')({
+  display: 'flex',
 
+  justifyContent: 'center'
 });
 
+
+export const IconStartRating = styled(StarIcon)({
+  opacity: 0.55,
+  color: '#ffcd4e',
+  margin: '5px 5px 5px 0',
+
+
+  '@media (min-width:320px)': {
+    display: 'none'
+  },
+  '@media (min-width:768px)': {
+    fontSize: '10px',
+  },
+  '@media (min-width:1200px)': {
+    fontSize: '20px',
+  }
+});
+export const RatingComponent = styled(Rating)({
+
+
+
+  '@media (min-width:320px)': {
+    display: 'none'
+  },
+  '@media (min-width:768px)': {
+    display: 'flex'
+  },
+  '@media (min-width:1200px)': {
+    display: 'flex'
+  }
+});
 
 export const ContainerDiscount = styled('div')({
   position: 'absolute',

@@ -19,11 +19,13 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import UserLoggedMenu from "../UserLoggedMenu/UserLoggedMenu";
 import COLORS from "../styleGeneric/Colors";
+//import { useAuth } from "../../Context/AuthProvider";
 
 export const Navbar = () => {
+  //const { token, onLogin } = useAuth();
   const [user, setUser] = useState(false);
   const navigation = useNavigate();
-
+  //console.log(token)
   const goRoute = (route) => {
     navigation(route);
   };
@@ -44,6 +46,7 @@ export const Navbar = () => {
           <MenuItem
             onClick={() => {
               setUser(true);
+              //      onLogin();
               goRoute("/login");
             }}
           >

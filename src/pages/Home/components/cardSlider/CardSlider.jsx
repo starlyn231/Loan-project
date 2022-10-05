@@ -24,7 +24,7 @@ export const CardSlider = () => {
     getPokemons();
   }, []);
 
-  console.log(popularProducts);
+
   return (
     <div className='App'>
       <h1 style={{ textAlign: "center" }}>Departamento</h1>

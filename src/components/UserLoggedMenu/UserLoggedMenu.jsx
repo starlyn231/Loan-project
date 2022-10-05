@@ -7,9 +7,12 @@ import Divider from '@mui/material/Divider';
 import { useNavigate } from 'react-router-dom';
 import { Avatar, useMediaQuery } from '@mui/material';
 import { Container, IconUser, StyledPaper } from './style/UserLoggedMenuStyles';
+import { useAuth } from '../../Context/AuthProvider';
 
 
 function UserLoggedMenu({ image }) {
+  const { token, onLogout } = useAuth();
+
   const matchesWidth = useMediaQuery("(min-width:768px)");
   const navigate = useNavigate();
 
@@ -23,7 +26,7 @@ function UserLoggedMenu({ image }) {
   }
 
   const HandleLogOut = () => {
-    console.log('HandleLogout')
+
     setTimeout(() => {
 
       window.location.reload();
@@ -58,8 +61,12 @@ function UserLoggedMenu({ image }) {
             <StyledPaper>
               <MenuList>
                 <MenuItem onClick={() => navigate('/login')}>Configuracion</MenuItem>
+
+
+
                 <Divider sx={{ width: '100%' }} />
-                <MenuItem onClick={HandleLogOut}>Cerrar sesión</MenuItem>
+
+                {token && (<MenuItem onClick={HandleLogOut}>Cerrar sesión</MenuItem>)}
               </MenuList>
             </StyledPaper>
           </Grow>
