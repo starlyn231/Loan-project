@@ -33,6 +33,7 @@ const PrivateLayout = ({ children }) => {
   //console.log(outlet.props.children.props.routeContext.matches[0]?.route.children );
   /*
     const { user } = useAuth();
+    console.log(user)
     if (!user) {
       // user is not authenticated
       return <Navigate to="/login" />;

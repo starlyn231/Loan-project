@@ -8,10 +8,19 @@ export const Container = styled("div")({
 
 export const Wrapper = styled("div")({
   padding: "20px",
-
-
-  "@media only screen and  (max-width:380px)": {
+  //display: 'flex',
+  /*
+  '@media (min-width:320px)': {
     padding: "10px",
+  },
+  '@media (min-width:768px)': {
+    display: 'flex'
+  },
+  '@media (min-width:1200px)': {
+    display: 'flex'
+  },*/
+  "@media only screen and  (max-width:380px)": {
+
   },
 });
 export const Title = styled("h1")({

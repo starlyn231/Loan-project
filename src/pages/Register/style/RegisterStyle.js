@@ -45,7 +45,7 @@ export const Form = styled("form")({
 });
 export const Input = styled(TextField)({
   flex: 1,
-  minWidth: '40%',
+  width: '90%',
   margin: '10px 0',
   padding: '10px',
 

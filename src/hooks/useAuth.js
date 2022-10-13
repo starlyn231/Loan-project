@@ -5,7 +5,7 @@ const AuthContext = createContext();
 //const [isLoggedIn, setisLoggedIn] = useState(null);
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useLocalStorage("user", null);
+  const [user, setUser] = useLocalStorage("user");
 
   const logIn = () => {
     setUser(true);
@@ -22,7 +22,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = () => {
-    setUser(null);
+    setUser(false);
     navigate("/login", { replace: true });
   };
 

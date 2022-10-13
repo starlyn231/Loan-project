@@ -23,7 +23,7 @@ import COLORS from "../styleGeneric/Colors";
 
 export const Navbar = () => {
   //const { token, onLogin } = useAuth();
-  const [user, setUser] = useState(false);
+  const [viewUser, setViewUser] = useState(true);
   const navigation = useNavigate();
   //console.log(token)
   const goRoute = (route) => {
@@ -45,14 +45,14 @@ export const Navbar = () => {
           <MenuItem onClick={() => goRoute("/register")}>REGISTER</MenuItem>
           <MenuItem
             onClick={() => {
-              setUser(true);
+              setViewUser(true);
               //      onLogin();
               goRoute("/login");
             }}
           >
             SIGN IN
           </MenuItem>
-          {user ? (<>
+          {viewUser ? (<>
             <MenuItem>
               <Badge badgeContent={4} color='primary'>
                 <AddShoppingCartOutlinedIcon

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Announcement from '../../components/Announcement/Announcemnet'
 import { Categories } from '../../components/categories/Categories'
 import { Footer } from '../../components/footer/Footer'
@@ -13,6 +13,9 @@ import { CardSlider } from './components/cardSlider/CardSlider'
 import Data from './Data'
 import Wrapper from '../../components/wrapper/Wrapper'
 import Annocument from '../../components/annocument/Annocument'
+import { Loading } from '../../components/Loading/Loading'
+
+
 
 export const Home = () => {
 

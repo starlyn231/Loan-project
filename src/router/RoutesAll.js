@@ -43,13 +43,13 @@ export const routes = [
     children: [
 
       {
-        path: "/productList",
+        path: "/products/:category",
         element: <ProductList />,
         layout: "/private",
         loginRequired: false,
       },
       {
-        path: "/product",
+        path: "/product/:id",
         element: <Product />,
         layout: "/private",
         loginRequired: false,
