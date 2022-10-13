@@ -5,7 +5,7 @@ const AuthContext = createContext();
 //const [isLoggedIn, setisLoggedIn] = useState(null);
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useLocalStorage("user", null);
+  const [user, setUser] = useLocalStorage("user");
 
   const logIn = () => {
     setUser(true);
@@ -15,15 +15,15 @@ export const AuthProvider = ({ children }) => {
   };
 
   const navigate = useNavigate();
-  console.log(user)
+
   const login = async (data) => {
     setUser(data);
-    navigate("/mydesk", { replace: true });
+    navigate("/", { replace: true });
   };
 
   const logout = () => {
-    setUser(null);
-    navigate("/", { replace: true });
+    setUser(false);
+    navigate("/login", { replace: true });
   };
 
   const value = useMemo(

@@ -1,18 +1,11 @@
 
 import { Global } from '@emotion/react'
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Router from './router/Router';
-//import Layouts from './router/Layouts';
+import { BrowserRouter, Route, RouterProvider, Routes } from "react-router-dom";
 
-import { Page1 } from './pages/Page1';
 
-import { Page2 } from './pages/Page2';
-import { Page3 } from './pages/Page3';
 import { useState } from 'react';
 
-
-
-import { MainRoute } from './routerLayout/MainRoute';
+import { router } from './router/MainRouters';
 
 
 function App() {
@@ -40,10 +33,9 @@ function App() {
           }
         `}
       />
-      <BrowserRouter>
-        <MainRoute />
 
-      </BrowserRouter>
+      <RouterProvider router={router} />
+
 
     </div>
   );
