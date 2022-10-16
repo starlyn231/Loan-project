@@ -72,7 +72,7 @@ export const Info = styled("div")({
 export const Product = styled("div")({
   display: "flex",
   justifyContent: "space-between",
-
+  marginBottom: '10px',
   "@media only screen and  (max-width:380px)": {
     flexDirection: "column",
   },
