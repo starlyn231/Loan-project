@@ -10,6 +10,8 @@ import { Footer } from '../../components/footer/Footer'
 import { useLocation } from 'react-router-dom'
 import axios from 'axios'
 import { publicRequest } from '../../services/RequestMethods'
+import { useDispatch } from 'react-redux'
+import { addProduct } from '../../Redux/CartRedux'
 export const Product = () => {
   const location = useLocation();
   const id = (location.pathname.split("/")[2]);
@@ -17,6 +19,7 @@ export const Product = () => {
   const [quantity, setQuantity] = useState(1);
   const [color, setColor] = useState("");
   const [size, setSize] = useState("");
+  const dispatch = useDispatch();
   useEffect(() => {
 
     const getProduct = async () => {
@@ -41,7 +44,8 @@ export const Product = () => {
   }
 
   const handleClick = () => {
-    console.log("Product added")
+    dispatch(addProduct({ ...product, quantity, color, size }));
+
   }
 
   return (

@@ -6,6 +6,8 @@ import { BrowserRouter, Route, RouterProvider, Routes } from "react-router-dom";
 import { useState } from 'react';
 
 import { router } from './router/MainRouters';
+import { Provider } from 'react-redux';
+import store from './Redux/store';
 
 
 function App() {
@@ -25,7 +27,7 @@ function App() {
     const handleLogout = () => setUser(null);
   */
   return (
-    <div>
+    <Provider store={store}>
       <Global
         styles={`
           body {
@@ -37,7 +39,7 @@ function App() {
       <RouterProvider router={router} />
 
 
-    </div>
+    </Provider>
   );
 }
 

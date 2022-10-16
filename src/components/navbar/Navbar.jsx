@@ -19,6 +19,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import UserLoggedMenu from "../UserLoggedMenu/UserLoggedMenu";
 import COLORS from "../styleGeneric/Colors";
+import { useSelector } from "react-redux";
 //import { useAuth } from "../../Context/AuthProvider";
 
 export const Navbar = () => {
@@ -29,6 +30,8 @@ export const Navbar = () => {
   const goRoute = (route) => {
     navigation(route);
   };
+
+  const quantity = useSelector(state => state.cart.quantity)
 
   return (
     <Container>
@@ -54,7 +57,7 @@ export const Navbar = () => {
           </MenuItem>
           {viewUser ? (<>
             <MenuItem>
-              <Badge badgeContent={4} color='primary'>
+              <Badge badgeContent={quantity} color='primary'>
                 <AddShoppingCartOutlinedIcon
                   sx={{ cursor: 'pointer', color: COLORS.black, }} onClick={() => goRoute("/cart")} />
               </Badge>
