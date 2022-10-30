@@ -50,8 +50,8 @@ export const Input = styled(TextField)({
 
 });
 
+export const ButtonLogin = styled(Button)((props) => ({
 
-export const ButtonLogin = styled(Button)({
   width: '40%',
   padding: "15px 20px",
   border: 'none',
@@ -60,9 +60,17 @@ export const ButtonLogin = styled(Button)({
   cursor: "pointer",
   color: 'white',
   fontWeight: 500,
-  marginBottom: '10px'
+  marginBottom: '10px',
+  '&:disabled': {
 
-});
+    cursor: 'not-allowed',
+    padding: "22px 22px",
+  }
+  //color: props.disabled === false ? "red" : "blue",
+  //disabledprops.type === "filled" ? "black" : "transparent",
+
+  //cursor:props.disabled === false ? "red" : "blue"
+}));
 
 export const Link = styled('a')({
   margin: '5px 0px',
@@ -70,3 +78,9 @@ export const Link = styled('a')({
   textDecoration: 'underline',
   cursor: 'pointer'
 })
+
+
+export const Error = styled('span')({
+  color: 'red'
+})
+

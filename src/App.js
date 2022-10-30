@@ -1,16 +1,14 @@
-
-import { Global } from '@emotion/react'
+import { Global } from "@emotion/react";
 import { BrowserRouter, Route, RouterProvider, Routes } from "react-router-dom";
 
+import { useState } from "react";
 
-import { useState } from 'react';
+import { router } from "./router/MainRouters";
 
-import { router } from './router/MainRouters';
-import { Provider } from 'react-redux';
-import store from './Redux/store';
-
+import { useSelector } from "react-redux";
 
 function App() {
+  const user = useSelector((state) => state.user.currentUser);
   // console.log(Layouts)
 
   /*
@@ -27,7 +25,8 @@ function App() {
     const handleLogout = () => setUser(null);
   */
   return (
-    <Provider store={store}>
+
+    <>
       <Global
         styles={`
           body {
@@ -37,9 +36,8 @@ function App() {
       />
 
       <RouterProvider router={router} />
+    </>
 
-
-    </Provider>
   );
 }
 
