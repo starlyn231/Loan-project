@@ -26,6 +26,7 @@
     "redux": "^4.2.0",
     "redux-persist": "^6.0.0",
     "slick-carousel": "^1.8.1",
+    "styled-components": "^5.3.6",
     "swiper": "^8.4.2",
     "web-vitals": "^2.1.4",
     "yup": "^0.32.11"
@@ -53,5 +54,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/styled-components": "^5.1.26"
   }
 }
