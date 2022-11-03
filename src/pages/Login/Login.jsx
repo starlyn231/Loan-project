@@ -3,18 +3,22 @@ import { useState } from 'react'
 import { ButtonLogin, Container, Error, Form, Input, Link, Title, Wrapper } from './style/LoginStyle'
 import { useDispatch, useSelector } from "react-redux";
 import { login } from '../../Redux/apiCalls';
+import { useNavigate } from 'react-router-dom';
 export const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
   const { isFetching, error } = useSelector((state) => state.user);
-
+  const navigate = useNavigate();
   const HadleLogin = (e) => {
+
+
     e.preventDefault()
-    login(dispatch, { username, password });
+    login(dispatch, { username, password, navigate });
+
 
   }
-
+  console.log(error)
   return (
     <Container>
       <Wrapper>
