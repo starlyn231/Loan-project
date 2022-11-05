@@ -26,9 +26,11 @@ function UserLoggedMenu({ image }) {
   }
 
   const HandleLogOut = () => {
+    let deleteLocalStorage;
 
     setTimeout(() => {
 
+      deleteLocalStorage = window.localStorage.removeItem("persist:root")?.user;
       window.location.reload();
 
     }, 1500);

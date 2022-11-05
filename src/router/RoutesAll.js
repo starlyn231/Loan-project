@@ -13,6 +13,9 @@ import AuthLayout from "../Layout/authLayout/AuthLayout";
 import RootLayout from "../Layout/public/PublicLayout";
 /* other imports */
 
+
+
+
 export const routes = [
   {
 
@@ -24,6 +27,12 @@ export const routes = [
         path: "/",
         element: <Home />,
 
+        layout: "/public",
+        loginRequired: false,
+      },
+      {
+        path: "/products/:category",
+        element: <ProductList />,
         layout: "/public",
         loginRequired: false,
       },
@@ -42,12 +51,7 @@ export const routes = [
     //loader: rootLoader,
     children: [
 
-      {
-        path: "/products/:category",
-        element: <ProductList />,
-        layout: "/private",
-        loginRequired: false,
-      },
+
       {
         path: "/product/:id",
         element: <Product />,

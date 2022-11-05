@@ -1,3 +1,4 @@
+import { useSelector } from "react-redux";
 import { Navigate, Outlet, useLocation, useOutlet } from "react-router-dom";
 import Announcement from "../../components/Announcement/Announcemnet";
 import { Footer } from "../../components/footer/Footer";
@@ -17,7 +18,17 @@ import {
 //import ScrollToTopWithRouter from '../../router/ScrollToTopWithRouter';
 
 const PrivateLayout = ({ children }) => {
-  const outlet = useOutlet();
+  //const { authenticated } = useSelector((state) => state.authReducer);
+  const { isFetching, error, currentUser } = useSelector((state) => state.user);
+  if (!currentUser) {
+    return <Navigate to="/login" />;
+
+    return children;
+  }
+
+
+  console.log(currentUser)
+  // const outlet = useOutlet();
   /* const { token } = useAuth();
    const location = useLocation();
    if (!token) {

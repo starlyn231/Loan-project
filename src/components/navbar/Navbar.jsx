@@ -23,7 +23,7 @@ import { useSelector } from "react-redux";
 //import { useAuth } from "../../Context/AuthProvider";
 
 export const Navbar = () => {
-  //const { token, onLogin } = useAuth();
+  const { isFetching, error, currentUser } = useSelector((state) => state.user);
   const [viewUser, setViewUser] = useState(true);
   const navigation = useNavigate();
   //console.log(token)
@@ -31,43 +31,47 @@ export const Navbar = () => {
     navigation(route);
   };
 
-  const quantity = useSelector(state => state.cart.quantity)
-
+  const quantity = useSelector((state) => state.cart.quantity);
+  console.log(currentUser);
   return (
     <Container>
       <Wrapper>
         <Left>
-
-
           <h1>LAMA</h1>
         </Left>
 
         <Right>
           <MenuItem onClick={() => goRoute("/")}>Home</MenuItem>
 
-          <MenuItem onClick={() => goRoute("/register")}>REGISTER</MenuItem>
-          <MenuItem
-            onClick={() => {
-              setViewUser(true);
-              //      onLogin();
-              goRoute("/login");
-            }}
-          >
-            SIGN IN
-          </MenuItem>
-          {viewUser ? (<>
-            <MenuItem>
-              <Badge badgeContent={quantity} color='primary'>
-                <AddShoppingCartOutlinedIcon
-                  sx={{ cursor: 'pointer', color: COLORS.black, }} onClick={() => goRoute("/cart")} />
-              </Badge>
-            </MenuItem>
+          {!currentUser ? (
+            <>
+              <MenuItem onClick={() => goRoute("/register")}>REGISTER</MenuItem>
+              <MenuItem
+                onClick={() => {
+                  setViewUser(true);
+                  //      onLogin();
+                  goRoute("/login");
+                }}
+              >
+                SIGN IN
+              </MenuItem>
+            </>
+          ) : (
+            <>
+              <MenuItem>
+                <Badge badgeContent={quantity} color='primary'>
+                  <AddShoppingCartOutlinedIcon
+                    sx={{ cursor: "pointer", color: COLORS.black }}
+                    onClick={() => goRoute("/cart")}
+                  />
+                </Badge>
+              </MenuItem>
 
-            <MenuItem>
-              <UserLoggedMenu />
-            </MenuItem> </>
-          ) : null}
-
+              <MenuItem>
+                <UserLoggedMenu />
+              </MenuItem>
+            </>
+          )}
         </Right>
       </Wrapper>
     </Container>

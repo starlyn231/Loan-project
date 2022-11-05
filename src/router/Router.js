@@ -5,6 +5,7 @@ import { Navigate, Routes } from 'react-router-dom';
 const Router = ({ routes }) => {
   // const { authenticated } = useSelector((state) => true);
   //const authenticated = true;
+
   const [authenticated, setAuthenticated] = useState(true);
   console.log(routes)
   return (
