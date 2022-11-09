@@ -1,71 +1,60 @@
+import { styled } from "@mui/system";
+import { Link } from "react-router-dom";
 
-import { styled } from '@mui/system';
-
-
-export const Container = styled('div')({
-  //backgroundColor: 'red',
-  display: 'flex',
+export const Container = styled(Link)({
+  display: "flex",
   flex: 1,
-  margin: ' 3px',
-  height: '70vh',
-  position: 'relative',
-
-  '@media only screen and  (max-width:380px)': {
-
-  },
-
+  margin: " 3px",
+  height: "100%",
+  position: "relative",
+  width: "100%",
+  justifyContent: "center",
+  "@media only screen and  (max-width:380px)": {},
 });
 
+export const Image = styled("img")({
+  width: "100%",
 
-
-export const Image = styled('img')({
-
-  width: '100%',
-  height: '100%',
-  objectFit: 'cover',
-  '@media only screen and  (max-width:380px)': {
-    height: "20vh"
+  height: "100%",
+  objectFit: "cover",
+  "@media only screen and  (max-width:380px)": {
+    height: "20vh",
   },
-
 });
 
-
-export const Info = styled('div')({
-  // backgroundColor: 'gray',
-  display: 'flex',
-
-  position: 'absolute',
-  top: 0,
-  left: 0,
-  width: '100%',
-  height: '100%',
-  flexDirection: 'column',
-  alignItems: 'center',
-  justifyContent: 'center',
-  '@media only screen and  (max-width:380px)': {
-    width: '90%',
-    height: '50%',
-  },
-
+export const Info = styled("div")({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  flexDirection: "column",
+  position: "absolute",
+  width: "100%",
+  top: "60%",
+  left: " 50%",
+  transform: "translate(-50%, -50%)",
+  "@media only screen and  (max-width:380px)": {},
 });
 
-export const Title = styled('h1')({
-  color: 'white',
-  marginBottom: '20px',
+export const Title = styled("h1")({
+  color: "white",
 
-  '@media only screen and  (max-width:380px)': {
-    marginBottom: '5px',
-    fontSize: '15px'
+  "@media (min-width:320px)": {
+    display: "none",
   },
-
+  "@media (min-width:768px)": {
+    display: "none",
+  },
+  "@media (min-width:1200px)": {
+    display: "flex",
+    marginBottom: "20px",
+  },
 });
 
-
-export const Button = styled('button')({
-  border: 'none',
-  padding: '10px',
-  backgroundColor: 'white',
-  color: 'gray',
-  cursor: 'pointer',
+export const Button = styled("button")({
+  border: "none",
+  padding: "10px",
+  backgroundColor: "white",
+  color: "gray",
+  cursor: "pointer",
   fontWeight: 600,
 });

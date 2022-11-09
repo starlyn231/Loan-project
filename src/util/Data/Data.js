@@ -1,21 +1,25 @@
+import imgSlider1 from '../../assets/image/woman-gb029ebfa1_1920.jpg'
+import imgSlider2 from '../../assets/image/woman-g087548068_1920.jpg'
+import imgSlider3 from '../../assets/image/woman-g8955b9f59_1920.jpg'
+
 export const sliderItems = [
   {
     id: 1,
-    img: "https://www.pngarts.com/files/3/Women-Jacket-PNG-High-Quality-Image.png",
+    img: imgSlider1,
     title: "SUMMER SALE",
     desc: "DON'T COMPROMISE ON STYLE! GET FLAT 30% OFF FOR NEW ARRIVALS.",
     bg: "#f5fafd",
   },
   {
     id: 2,
-    img: "https://i.ibb.co/DG69bQ4/2.png",
+    img: imgSlider2,
     title: "AUTUMN COLLECTION",
     desc: "DON'T COMPROMISE ON STYLE! GET FLAT 30% OFF FOR NEW ARRIVALS.",
     bg: "second",
   },
   {
     id: 3,
-    img: "https://i.ibb.co/cXFnLLV/3.png",
+    img: imgSlider3,
     title: "LOUNGEWEAR LOVE",
     desc: "DON'T COMPROMISE ON STYLE! GET FLAT 30% OFF FOR NEW ARRIVALS.",
     bg: "first",
@@ -31,13 +35,13 @@ export const categories = [
   },
   {
     id: 2,
-    img: "https://images.pexels.com/photos/2983464/pexels-photo-2983464.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+    img: "https://cdn.pixabay.com/photo/2022/10/21/03/29/relationship-7536124_960_720.jpg",
     title: "LOUNGEWEAR LOVE",
     cat: "coat"
   },
   {
     id: 3,
-    img: "https://images.pexels.com/photos/5480696/pexels-photo-5480696.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
+    img: "https://images.pexels.com/photos/5480696/pexels-photo-5480696.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
     title: "LIGHT JACKETS",
     cat: "jeans"
   },
