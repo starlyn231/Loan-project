@@ -10,7 +10,8 @@ import { Container } from "./style/Products";
 export const Products = ({ cat, filters, sort }) => {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
-
+  console.log(filteredProducts)
+  console.log(filters)
   useEffect(() => {
     const getProducts = async () => {
       try {
@@ -24,7 +25,7 @@ export const Products = ({ cat, filters, sort }) => {
     };
     getProducts();
   }, [cat]);
-
+  console.log(products)
   useEffect(() => {
     cat &&
       setFilteredProducts(
@@ -58,17 +59,31 @@ export const Products = ({ cat, filters, sort }) => {
       <Grid
         container={true}
         spacing={2}
-        sx={{
-          width: "100%",
+        width={{ xs: "90%", md: "80%" }}
 
+        sx={{
+
+          display: 'flex',
+
+
+          justifyContent: 'center',
           alignItems: "center",
         }}
       >
+
+
         {cat
-          ? filteredProducts.map((item) => <Product item={item} key={item.id} />)
+          ? filteredProducts.map((item) =>
+            <Grid item key={item.id} xs={12} sm={6} md={3} xl={3}>
+              <Product item={item} key={item.id} />
+            </Grid>)
           : products
             .slice(0, 8)
-            .map((item) => <Product item={item} key={item.id} />)}
+            .map((item) =>
+              <Grid item key={item.id} xs={12} sm={6} md={4} xl={3}>
+                <Product item={item} key={item.id} /></Grid>)}
+
+
       </Grid>
     </Container>
   );

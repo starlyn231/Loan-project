@@ -5,7 +5,7 @@ export const Container = styled('div')({
   position: 'relative',
   // overflow: 'hidden',
 
-  height: '500px',
+  height: '700px',
   width: "100%",
 });
 
@@ -77,14 +77,18 @@ export const Slide = styled('div')((props) => ({
 }))
 
 export const ImageContainer = styled("div")((props) => ({
-  //display: 'flex',
-  //minHeight: "100vh",
-
+  display: 'flex',
+  flexDirection: 'column',
+  position: 'relative',
+  minHeight: "100vh",
+  //paddingTop:'300px',
+  // paddingBottom:'100px',
   background: `url(${props.image})`,
   backgroundSize: "cover",
   boxShadow: "inset 0 0 0 2000px rgba(0, 0, 0, 0.5)",
-  position: 'relative',
-  height: '500px',
+  alignItems: 'center',
+  justifyContent: 'center',
+  textAlign: 'center'
 
 }));
 
