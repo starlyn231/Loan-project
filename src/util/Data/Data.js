@@ -1,6 +1,8 @@
-import imgSlider1 from '../../assets/image/woman-gb029ebfa1_1920.jpg'
-import imgSlider2 from '../../assets/image/woman-g087548068_1920.jpg'
-import imgSlider3 from '../../assets/image/woman-g8955b9f59_1920.jpg'
+import imgSlider1 from '../../assets/image/Rectangle12.png'
+import imgSlider2 from '../../assets/image/Rectangle13.png'
+import imgSlider3 from '../../assets/image/Slider3Image.png'
+import imgSlider4 from '../../assets/image/SliderImage4.png'
+import imgSlider5 from '../../assets/image/SliderImage5.png'
 
 export const sliderItems = [
   {
@@ -20,10 +22,25 @@ export const sliderItems = [
   {
     id: 3,
     img: imgSlider3,
-    title: "LOUNGEWEAR LOVE",
+    title: "AUTUMN COLLECTION",
     desc: "DON'T COMPROMISE ON STYLE! GET FLAT 30% OFF FOR NEW ARRIVALS.",
-    bg: "first",
+    bg: "second",
   },
+  {
+    id: 4,
+    img: imgSlider4,
+    title: "AUTUMN COLLECTION",
+    desc: "DON'T COMPROMISE ON STYLE! GET FLAT 30% OFF FOR NEW ARRIVALS.",
+    bg: "second",
+  },
+  {
+    id: 5,
+    img: imgSlider5,
+    title: "AUTUMN COLLECTION",
+    desc: "DON'T COMPROMISE ON STYLE! GET FLAT 30% OFF FOR NEW ARRIVALS.",
+    bg: "second",
+  },
+
 ];
 
 export const categories = [

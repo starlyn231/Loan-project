@@ -6,9 +6,13 @@ import { useState } from "react";
 import { router } from "./router/MainRouters";
 
 import { useSelector } from "react-redux";
+import { QueryClient, QueryClientProvider } from "react-query";
+import { ReactQueryDevtools } from 'react-query/devtools'
+
+const queryClient = new QueryClient()
 
 function App() {
-  const user = useSelector((state) => state.user.currentUser);
+  //const user = useSelector((state) => state.user.currentUser);
   // console.log(Layouts)
 
   /*
@@ -26,7 +30,7 @@ function App() {
   */
   return (
 
-    <>
+    <QueryClientProvider client={queryClient}>
       <Global
         styles={`
           body {
@@ -36,7 +40,8 @@ function App() {
       />
 
       <RouterProvider router={router} />
-    </>
+      <ReactQueryDevtools initialIsOpen={false} position='bottom-right' />
+    </QueryClientProvider>
 
   );
 }

@@ -1,8 +1,21 @@
 import { styled } from '@mui/system';
+import COLORS from '../../../themes/Colors';
+
+
+
+export const ContainerSection = styled('div')({
+  //position: 'relative',
+  display: "flex",
+  alignItems: 'center',
+  flexDirection: 'column',
+  // minHeight: "100vh",
+
+  minWidth: "100%",
+});
 
 export const Container = styled('div')({
   display: "flex",
-  position: 'relative',
+  // position: 'relative',
   // overflow: 'hidden',
 
   height: '700px',
@@ -80,7 +93,7 @@ export const ImageContainer = styled("div")((props) => ({
   display: 'flex',
   flexDirection: 'column',
   position: 'relative',
-  minHeight: "100vh",
+  minHeight: "800px",
   //paddingTop:'300px',
   // paddingBottom:'100px',
   background: `url(${props.image})`,
@@ -96,34 +109,35 @@ export const ImageContainer = styled("div")((props) => ({
 export const InfoContainer = styled('div')({
   position: 'relative',
   zIndex: 2,
-
   display: 'flex',
-  height: "500px",
-  justifyContent: 'center',
-  alignItems: 'center',
-  flexDirection: "column",
-  /*  display: 'flex',
-  //flexDirection: "column",
-  zIndex: '10000',
-  marginLeft: "15%",
-  marginTop: "15%",
-  height: "500px",
-  alignSelf: "center",
-
-
-
+  alignItems: 'flex-end',
   "@media (min-width:360px)": {
-    width: "100%",
+    height: "65%",
+    width: '90%'
   },
   "@media (min-width:768px)": {
-    width: "100%",
+    height: "65%",
   },
   "@media (min-width:1200px)": {
-    fontSize: "15px",
-
-    width: "100%",
+    height: "75%",
+    width: '90%'
   },
-*/
+})
+export const Row = styled('div')({
+  display: 'flex', flexDirection: 'column',
+  "@media (min-width:360px)": {
+    width: '95%'
+  },
+  "@media (min-width:768px)": {
+    width: '55%'
+  },
+  "@media (min-width:1200px)": {
+    height: "75%",
+
+    width: '55%'
+
+
+  },
 })
 export const Title = styled('h1')({
 
@@ -171,10 +185,36 @@ export const Desc = styled('p')({
 export const Image = styled('img')({
   height: ' 80%',
 })
-export const Button = styled('button')({
+export const Button = styled('button')(props => ({
+  border: '1px solid white',
+  borderRadius: ' 50px',
+  boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
+  width: '184.18px',
+  height: '60px',
   padding: '10px',
-  fontSize: '20px',
-  backgroundColor: 'teal',
+  fontSize: '16px',
+  lineHeight: '24px',
+  color: COLORS.white,
+  backgroundColor: props.backgroundColor === 'blue' ? COLORS.tertiary : 'transparent',
   cursor: ' pointer',
-})
+  margin: '2px'
+
+}))
+
+export const LogoTVEO = styled("img")({
+  ':hover': {
+    cursor: 'pointer',
+  },
+  "@media (min-width:320px)": {
+    width: "200px",
+
+  },
+  "@media (min-width:768px)": {
+    width: "320px",
+  },
+  "@media (min-width:1200px)": {
+    width: ' 571px',
+
+  },
+});
 

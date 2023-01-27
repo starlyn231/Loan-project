@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
-import cartReducer from "./CartRedux";
+import cartReducer from "./feature/CartSlices";
 import userReducer from "./UserRedux";
+import imgChangedReducer from "./UiReducerSlices";
 import {
   persistStore,
   persistReducer,
@@ -18,17 +19,12 @@ const persistConfig = {
   version: 1,
   storage,
 };
-const rootReducer = combineReducers({ user: userReducer, cart: cartReducer });
+const rootReducer = combineReducers({ user: userReducer, cart: cartReducer, imgAuth: imgChangedReducer });
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
   reducer: persistedReducer,
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({
-      serializableCheck: {
-        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-      },
-    }),
+
 })
 
 export let persistor = persistStore(store);

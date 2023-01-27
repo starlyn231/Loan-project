@@ -1,0 +1,41 @@
+@font-face {
+  font-family: 'DMSans-Bold';
+  font-display: auto;
+  src: local('DMSans-Bold'),
+   url(./assets/fonts/DMSans-Bold.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'DMSans-Medium';
+  font-display: auto;
+  src: local('DMSans-Medium'),
+   url(./assets/fonts/DMSans-Medium.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'DMSans-Regular';
+  font-display: auto;
+  src: local('DMSans-Regular'),
+   url(./assets/fonts/DMSans-Regular.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'NunitoSans-Bold';
+  font-display: auto;
+  src: local('NunitoSans-Bold'),
+   url(./assets/fonts/NunitoSans-Bold.woff2) format('truetype');
+}
+
+@font-face {
+  font-family: 'NunitoSans-Regular';
+  font-display: auto;
+  src: local('NunitoSans-Regular'),
+   url(./assets/fonts/NunitoSans-Regular.woff2) format('truetype');
+}
+
+@font-face {
+  font-family: 'NunitoSans-SemiBold';
+  font-display: auto;
+  src: local('NunitoSans-SemiBold'),
+   url(./assets/fonts/NunitoSans-SemiBold.woff2) format('truetype');
+}

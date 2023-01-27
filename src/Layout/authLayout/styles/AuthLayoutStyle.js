@@ -1,19 +1,36 @@
 import { styled } from '@mui/system';
 
 
-export const LayoutContainer = styled('div')({
+export const LayoutAuthContainer = styled('div')({
     display: 'flex',
-    flexDirection: 'column',
-    width: '100%',
-    minHeight: '100vh',
+    flexDirection: 'row',
 })
 
+export const RightPanelContainer = styled('div')({
+    display: 'flex',
+    flexDirection: 'column',
+
+    minHeight: '90vh',
+
+    '@media (min-width:320px)': {
+        width: '100%',
+    },
+    '@media (min-width:768px)': {
+        width: '100%',
+    },
+    '@media (min-width:1200px)': {
+        width: '100%',
+    },
+});
+
+
+
 export const LayoutBodyContainer = styled('div')({
-    display:'flex',
+    display: 'flex',
     width: '85%',
-    maxWidth:'1920px',
+    maxWidth: '1920px',
     alignSelf: 'center',
-    justifyContent:'center'
+    justifyContent: 'center'
 })
 
 export const LayoutDivider = styled('div')({

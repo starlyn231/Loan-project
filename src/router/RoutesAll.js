@@ -1,48 +1,53 @@
-import { Cart } from "../pages/Cart/Cart";
-import Contact from "../pages/contact/Contact";
-import { Home } from "../pages/Home/Home";
-import { Register } from "../pages/Register/Register";
 
-import { ProductList } from "../pages/ProductList/ProductList";
-import { Product } from "../pages/product/Product";
-
-import { Login } from "../pages/Login/Login";
 import ErrorPage from "./ErrorPage";
 import PrivateLayout from "../Layout/private/PrivateLayout";
 import AuthLayout from "../Layout/authLayout/AuthLayout";
 import RootLayout from "../Layout/public/PublicLayout";
-/* other imports */
-
-
-
+import { Home } from "../view/Home/Home";
+import { Register } from "../view/auth/register";
+import { Login } from "../view/auth/Login";
+import { StartLoginView } from "../view/auth/startLoginView/StartLoginView";
+import { Navigate } from "react-router-dom";
+import { RegisterEvents } from "../view/auth/registerEvents";
+import { TestApp } from "../view/testApp/TestApp";
+import { RequestSeats } from "../view/RequestSeats/RequestSeats";
+import { ViewCart } from "../view/cart/ViewCart";
+import { Contact } from "../view/contact/Contact";
+import { MyEvents } from "../view/myEvents/MyEvents";
 
 export const routes = [
   {
-
     element: <RootLayout />,
-    errorElement: <ErrorPage />,
-    // loader: rootLoader,
     children: [
       {
         path: "/",
         element: <Home />,
-
-        layout: "/public",
-        loginRequired: false,
-      },
-      {
-        path: "/products/:category",
-        element: <ProductList />,
         layout: "/public",
         loginRequired: false,
       },
 
       {
-        path: "/contacts/:contactId",
-        element: <Contact />,
+        path: "/testapp",
+        element: <TestApp />,
         layout: "/public",
         loginRequired: false,
-      }]
+      },
+      {
+        path: "/requestseats",
+        element: <RequestSeats />,
+        layout: "/public",
+        loginRequired: false,
+      },
+
+      {
+        path: "/myevents",
+        element: <MyEvents />,
+
+        loginRequired: false,
+      },
+
+      { path: "*", element: <Navigate to='/' /> },
+    ],
   },
   {
     path: "/",
@@ -53,46 +58,56 @@ export const routes = [
 
 
       {
-        path: "/product/:id",
-        element: <Product />,
-        layout: "/private",
-        loginRequired: false,
-      },
-      {
         path: "/cart",
-        element: <Cart />,
-        layout: "/private",
-        loginRequired: false,
+        element: <ViewCart />,
+        loginRequired: true,
       },
-    ]
 
+      { path: "*", element: <Navigate to='/' /> },
 
+      { path: "*", element: <Navigate to='/' /> },
+    ],
   },
   {
-
     path: "/",
     element: <AuthLayout />,
-    errorElement: <ErrorPage />,
+
     // loader: rootLoader,
     children: [
+      {
+        path: "/StartLoginView",
+        element: <StartLoginView />,
+        layout: "/AuthLayout ",
+        loginRequired: false,
+      },
 
+      {
+        path: "/contact",
+        element: <Contact />,
 
+        loginRequired: false,
+      },
       {
         path: "/register",
         element: <Register />,
         layout: "/AuthLayout ",
         loginRequired: false,
       },
+
+      {
+        path: "/RegisterEvents",
+        element: <RegisterEvents />,
+        layout: "/AuthLayout ",
+        loginRequired: false,
+      },
+
       {
         path: "/login",
         element: <Login />,
         layout: "/AuthLayout ",
         loginRequired: false,
       },
-    ]
-  }
-
+      { path: "*", element: <Navigate to='/' /> },
+    ],
+  },
 ];
-
-
-

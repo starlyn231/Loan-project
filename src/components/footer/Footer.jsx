@@ -13,6 +13,9 @@ import {
   SocialContainer,
   SocialIcon,
   Title,
+  Image,
+  SearchTextInput,
+  ButtonSearch
 } from "./style/Footer";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import InstagramIcon from "@mui/icons-material/Instagram";
@@ -21,62 +24,84 @@ import PhoneIcon from "@mui/icons-material/Phone";
 import PinterestIcon from "@mui/icons-material/Pinterest";
 import RoomIcon from "@mui/icons-material/Room";
 import TwitterIcon from "@mui/icons-material/Twitter";
-import { Grid } from "@mui/material";
-import { ListItemData } from "./Data";
+import { Button, Grid, InputAdornment, TextField } from "@mui/material";
+import { ListItemData, TveoData } from "./Data";
+import LogoSecondaryWhite from '../../assets/image/tveo-logo-type-01.svg'
+
 export const Footer = () => {
   return (
     <Container>
       <Grid container={true} width='100%'>
-        <Grid xs={12} sm={12} md={4}>
+        <Grid item xs={12} sm={6} md={3}>
           <Left>
-            <Logo>LAMA.</Logo>
+            <Image src={LogoSecondaryWhite} />
             <Desc>
-              There are many variations of passages of Lorem Ipsum available,
-              but the majority have suffered alteration in some form, by
-              injected humour, or randomised words which don’t look even
-              slightly believable.
+              Tveo es una plataforma global de venta de entradas de autoservicio para experiencias
+              en vivo que permite a cualquier persona crear, compartir, encontrar y asistir a eventos
+              que alimentan sus pasiones y enriquecen sus vidas.
             </Desc>
             <SocialContainer>
-              <SocialIcon color='#3B5999'>
+              <SocialIcon color='white'>
                 <FacebookIcon />
               </SocialIcon>
-              <SocialIcon color='#E4405F'>
+              <SocialIcon color='white'>
                 <InstagramIcon />
               </SocialIcon>
-              <SocialIcon color='#55ACEE'>
+              <SocialIcon color='white'>
                 <TwitterIcon />
               </SocialIcon>
-              <SocialIcon color='#E60023'>
+              <SocialIcon color='white'>
                 <PinterestIcon />
               </SocialIcon>
             </SocialContainer>
           </Left>
         </Grid>
-        <Grid xs={12} sm={12} md={4}>
-          <Center>
-            <Title>Useful Links</Title>
-            <List>
-              {ListItemData.map((item) => (
-                <ListItem>{item.title}</ListItem>
-              ))}
-            </List>
-          </Center>
-        </Grid>
-        <Grid xs={12} sm={12} md={4}>
+        <Grid item xs={12} sm={6} md={3}>
           <Right>
-            <Title>Contact</Title>
+            <Title>Planificar Eventos</Title>
+
+            {ListItemData.map((item) => (
+              <ContactItem>
+                {item.title}</ContactItem>
+            ))}
+
+          </Right>
+        </Grid>
+        <Grid item xs={12} sm={5} md={3}>
+          <Right>
+            <Title>Tveo  </Title>
+
+            {TveoData.map((item) => (
+              <ContactItem>
+                {item.title}</ContactItem>
+            ))}
+
+          </Right>
+        </Grid>
+        <Grid xs={12} sm={7} md={3}>
+          <Right>
+            <Title>Permanecer siempre informado</Title>
             <ContactItem>
-              <RoomIcon style={{ marginRight: "10px" }} /> 622 Dixie Path ,
-              South Tobinchester 98336
+
+              Únase a nuestra lista de correo para mantenerse al tanto de lo más
+              nuevo para eventos y conciertos.
             </ContactItem>
+
             <ContactItem>
-              <PhoneIcon style={{ marginRight: "10px" }} /> +1 234 56 78
+
+              <SearchTextInput
+                id="standard-name"
+                fullWidth
+                placeholder="Ingrese correo electronico"
+                variant="outlined"
+                InputProps={{
+                  endAdornment: <InputAdornment position="flex-end" >
+                    <ButtonSearch sx={{ backgroundColor: 'blue' }} >Subcribase</ButtonSearch>
+                  </InputAdornment>
+                }}
+              />
             </ContactItem>
-            <ContactItem>
-              <MailOutlineIcon style={{ marginRight: "10px" }} />{" "}
-              contact@lama.dev
-            </ContactItem>
-            <Payment src='https://i.ibb.co/Qfvn4z6/payment.png' />
+
           </Right>
         </Grid>
       </Grid>
