@@ -25,7 +25,7 @@ function Header(props) {
   const { quantity } = useSelector((state) => state.cart);
 
   // const { authenticated, profileImg } = useSelector((state) => state.authReducer);
-  const authenticated = false;
+  const authenticated = true;
   const goToRoute = (route) => {
     navigation(route);
   };
@@ -39,11 +39,11 @@ function Header(props) {
               <Image onClick={() => goToRoute("/")} src={LogoSecondaryWhite} />
             </div>
             <div style={{ display: 'flex' }}>
-              <MenuButton onClick={() => props.servicesRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' })}>
+              <MenuButton onClick={() => goToRoute("/calendar")}>
                 Calendario
               </MenuButton>
               <div style={{ width: "1rem" }} />
-              <MenuButton onClick={() => goToRoute("/app/generalQueries")}>
+              <MenuButton onClick={() => props.servicesRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' })}>
                 Boletos
               </MenuButton>
               <div style={{ width: "1rem" }} />

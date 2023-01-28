@@ -71,10 +71,13 @@ export const StyledUpload = styled(Button)({
 export const StyledButtonOutlined = styled(Button)(props => ({
     minHeight: '38px',
     width: '100%',
-    borderColor: COLORS.secondary,
-    borderRadius: '11px',
+    // borderColor: COLORS.primary,
+    borderRadius: '50px',
+    border: 'none',
     color: props.active ? COLORS.white : COLORS.secondary,
     backgroundColor: props.active ? COLORS.primary : COLORS.white,
+    ////
+    margin: '3px',
     '@media (min-width:320px)': {
         fontSize: '12px',
     },
@@ -87,8 +90,12 @@ export const StyledButtonOutlined = styled(Button)(props => ({
     fontFamily: FONTS_FAMILY.regular.body,
     '&:hover,&:focus,&:active': {
         color: COLORS.white,
+        // borderRadius: '11px',
         backgroundColor: COLORS.primary,
         borderColor: COLORS.primary,
+        border: ' 1px solid #1D1D1D',
+        filter: 'drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))',
+        borderRadius: '50px',
     }
 }));
 
@@ -227,6 +234,10 @@ export const ButtonsMenuContainer = styled('div')({
     display: 'flex',
     flexDirection: 'column',
     alignSelf: 'center',
+    border: ' 1px solid #1D1D1D',
+    filter: 'drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))',
+    borderRadius: '50px',
+
     '@media (min-width:320px)': {
         width: '100%',
     },
@@ -234,7 +245,8 @@ export const ButtonsMenuContainer = styled('div')({
         width: '80%',
     },
     '@media (min-width:1200px)': {
-        width: '100%',
+        width: '95%',
+
     },
 });
 

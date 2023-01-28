@@ -14,6 +14,7 @@ import { RequestSeats } from "../view/RequestSeats/RequestSeats";
 import { ViewCart } from "../view/cart/ViewCart";
 import { Contact } from "../view/contact/Contact";
 import { MyEvents } from "../view/myEvents/MyEvents";
+import { Calendar } from "../view/calendar/Calendar";
 
 export const routes = [
   {
@@ -42,6 +43,13 @@ export const routes = [
       {
         path: "/myevents",
         element: <MyEvents />,
+
+        loginRequired: false,
+      },
+
+      {
+        path: "/calendar",
+        element: <Calendar />,
 
         loginRequired: false,
       },
