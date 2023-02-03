@@ -54,7 +54,8 @@ export const ViewCart = () => {
   return (
     <Container>
       <SubHeaderLayout conditionRender={true} />
-      <Stack width='95%'>
+
+      <Stack width='95%' >
         <MediumHeightDivider />
         <Grid
           container

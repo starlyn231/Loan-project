@@ -18,7 +18,7 @@ import {
 const PrivateLayout = ({ children }) => {
 
   //const { isFetching, error, currentUser } = useSelector((state) => state.user);
-  const currentUser = false;
+  const currentUser = true;
   if (!currentUser) {
     return <Navigate to="/login" />;
 
