@@ -164,7 +164,6 @@ export const ViewCart = () => {
           </Grid>
 
           <Grid item xs={12} sm={12} md={6}>
-            <a href="https://twitter.com/intent/tweet?url=https://dev.to/dsasse07/beginner-s-guide-to-jest-testing-in-react-1nig&text=Beginner's%20Guide%20to%20Jest%20Testing%20in%20React&via=dannysasse" target="_blank" rel="noreferrer">Share on Twitter</a>
 
             <FormControl>
               <h1 style={{ fontSize: "16px", fontWeight: 500 }}>

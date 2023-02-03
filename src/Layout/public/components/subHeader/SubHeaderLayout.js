@@ -95,17 +95,20 @@ export const SubHeaderLayout = ({ icon, title, conditionRender }) => {
               direction={"column"}
               alignItems={"center"}
               justifyContent='flex-end'
-              width='20%'
-              margin='3px'
+              width={{ xs: "40%", sm: "20%", md: "20%" }}
+
+              margin='5px'
+
             >
               <TextDate>Martes</TextDate>
               <TextDayNumber>20</TextDayNumber>
-              <TextDate> November 2021 </TextDate>
+              <TextDate> Nov 2021 </TextDate>
             </Stack>
 
             <Stack
               direction={"row"}
-              width='80%'
+              width={{ xs: "60%", sm: "80%", md: "80%" }}
+
               alignItems={"flex-end"}
               justifyContent='space-between'
             >

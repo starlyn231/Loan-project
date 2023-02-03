@@ -44,3 +44,13 @@ export const ButtonContainer = styled('div')(props => ({
   },
 
 }))
+
+export const Content = styled('div')(props => ({
+  display: "flex",
+
+  width: "100%",
+  justifyContent: "center",
+  marginTop: "30px",
+
+}))
+

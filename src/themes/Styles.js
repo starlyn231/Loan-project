@@ -311,7 +311,8 @@ export const FieldTitle = styled('p')({
     color: COLORS.black,
     fontFamily: FONTS_FAMILY.regular.title,
     '@media (min-width:320px)': {
-        fontSize: '11px',
+        fontSize: '14px',
+
     },
     '@media (min-width:768px)': {
         fontSize: '15px',

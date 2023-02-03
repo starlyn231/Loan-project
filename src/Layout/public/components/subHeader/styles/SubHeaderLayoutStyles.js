@@ -49,10 +49,10 @@ export const TextDate = styled("p")({
   fontFamily: FONTS_FAMILY.bold.body,
   opacity: 0.6,
   "@media (min-width:768px)": {
-    ontSize: "13px",
+    fontSize: "15px",
   },
   "@media (min-width:1200px)": {
-    ontSize: "16px",
+    fontSize: "16px",
   },
 
 });
@@ -137,7 +137,7 @@ export const IconTicketImg = styled("img")({
   },
 });
 
-export const Title = styled('h1')({
+export const Title = styled('h3')({
   lineHeight: "21px",
   fontWeight: 400,
   letterSpacing: '0.1em',
@@ -145,10 +145,10 @@ export const Title = styled('h1')({
 
   "@media (min-width:320px)": {
 
-
+    fontSize: "32x",
   },
   "@media (min-width:768px)": {
-    fontSize: "30x",
+    fontSize: "32x",
   },
   "@media (min-width:1200px)": {
     fontSize: "38px",

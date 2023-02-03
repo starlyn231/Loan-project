@@ -51,7 +51,7 @@ export const SelectPopper = ({ Title, data }) => {
             open={menuOpen}
             anchorEl={containerRef.current}
             role={undefined}
-            placement='bottom-end'
+            placement='bottom'
             transition
             sx={{ zIndex: 1000, }}
             disablePortal
