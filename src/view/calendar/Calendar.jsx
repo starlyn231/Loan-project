@@ -7,6 +7,10 @@ import listPlugin from "@fullcalendar/list";
 import { Box } from "@mui/material";
 import { useEffect } from "preact/hooks";
 import ImgCalendar from "../../assets/image/MainCalendarImage.png";
+import { SubHeaderLayout } from "../../Layout/public/components/subHeader/SubHeaderLayout";
+import { Container } from "./styles/CalendarStyles";
+import IconCalendar from "../../assets/icon/calendarIconr.svg";
+
 function renderEventContent(eventInfo) {
   return (
     <div
@@ -83,67 +87,76 @@ export const Calendar = () => {
   */
 
   return (
-    <Box
-      m='20px '
-      height='100vh'
-      display='flex'
-      justifyContent='center'
-      alignItems='center'
-      sx={{}}
-    >
-      {/* <Header title="Calendar" subtitle="Full Calendar Interactive Page" /> */}
+    <Container>
+      <SubHeaderLayout
+        icon={IconCalendar}
+        title='Calendario'
+        conditionRender={false} />
 
-      <Box display='flex' justifyContent='center' width='80%'>
-        {/* CALENDAR SIDEBAR
+      <Box
+        m='20px '
+        width='100%'
+        height='100vh'
+        display='flex'
+        justifyContent='center'
+        alignItems='center'
+
+        sx={{}}
+      >
+        {/* <Header title="Calendar" subtitle="Full Calendar Interactive Page" /> */}
+
+        <Box display='flex' justifyContent='center' width='80%'>
+          {/* CALENDAR SIDEBAR
       
         {/* CALENDAR */}
-        <Box flex='1 1 100%' ml='15px'>
-          <FullCalendar
+          <Box flex='1 1 100%' ml='15px'>
+            <FullCalendar
 
-            height='95vh'
-            plugins={[
-              dayGridPlugin,
-              timeGridPlugin,
-              interactionPlugin,
-              listPlugin,
-            ]}
-            headerToolbar={{
-              left: "prev,next today",
+              height='95vh'
+              plugins={[
+                dayGridPlugin,
+                timeGridPlugin,
+                interactionPlugin,
+                listPlugin,
+              ]}
+              headerToolbar={{
+                left: "prev,next today",
 
-              center: "title",
-              right: "dayGridMonth,timeGridWeek,timeGridDay,listMonth",
-            }}
-            initialView='dayGridMonth'
-            editable={true}
-            selectable={true}
-            selectMirror={true}
-            // events={currentEvents}
-            eventContent={renderEventContent}
-            /*  events={[
-                { title: 'event 1', date: '2023-01-27' },
-                { title: 'event 2', date: '2019-04-02' }
-              ]}*/
-            dayMaxEvents={true}
-            // select={handleDateClick}
-            // select={handleSelect}
-            // eventClick={handleEventClick}
-            //eventsSet={(events) => setCurrentEvents(events)}
-            events={Calendar.calendarEvents}
-            initialEvents={[
-              {
-                id: "12315",
-                title: "All-day event",
-                date: "2022-09-14",
-              },
-              {
-                id: "5123",
-                title: "Timed event",
-                date: "2022-09-28",
-              },
-            ]}
-          />
+                center: "title",
+                right: "dayGridMonth,timeGridWeek,timeGridDay,listMonth",
+              }}
+              initialView='dayGridMonth'
+              editable={true}
+              selectable={true}
+              selectMirror={true}
+              // events={currentEvents}
+              eventContent={renderEventContent}
+              /*  events={[
+                  { title: 'event 1', date: '2023-01-27' },
+                  { title: 'event 2', date: '2019-04-02' }
+                ]}*/
+              dayMaxEvents={true}
+              // select={handleDateClick}
+              // select={handleSelect}
+              // eventClick={handleEventClick}
+              //eventsSet={(events) => setCurrentEvents(events)}
+              events={Calendar.calendarEvents}
+              initialEvents={[
+                {
+                  id: "12315",
+                  title: "All-day event",
+                  date: "2022-09-14",
+                },
+                {
+                  id: "5123",
+                  title: "Timed event",
+                  date: "2022-09-28",
+                },
+              ]}
+            />
+          </Box>
         </Box>
       </Box>
-    </Box>
+    </Container>
   );
 };

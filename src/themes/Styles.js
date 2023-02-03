@@ -75,7 +75,7 @@ export const StyledButtonOutlined = styled(Button)(props => ({
     borderRadius: '50px',
     border: 'none',
     color: props.active ? COLORS.white : COLORS.secondary,
-    backgroundColor: props.active ? COLORS.primary : COLORS.white,
+    backgroundColor: props.active ? COLORS.primary : 'transparent',
     ////
     margin: '3px',
     '@media (min-width:320px)': {

@@ -57,16 +57,9 @@ export const ViewCart = () => {
       <Stack width='95%'>
         <MediumHeightDivider />
         <Grid
-          container={true}
-          width='100%'
-          spacing={{ xs: 1, md: 3 }}
-          columns={{ xs: 12, sm: 12, md: 12 }}
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "center",
-
-          }}
+          container
+          spacing={{ xs: 1.5, md: 1 }}
+          columns={{ xs: 8, sm: 8, md: 12 }}
         >
           <Grid item xs={12} sm={6} md={6} position={"relative"}>
             <Title> Artist Name Here </Title>
@@ -131,7 +124,7 @@ export const ViewCart = () => {
 
             {/* other components*/}
             <SmallHeightDivider />
-            <Stack width='100%' alignItems='center' >
+            <Stack width='100%' alignItems='center'>
               <p
                 style={{
                   fontSize: "2px",
@@ -169,7 +162,9 @@ export const ViewCart = () => {
             </Stack>
           </Grid>
 
-          <Grid item xs={12} sm={6} md={6} >
+          <Grid item xs={12} sm={12} md={6}>
+            <a href="https://twitter.com/intent/tweet?url=https://dev.to/dsasse07/beginner-s-guide-to-jest-testing-in-react-1nig&text=Beginner's%20Guide%20to%20Jest%20Testing%20in%20React&via=dannysasse" target="_blank" rel="noreferrer">Share on Twitter</a>
+
             <FormControl>
               <h1 style={{ fontSize: "16px", fontWeight: 500 }}>
                 Seleccionar un método de pago
@@ -193,7 +188,7 @@ export const ViewCart = () => {
               </RadioGroup>
             </FormControl>
             <SmallHeightDivider />
-            <Grid item xs={12} sm={12} md={10} >
+            <Grid item xs={12} sm={12} md={10}>
               <TextField
                 title='Nombre Completo'
                 type='text'
@@ -215,7 +210,7 @@ export const ViewCart = () => {
               />
             </Grid>
 
-            <Grid item xs={12} sm={4} md={4} >
+            <Grid item xs={12} sm={6} md={3}>
               <TextField
                 title='Fecha de vencimiento '
                 type='text'
@@ -226,7 +221,7 @@ export const ViewCart = () => {
               />
             </Grid>
 
-            <Grid item xs={12} sm={4} md={3}  >
+            <Grid item xs={12} sm={6} md={3}>
               <TextField
                 title='CVV'
                 type='text'
@@ -237,25 +232,23 @@ export const ViewCart = () => {
               />
             </Grid>
 
-            <Grid item xs={12} sm={4} md={12}  >
+            <Grid item xs={12} sm={4} md={12}>
               <FormGroup>
-                <FormControlLabel control={<Checkbox defaultChecked />} label="Guarde de forma segura la tarjeta y los detalles" />
-
+                <FormControlLabel
+                  control={<Checkbox defaultChecked />}
+                  label='Guarde de forma segura la tarjeta y los detalles'
+                />
               </FormGroup>
             </Grid>
             <SmallHeightDivider />
 
-            <ButtonContainer style={{ margin: 'auto' }}>
+            <ButtonContainer style={{ margin: "auto" }}>
               <ButtonGeneral backgroundColor='black' color='white'>
                 Realizar pago
               </ButtonGeneral>
             </ButtonContainer>
-
           </Grid>
         </Grid>
-
-
-
 
         <MediumHeightDivider />
       </Stack>

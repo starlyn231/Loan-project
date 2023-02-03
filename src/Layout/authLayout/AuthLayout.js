@@ -1,6 +1,6 @@
 
 
-import { Outlet } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
 
 import { routes } from '../../router/RoutesAll';
 import { ImgLayoutLeft } from './components/ImgLayoutLeft';
@@ -8,7 +8,14 @@ import { ImgLayoutLeft } from './components/ImgLayoutLeft';
 import { LayoutAuthContainer, LayoutContainer, RightPanelContainer } from './styles/AuthLayoutStyle';
 
 const AuthLayout = ({ children }) => {
-  /* const getAppRoutes = () => {  return routes.filter((route) => route.layout === '/private'); }*/
+  /* const currentUser = true;
+  if (currentUser) {
+    return <Navigate to="/" />;
+
+    return children;
+  }
+
+*/
   return (
     <LayoutAuthContainer>
 

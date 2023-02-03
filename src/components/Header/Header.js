@@ -74,9 +74,9 @@ function Header(props) {
 
 
 
-                  <Badge badgeContent={quantity} onClick={() => goToRoute("/cart")} color='primary'>
+                  <Badge badgeContent={quantity} color='primary'>
                     <AddShoppingCartIcon src={AddShoppingCart}
-
+                      onClick={() => goToRoute("/cart")}
 
                     />
                   </Badge>

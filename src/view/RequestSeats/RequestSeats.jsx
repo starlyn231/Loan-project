@@ -20,7 +20,7 @@ import COLORS from "../../themes/Colors";
 import { Grid, Stack } from "@mui/material";
 
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart } from "../../Redux/feature/CartSlices";
+import { addToCart, increase } from "../../Redux/feature/CartSlices";
 import Tooltip from "@mui/material/Tooltip";
 import { SubHeaderLayout } from "../../Layout/public/components/subHeader/SubHeaderLayout";
 
@@ -190,8 +190,11 @@ export const RequestSeats = () => {
   useEffect(() => {
     // action on update of selectedSeats
   }, [selectedSeats]);
+  const [count, setCount] = useState(0);
+  const updateCount = () => {
 
-
+    dispatch(increase(count));
+  }
 
   return (
     <Container>
@@ -336,11 +339,11 @@ export const RequestSeats = () => {
             </p>
 
             <ContainerIcon>
-              <AddBoxIcon onClick={() => handleQuantity("inc")} />
+              <AddBoxIcon onClick={() => updateCount()} />
               <p
                 style={{ display: "flex", alignSelf: "center", margin: "auto" }}
               >
-                {quantity}
+                {cart.quantity}
               </p>
               <IndeterminateCheckBoxIcon
                 onClick={() => handleQuantity("desc")}

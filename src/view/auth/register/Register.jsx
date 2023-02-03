@@ -117,6 +117,7 @@ export const Register = () => {
     );
   };
   const validateStepForm = ({ values, actions }) => {
+    console.log(values, actions)
     if (lastStep) {
       handleRegister(values);
     } else {

@@ -12,6 +12,13 @@ import { TimePicker } from 'antd';
 import { styled } from '@mui/system';
 import { Button } from 'antd';
 import { Box, Popper } from "@mui/material";
+import SeatSelection from "./Test2";
+import SeatBooking from "./Test2";
+import { MapWithDirections } from "../information/components/MapWithDirections";
+import { MultiStepForm } from "./MultiStepForm";
+
+
+
 export const TestApp = () => {
   //Using prevState with React, basic and complex
   const [sections, setSections] = useState([]);
@@ -147,7 +154,7 @@ export const TestApp = () => {
       <div style={{ display: "flex", flexDirection: "row" }}>
         {renderedSeats}
       </div>
-
+      {/*
 
       {selectedSeats.length !== 0 ? (
         <>
@@ -170,6 +177,18 @@ export const TestApp = () => {
           </button>
         </>
       ) : null}
+
+
+
+      <p>*-------------</p>
+
+
+      <SeatBooking />
+
+     <MapWithDirections />  */}
+
+
+      <MultiStepForm />
 
     </Container>
 

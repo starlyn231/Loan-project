@@ -16,14 +16,15 @@ import {
 } from "./styles/AppLayoutStyles";
 
 const PrivateLayout = ({ children }) => {
-  /*
-  const { isFetching, error, currentUser } = useSelector((state) => state.user);
+
+  //const { isFetching, error, currentUser } = useSelector((state) => state.user);
+  const currentUser = false;
   if (!currentUser) {
     return <Navigate to="/login" />;
 
     return children;
   }
-*/
+
   return (
     <LayoutContainer>
       <Slider />

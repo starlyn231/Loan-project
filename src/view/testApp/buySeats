@@ -1,0 +1,37 @@
+import React, { useState } from 'react';
+
+const SeatSelector = () => {
+  const [selectedSeat, setSelectedSeat] = useState(null);
+
+  const handleSeatSelect = (seat) => {
+    setSelectedSeat(seat);
+  };
+
+  return (
+    <div>
+      <div>
+        {['A1', 'A2', 'A3', 'A4'].map((seat) => (
+          <button
+            key={seat}
+            onClick={() => handleSeatSelect(seat)}
+            disabled={selectedSeat === seat}
+          >
+            {seat}
+          </button>
+        ))}
+      </div>
+      <div>
+        {selectedSeat ? (
+          <div>
+            Selected Seat: {selectedSeat}
+            <button>Buy Ticket</button>
+          </div>
+        ) : (
+          <div>Please select a seat</div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default SeatSelector;

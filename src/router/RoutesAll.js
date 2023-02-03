@@ -15,6 +15,7 @@ import { ViewCart } from "../view/cart/ViewCart";
 import { Contact } from "../view/contact/Contact";
 import { MyEvents } from "../view/myEvents/MyEvents";
 import { Calendar } from "../view/calendar/Calendar";
+import { Information } from "../view/information/Information";
 
 export const routes = [
   {
@@ -50,6 +51,12 @@ export const routes = [
       {
         path: "/calendar",
         element: <Calendar />,
+
+        loginRequired: false,
+      },
+      {
+        path: "/information",
+        element: <Information />,
 
         loginRequired: false,
       },

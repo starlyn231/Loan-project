@@ -123,3 +123,25 @@ const rows = [
     { id: 30, number: 6, isReserved: true }
   ]
 ];
+
+export const RegisterSteps = [
+  {
+
+    elements: [
+      'email',
+      'password',
+      'password_confirmation'
+    ]
+  },
+  {
+    elements: [
+
+      'name',
+
+      'address'
+    ]
+  },
+
+
+
+];
