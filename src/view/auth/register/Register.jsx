@@ -7,6 +7,7 @@ import {
   StepLabel,
   Typography,
   useMediaQuery,
+  stepLabelClasses,
 } from "@mui/material";
 
 import { useEffect, useLayoutEffect, useStatViewAuthComponente } from "react";
@@ -31,25 +32,45 @@ import MobileStepper from "@mui/material/MobileStepper";
 import Stepper from "@mui/material/Stepper";
 import { useNavigate } from "react-router-dom";
 import CancelIcon from "@mui/icons-material/Cancel";
-import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
+import KeyboardReturnIcon from "@mui/icons-material/KeyboardReturn";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import AuthLayoutregister from '../../../assets/image/AuthRegisterImg.jpg'
+import AuthLayoutregister from "../../../assets/image/AuthRegisterImg.jpg";
 import { changeImgLayout } from "../../../Redux/UiReducerSlices";
+import { styled } from '@mui/system';
+import { makeStyles } from "@mui/styles";
 export const Register = () => {
-  const dispatch = useDispatch();
 
+  const useStyles = makeStyles(() => ({
+    root: {
+      "& .css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-active": {
+        color: 'black',
+        fontSize: "30px",
+      },
+      "& .MuiStepIcon-completed": { color: "green", },
+      "& .Mui-disabled .MuiStepIcon-root": {
+        color: 'gray',
+        fontSize: "30px",
+      },
+    },
+  }))
+  const c = useStyles();
+  const dispatch = useDispatch();
 
   const navigation = useNavigate();
   const matchesWidth = useMediaQuery("(min-width:768px)");
   const [schemaValidation, setSchemaValidation] = useState({});
   const [activeStep, setActiveStep] = useState(0);
-  const stepsLenght = RegisterSteps.length;
+  //const stepsLenght = RegisterSteps.length;
   const stepsTitles = RegisterSteps.map((step) => step.title);
   // IN THIS CASE IT IS -2 BECAUSE The last step is only a Message it does not contain a form
-  const lastStep = stepsLenght - 1 == activeStep;
-  const [userRegistered, setUserRegistered] = useState(false);
-
+  //const lastStep = stepsLenght - 1 == activeStep;
+  //const [userRegistered, setUserRegistered] = useState(false);
+  const steps = [
+    "Select campaign settings",
+    "Create an ad group",
+    "Create an ad"
+  ];
   const formik = useFormik({
     initialValues: {
       test: "",
@@ -76,70 +97,22 @@ export const Register = () => {
     validateOnChange: true,
     validateOnBlur: true,
     onSubmit: (values, actions) => {
-      validateStepForm({ values, actions });
+      if (activeStep === 2) {
+        handleRegister(values);
+      } else {
+        handleNext();
+      }
+
+      // validateStepForm({ values, actions });
     },
   });
 
-  const handleFieldsValidations = (errors) => {
-    let fieldsKeys = Object.keys(errors);
-    for (let i = 0; i < fieldsKeys.length; i++) {
-      let error = errors[fieldsKeys[i]];
-      formik.setFieldError(fieldsKeys[i], error[0]);
-    }
-  };
-
-  const handleStepsValidation = (step) => {
-    if (RegisterSteps[step]) {
-      let stepElementError = false;
-      for (let i = 0; i < RegisterSteps[step].elements?.length; i++) {
-        const element = RegisterSteps[step].elements[i];
-        if (formik.touched[element] && Boolean(formik.errors[element])) {
-          stepElementError = true;
-        }
-      }
-      if (stepElementError) {
-        return true;
-      } else {
-        return false;
-      }
-    }
-  };
-
   const handleNext = () => {
-    setActiveStep((prevActiveStep) =>
-      prevActiveStep + 1 == stepsLenght ? prevActiveStep : prevActiveStep + 1
-    );
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
 
   const handleBack = () => {
-    setActiveStep((prevActiveStep) =>
-      prevActiveStep == 0 ? 1 : prevActiveStep - 1
-    );
-  };
-  const validateStepForm = ({ values, actions }) => {
-    console.log(values, actions)
-    if (lastStep) {
-      handleRegister(values);
-    } else {
-      setActiveStep(activeStep + 1);
-      actions?.setTouched({});
-      actions?.setSubmitting(false);
-    }
-  };
-  const handleSubmitForm = (e) => {
-    let nextStepErrorHasAnError;
-    Object.keys(formik.errors).forEach((item) => {
-      if (RegisterSteps[activeStep + 1]?.elements.includes(item)) {
-        nextStepErrorHasAnError = true;
-      }
-    });
-    window.scrollTo(0, 0);
-    if (Object.keys(formik.errors).length != 0 && !nextStepErrorHasAnError) {
-      alert("Llene todos los campos requeridos");
-      return;
-    } else {
-      formik.handleSubmit(e);
-    }
+    setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
   useEffect(() => {
@@ -152,60 +125,56 @@ export const Register = () => {
 
   const handleRegister = async (formData) => {
     console.log(formData);
-    setUserRegistered(true);
-    handleNext();
+    // setUserRegistered(true);
+    //  handleNext();
   };
 
-
   useLayoutEffect(() => {
-
     // changed img of layout auth
-    dispatch(changeImgLayout(AuthLayoutregister))
-
+    dispatch(changeImgLayout(AuthLayoutregister));
   }, []);
 
   return (
     <Container>
-      <div style={{ display: 'flex', flexDirection: 'column', width: '85%', minHeight: '100vh' }}>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          width: "85%",
+          minHeight: "100vh",
+        }}
+      >
         <SmallHeightDivider />
 
-        <div style={{ display: "flex", justifyContent: "space-between", marginTop: '10px' }}>
-          {matchesWidth && (
-            <Stepper
-              nonLinear
-              spacing={{ xs: 2, md: 2 }}
-              sx={{
-                minWidth: 300,
-                overflow: "hidden",
-              }}
-              activeStep={activeStep}
-              alternativeLabelhandleStepsValidation
-            >
-              {stepsTitles.map((label, index) => {
-                const labelProps = {};
-                if (handleStepsValidation(index)) {
-                  labelProps.optional = (
-                    <Typography
-                      sx={{}}
-                      variant='caption'
-                      color='error'
-                    >
-                      Error
-                    </Typography>
-                  );
-                  labelProps.error = true;
-                }
-                return (
-                  <Step key={label}>
-                    <StepLabel
-                      style={{ color: "red" }}
-                      {...labelProps}
-                    ></StepLabel>
-                  </Step>
-                );
-              })}
-            </Stepper>
-          )}
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            marginTop: "10px",
+          }}
+        >
+
+          <Stepper
+
+            //nonLinear
+            spacing={{ xs: 2, md: 2 }}
+            sx={{
+              minWidth: 300,
+              overflow: "hidden",
+
+            }}
+            activeStep={activeStep}
+            alternativeLabel
+          >
+            {steps.map((label) => (
+              <Step
+                className={c.root}
+                key={label}>
+                <StepLabel style={{ color: 'red' }} >{label} </StepLabel>
+              </Step>
+            ))}
+          </Stepper>
+
 
           <div
             style={{
@@ -214,24 +183,21 @@ export const Register = () => {
               justifyContent: "flex-end",
             }}
           >
-
-
-            {activeStep == 0 || userRegistered ? <CancelIcon onClick={() => navigation("/")} sx={{}} />
-
-              : <KeyboardReturnIcon onClick={handleBack} />}
-
+            {activeStep == 0 ? (
+              <CancelIcon onClick={() => navigation("/")} sx={{}} />
+            ) : (
+              <KeyboardReturnIcon onClick={handleBack} />
+            )}
           </div>
         </div>
 
-
         <Title>
-
-          {lastStep
+          {activeStep == 0
             ? "Ingresa la información de tu Evento"
             : "Crear cuenta"}{" "}
         </Title>
         <BodyText>
-          {lastStep
+          {activeStep == 1
             ? "Introduce tu la información solicitada para que puedas disfrutar de todo lo que Tveo ofrece."
             : "No se preocupe, sabemos que es posible que los detalles de su evento aún no estén finalizados. Es por eso que podrá ajustar esta información en Configuración del eventos en su panel de  Tveo."}
         </BodyText>
@@ -285,12 +251,12 @@ export const Register = () => {
               />
             </Grid>
 
-
-
-
             <Grid item xs={12} sm={12} md={12}>
               <FormGroup>
-                <FormControlLabel control={<Checkbox defaultChecked />} label="No soy robot" />
+                <FormControlLabel
+                  control={<Checkbox defaultChecked />}
+                  label='No soy robot'
+                />
               </FormGroup>
             </Grid>
           </Grid>
@@ -534,35 +500,21 @@ export const Register = () => {
           <div> ¡Gracias! Recibirás un correo de verificación.</div>
         )}
         <ButtonContainer style={{}}>
+          <ButtonGeneral
+            sx={{ color: "white" }}
+            backgroundColor='black'
+            color='white '
+            onClick={() => formik.handleSubmit()}
+          >
 
-
-          {userRegistered ? (
-            <ButtonGeneral
-              backgroundColor='black'
-              color='white'
-              onClick={() => navigation("/login")}
-            >
-              Iniciar Sesion
-            </ButtonGeneral>
-          ) : (
-            <ButtonGeneral
-              sx={{ color: 'white' }}
-              backgroundColor='black'
-              color='white '
-              onClick={handleSubmitForm}
-            >
-              {" "}
-              {lastStep ? "Registrar" : "Continuar"}
-            </ButtonGeneral>
-          )}
+            {activeStep === 2 ? "Registrar" : "Continuar"}
+          </ButtonGeneral>
         </ButtonContainer>
-
 
         <SmallHeightDivider />
         <LinkText to='/login'>¿Aún tienes cuenta? Log In</LinkText>
         <SmallHeightDivider />
       </div>
-
     </Container>
   );
 };
