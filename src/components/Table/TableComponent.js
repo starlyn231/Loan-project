@@ -78,7 +78,8 @@ function applySortFilter(array, comparator, query) {
   return stabilizedThis.map((el) => el[0]);
 }
 
-export default function TableComponent() {
+export default function TableComponent({onRequestPress}) {
+
   const [open, setOpen] = useState(null);
 
   const [page, setPage] = useState(0);
@@ -154,17 +155,17 @@ export default function TableComponent() {
   return (
     <>
     
-      <div style={{ }}>
+      <div >
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
           <Typography variant="h4" gutterBottom sx={{fontSize:'1.5rem'}}>  
             User
           </Typography>
-          <Button variant="contained" startIcon={<AddOutlinedIcon/>} >
+          <Button variant="contained" startIcon={<AddOutlinedIcon/>} onClick={onRequestPress} >
             New User
           </Button>
         </Stack>
 
-        <Card>
+        <Card sx={{ }}>
           <UserListToolbar numSelected={selected.length} filterName={filterName} onFilterName={handleFilterByName} />
 
           <Scrollbar>

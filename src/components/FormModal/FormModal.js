@@ -12,17 +12,21 @@ import {
   StyledCloseIcon,
   Title
 } from './styles/FormModalStyles';
+import Scrollbar from '../scrollbar/Scrollbar';
 
 function FormModal({ children, title, btnText, icon, bodyText, open, onClose,
-  conditionalClose, fullWidth, fullScreen, maxWidth = 'sm',
+  conditionalClose, fullWidth, fullScreen, maxWidth = 'xl',
   backgroundColorPropBtn, colorProp, onPress, dialogBackground }) {
   //conditionalClose - The modal doesn't close on backdrop click or close button click
   return (
+    <Scrollbar>
+
+
     <Dialog
       open={open}
       onClose={conditionalClose ? null : onClose}
       onBackdropClick={conditionalClose ? null : onClose}
-      maxWidth='sm'
+      maxWidth='xl'
       fullWidth={fullWidth}
       fullScreen={fullScreen}
       sx={{
@@ -34,11 +38,15 @@ function FormModal({ children, title, btnText, icon, bodyText, open, onClose,
 
         <div style={{
           display: 'flex',
-          justifyContent: 'flex-end',
-
+          justifyContent: 'space-between',
+          marginTop: '10px'
         }}>
 
+          <Image src={icon} />
+
           {
+
+
             !conditionalClose &&
             <IconButton onClick={onClose} sx={{ marginLeft: '5%' }}>
               <StyledCloseIcon />
@@ -54,25 +62,28 @@ function FormModal({ children, title, btnText, icon, bodyText, open, onClose,
               <div style={{ width: '100%' }} />
           }
 
-          <Image src={icon} />
-          <BodyText>{bodyText}</BodyText>
 
-          <SmallHeightDivider />
+          {/* <BodyText>{bodyText}</BodyText> */}
+          {
+            children
+          }
 
-          <ButtonContainer>
+
+          { /* <ButtonContainer>
             <ButtonGeneral
               backgroundColor={backgroundColorPropBtn}
               color={colorProp}
               onClick={onPress}
             >{btnText}</ButtonGeneral>
 
-          </ButtonContainer>
+          </ButtonContainer> */}
           <SmallHeightDivider />
         </ContentContainer>
       </Container>
 
 
     </Dialog>
+    </Scrollbar>
   );
 }
 

@@ -56,6 +56,10 @@ function Header(props) {
     navigation(route);
   };
 
+  const handleLogout = (route) => {
+    setAnchorEl4(null);
+    navigation(route);
+    };
   return (
     <AppBar sx={props.sx} elevation={0} className={props.customClass}>
       <Toolbar>
@@ -260,7 +264,7 @@ function Header(props) {
             </ListItemIcon>
             Settings
           </MenuItem>
-          <MenuItem onClick={handleClose4}>
+          <MenuItem onClick={() => handleLogout("/login")}   >
             <ListItemIcon>
               <Logout fontSize="small" />
             </ListItemIcon>

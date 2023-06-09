@@ -1,110 +1,134 @@
-import { Checkbox, FormControlLabel, FormGroup, Grid } from "@mui/material";
-import CheckBox from "../../../CheckBox/CheckBox";
-import TextField from "../../../components/TextField/TextField";
-import {
-  ButtonGeneral,
-  MediumHeightDivider,
-  SmallHeightDivider,
-} from "../../../themes/Styles";
-import {
-  BodyText,
-  ButtonAuth,
-  ButtonAuthContainer,
-  ButtonContainer,
-  Container,
-  LinkText,
-  TextFieldContainer,
-  Title,
-} from "./styles/LoginStyles";
 
-import { Stack } from "@mui/system";
-import { useNavigate } from "react-router-dom";
-import { ViewAuthComponent } from "../../../components/viewAuth/ViewAuthComponent";
-import GoogleIcon from '@mui/icons-material/Google';
-import AppleIcon from '@mui/icons-material/Apple';
-import FacebookRoundedIcon from '@mui/icons-material/FacebookRounded';
-import { useLayoutEffect } from "react";
-import { useDispatch } from "react-redux";
-import AuthLayoutLogin from '../../../assets/image/noah-rosenfield1.png'
-import { changeImgLayout } from "../../../Redux/UiReducerSlices";
-
+import { useState } from 'react'
+import { ButtonLogin, Container, Error, Form, Input, LinkText, Title, Wrapper } from './styles/LoginStyles'
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, Navigate } from 'react-router-dom';
+import { loginSchema } from './SchemaLogin';
+import TextField from '../../../components/TextField/TextField';
+import Avatar from '@mui/material/Avatar';
+import { Grid, Typography } from '@mui/material';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+//import { publicRequest } from '../../services/RequestMethods';
+//import { loginFailure, loginStart, loginSuccess } from '../../Redux/UserRedux';
+import { useFormik } from "formik";
 export const Login = () => {
-  const example = () => {
-    console.log("hola");
-  };
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [mssgError, setMssgError] = useState("");
   const dispatch = useDispatch();
+  const { isFetching, error } = useSelector((state) => state.user);
   const navigation = useNavigate();
 
+  const formik = useFormik({
+    initialValues: {
+      password: "",
+      email: "",
+    },
+    validationSchema: loginSchema,
+    enableReinitialize: true,
+    onSubmit: (values) => {
+      HadleLogin(values);
+    },
+  });
+  const HadleLogin = async (formData) => {
+   
+    const authData = {
+      email: formData.email,
+      password: formData.password,
+      
+    };
+    console.log(authData)
+    // e.preventDefault()
+    // dispatch(loginStart());
+    try {
+      //  const res = await publicRequest.post("/auth/login", { username, password });
+      //dispatch(loginSuccess(res.data));
+      //navigation('/');
+    } catch (err) {
+      // dispatch(loginFailure());
+      // setMssgError(err.response.data)
 
-  useLayoutEffect(() => {
+    }
 
-    // changed img of layout auth
-    dispatch(changeImgLayout(AuthLayoutLogin))
 
-  }, []);
+
+
+  }
+  console.log(isFetching)
   return (
-    <ViewAuthComponent
-      condicionRenderIcon={true}
-      title={"Iniciar sesión"}
-      bodyText='Ahora solo tienes que introducir tu nombre de usuario y contraseña y a
-      disfrutar de todo lo que Tveo te ofrece.'
-      messageRegister={"¿Aún no tienes una cuenta? Registrarme"}
-      message='No recuerdo mi contraseña'
-      btnTitle='Iniciar Sesion'
-      onClickPress={() => example()}
-      reDirect={'/login'}
-    >
-      <TextFieldContainer>
-        <TextField
-          title='Nombre de usuario o Email'
-          type='text'
-          id='user'
-          required
-        />
-      </TextFieldContainer>
+    <Container>
+      <Wrapper>
+        <Avatar sx={{ m: 1, bgcolor: 'secondary.main', width: 56, height: 56 }}>
+          <LockOutlinedIcon />
+        </Avatar>
+        <Typography component="h1" variant="h2" sx={{
+          fontsize: '24px',
+          fontWeight: 300,
+        }}>
+          Inicia sesión
+        </Typography>
+        <Form
+           onSubmit={(e) => {
+            e.preventDefault();
+            formik.handleSubmit();
+          }}
+        >
 
-      <TextFieldContainer>
-        <TextField title='Contraseña' type='password' id='password' required />
-      </TextFieldContainer>
+          <Grid
+            alignItems='flex-start'
+            justifyContent='center'
+            container
+            direction='row'
+            x
+            spacing={{ xs: 2, md: 3 }}
+            columns={{ xs: 12, sm: 12, md: 12 }}
+          >
+            <Grid item xs={12} sm={12} md={12}>
+              <TextField
+                title='Email o usuario'
+                type='text'
+                id='email'
+                value={formik.values.email}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                error={
+                  formik.touched.email &&
+                  Boolean(formik.errors.email)
+                }
+                helperText={
+                  formik.touched.email &&
+                  formik.errors.email
+                }
+                required
+              />        </Grid>
+            <Grid item xs={12} sm={12} md={12}>
+              <TextField
+                title='Contraseña'
+                type='password'
+                id='password'
+                value={formik.values.password}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                error={
+                  formik.touched.password &&
+                  Boolean(formik.errors.password)
+                }
+                helperText={
+                  formik.touched.password &&
+                  formik.errors.password
+                }
+                required
+              /></Grid>
+            <Grid item xs={12} sm={12} md={12}>
+              <ButtonLogin variant="contained" type={"submit"} disabled={isFetching}>LOGIN</ButtonLogin>
+            </Grid>
+          </Grid>
 
-      <TextFieldContainer style={{}}>
-        <FormGroup>
-          <FormControlLabel control={<Checkbox defaultChecked />} label="No soy robot" />
-
-        </FormGroup>
-      </TextFieldContainer>
-
-      <ButtonContainer style={{}}>
-        <ButtonGeneral backgroundColor='black' color='white'>Iniciar Sesion</ButtonGeneral>
-      </ButtonContainer>
-      <SmallHeightDivider />
-
-      <LinkText to='/requestPassword'>No recuerdo mi contraseña</LinkText>
-      <SmallHeightDivider />
-      <Grid justifyContent="center" container direction="row" spacing={{ xs: 1, md: 3 }} columns={{ xs: 12, sm: 12, md: 12 }}>
-        <Grid item xs={12} sm={3} md={4}>
-          <ButtonAuth variant="outlined" startIcon={<GoogleIcon />}>
-            GOOGLE
-          </ButtonAuth>
-        </Grid>
-
-        <Grid item xs={12} sm={3} md={4}>
-          <ButtonAuth variant="outlined" startIcon={<FacebookRoundedIcon sx={{ color: 'blue' }} />}>
-            FACEBOOK
-          </ButtonAuth>
-        </Grid>
-
-        <Grid item xs={12} sm={3} md={4}>
-          <ButtonAuth backgroundColor="black" sx={{ color: 'white' }} startIcon={<AppleIcon />}>
-            APPLE
-          </ButtonAuth>
-        </Grid>
-      </Grid>
-      <SmallHeightDivider />
-
-      <LinkText to='/register'>¿Aún no tienes una cuenta? Registrarme</LinkText>
-
-
-    </ViewAuthComponent>
-  );
-};
+          {error && <Error>{mssgError}.</Error>}
+          <LinkText>DO NOT YOU REMEMBER THE PASSWORD?</LinkText>
+          <LinkText>CREATE A NEW ACCOUNT</LinkText>
+        </Form>
+      </Wrapper>
+    </Container>
+  )
+}
