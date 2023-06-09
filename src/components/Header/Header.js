@@ -1,102 +1,274 @@
-import { useState, Fragment } from "react";
-import {
-  Container,
-  MenuButton,
-  DrawerMenuContainer,
-  Image,
-  LineContainer,
-  AddShoppingCartIcon
-} from "./styles/HeaderStyles";
+import * as React from 'react';
+import { AppBar, Avatar, Box, Button, Divider, IconButton, ListItemIcon, Menu, MenuItem, Toolbar } from "@mui/material";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import LoggedInMenu from "../LoggedInMenu/LoggedInMenu";
-import LogoSecondaryWhite from '../../assets/image/tveo-logo-type-01.svg'
-import AddShoppingCart from '../../assets/icon/ShoppingCart.svg'
-import { Badge, Box } from "@mui/material";
-import AddShoppingCartOutlinedIcon from "@mui/icons-material/AddShoppingCartOutlined";
-import COLORS from "../../themes/Colors";
-import DrawerMenu from "../DrawerMenu/DrawerMenu";
+import { useNavigate } from "react-router-dom";
+import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
+
+import AddToPhotosOutlinedIcon from "@mui/icons-material/AddToPhotosOutlined";
+import NotificationsOutlined from '@mui/icons-material/Notifications';
+import PersonAdd from "@mui/icons-material/PersonAdd";
+import Settings from "@mui/icons-material/Settings";
+import Logout from "@mui/icons-material/Logout";
+
+import userimg from "../../assets/image/users/user.jpg";
 
 function Header(props) {
   const matchesWidth = useMediaQuery("(min-width:768px)");
   const navigation = useNavigate();
   const dispatch = useDispatch();
   const { quantity } = useSelector((state) => state.cart);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  // 4
+  const [anchorEl4, setAnchorEl4] = React.useState(null);
+
+  const handleClick4 = (event) => {
+    setAnchorEl4(event.currentTarget);
+  };
+
+  const handleClose4 = () => {
+    setAnchorEl4(null);
+  };
+
+  // 5
+  const [anchorEl5, setAnchorEl5] = React.useState(null);
+
+  const handleClick5 = (event) => {
+    setAnchorEl5(event.currentTarget);
+  };
+
+  const handleClose5 = () => {
+    setAnchorEl5(null);
+  };
 
   // const { authenticated, profileImg } = useSelector((state) => state.authReducer);
-  const authenticated = true;
+  const authenticated = false;
   const goToRoute = (route) => {
     navigation(route);
   };
 
   return (
-    <Fragment>
-      {matchesWidth ? //big devices header
-        <Container>
-          <LineContainer>
-            <div style={{ display: 'flex' }}>
-              <Image onClick={() => goToRoute("/")} src={LogoSecondaryWhite} />
-            </div>
-            <div style={{ display: 'flex' }}>
-              <MenuButton onClick={() => goToRoute("/calendar")}>
-                Calendario
-              </MenuButton>
-              <div style={{ width: "1rem" }} />
-              <MenuButton onClick={() => props.servicesRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' })}>
-                Boletos
-              </MenuButton>
-              <div style={{ width: "1rem" }} />
-              <MenuButton onClick={() => goToRoute("/contact")}>
-                Contactos
-              </MenuButton>
-              <div style={{ width: "1rem" }} />
-              {!authenticated ?
-                <Fragment>
-                  <MenuButton
-                    variant='outlined'
-                    color='inherit'
-                    onClick={() => goToRoute("/StartLoginView")}
-                  >
-                    Iniciar sesión
-                  </MenuButton>
-                  <div style={{ width: "1rem" }} />
-                  {/*   <MenuButton
-                    variant='outlined'
-                    color='inherit'
-                    onClick={() => goToRoute("/app/register")}
-                  >
-                    Registrar
-                  </MenuButton> */}
-                </Fragment>
-                :
-                <Fragment>
+    <AppBar sx={props.sx} elevation={0} className={props.customClass}>
+      <Toolbar>
+      <IconButton
+          color="inherit"
+          aria-label="menu"
+          onClick={props.toggleMobileSidebar}
+          sx={{
+            display: {
+              lg: "none",
+              xs: "inline",
+            },
+          }}
+        >
 
+<MenuOutlinedIcon width="20" height="20" />
+        </IconButton>
+        <IconButton
+          aria-label="menu"
+          color="inherit"
+          aria-controls="dd-menu"
+          aria-haspopup="true"
+          onClick={handleClick5}
+        >
+          <AddToPhotosOutlinedIcon />
+        </IconButton>
+        <Menu
+          id="dd-menu"
+          anchorEl={anchorEl5}
+          keepMounted
+          open={Boolean(anchorEl5)}
+          onClose={handleClose5}
+          anchorOrigin={{ horizontal: "left", vertical: "bottom" }}
+          transformOrigin={{ horizontal: "left", vertical: "top" }}
+          sx={{
+            "& .MuiMenu-paper": {
+              width: "250px",
+              right: 0,
+              top: "70px !important",
+            },
+          }}
+        >
+          <MenuItem onClick={handleClose5}>
+            <Avatar
+              sx={{
+                width: "35px",
+                height: "35px",
+              }}
+            />
+            <Box
+              sx={{
+                ml: 2,
+              }}
+            >
+              New account
+            </Box>
+          </MenuItem>
+          <Divider />
+          <MenuItem onClick={handleClose5}>
+            <Avatar
+              sx={{
+                width: "35px",
+                height: "35px",
+              }}
+            />
+            <Box
+              sx={{
+                ml: 2,
+              }}
+            >
+              New Page
+            </Box>
+          </MenuItem>
+          <MenuItem onClick={handleClose5}>
+            <Avatar
+              sx={{
+                width: "35px",
+                height: "35px",
+              }}
+            />
+            <Box
+              sx={{
+                ml: 2,
+              }}
+            >
+              New Component
+            </Box>
+          </MenuItem>
+        </Menu>
+        <Box flexGrow={1} />
 
-
-                  <Badge badgeContent={quantity} color='primary'>
-                    <AddShoppingCartIcon src={AddShoppingCart}
-                      onClick={() => goToRoute("/cart")}
-
-                    />
-                  </Badge>
-                  <div style={{ width: "1.5rem" }} />
-                  <LoggedInMenu />
-                </Fragment>
-              }
-            </div>
-
-          </LineContainer>
-        </Container>
-        :
-        <Container >
-          <LineContainer >
-            <Image onClick={() => goToRoute("/")} src={LogoSecondaryWhite} />
-            <DrawerMenu />
-          </LineContainer>
-        </Container>
-      }
-    </Fragment >
+        {/* ------------------------------------------- */}
+        {/* Notifications Dropdown */}
+        {/* ------------------------------------------- */}
+        <IconButton
+          aria-label="menu"
+          color="inherit"
+          aria-controls="notification-menu"
+          aria-haspopup="true"
+          onClick={handleClick}
+        >
+          <NotificationsOutlined width="20" height="20" />
+        </IconButton>
+        <Menu
+          id="notification-menu"
+          anchorEl={anchorEl}
+          keepMounted
+          open={Boolean(anchorEl)}
+          onClose={handleClose}
+          anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+          transformOrigin={{ horizontal: "right", vertical: "top" }}
+          sx={{
+            "& .MuiMenu-paper": {
+              width: "200px",
+              right: 0,
+              top: "70px !important",
+            },
+          }}
+        >
+          <MenuItem onClick={handleClose}>Action</MenuItem>
+          <MenuItem onClick={handleClose}>Action Else</MenuItem>
+          <MenuItem onClick={handleClose}>Another Action</MenuItem>
+        </Menu>
+        {/* ------------------------------------------- */}
+        {/* End Notifications Dropdown */}
+        {/* ------------------------------------------- */}
+        {/* ------------------------------------------- */}
+        {/* Profile Dropdown */}
+        {/* ------------------------------------------- */}
+        <Box
+          sx={{
+            width: "1px",
+            backgroundColor: "rgba(0,0,0,0.1)",
+            height: "25px",
+            ml: 1,
+          }}
+        ></Box>
+        <Button
+          aria-label="menu"
+          color="inherit"
+          aria-controls="profile-menu"
+          aria-haspopup="true"
+          onClick={handleClick4}
+        >
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            <Avatar
+              src={userimg}
+              alt={userimg}
+              sx={{
+                width: "30px",
+                height: "30px",
+              }}
+            />
+          </Box>
+        </Button>
+        <Menu
+          id="profile-menu"
+          anchorEl={anchorEl4}
+          keepMounted
+          open={Boolean(anchorEl4)}
+          onClose={handleClose4}
+          anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+          transformOrigin={{ horizontal: "right", vertical: "top" }}
+          sx={{
+            "& .MuiMenu-paper": {
+              width: "250px",
+              right: 0,
+              top: "70px !important",
+            },
+          }}
+        >
+          <MenuItem onClick={handleClose4}>
+            <Avatar
+              sx={{
+                width: "35px",
+                height: "35px",
+              }}
+            />
+            <Box
+              sx={{
+                ml: 2,
+              }}
+            >
+              My account
+            </Box>
+          </MenuItem>
+          <Divider />
+          <MenuItem onClick={handleClose4}>
+            <ListItemIcon>
+              <PersonAdd fontSize="small" />
+            </ListItemIcon>
+            Add another account
+          </MenuItem>
+          <MenuItem onClick={handleClose4}>
+            <ListItemIcon>
+              <Settings fontSize="small" />
+            </ListItemIcon>
+            Settings
+          </MenuItem>
+          <MenuItem onClick={handleClose4}>
+            <ListItemIcon>
+              <Logout fontSize="small" />
+            </ListItemIcon>
+            Logout
+          </MenuItem>
+        </Menu>
+      </Toolbar>
+    </AppBar>
   );
 }
 

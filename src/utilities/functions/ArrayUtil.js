@@ -1,6 +1,6 @@
 //import { FIELD_TYPES } from "../../views/RequestService/components/Form/FormConstants"
 import { invertRule, localToString } from "./StringUtil"
-import deepEqual from "deep-equal";
+//import deepEqual from "deep-equal";
 
 export const localToArray = (array) => {
   if (!Array.isArray(array)) {
@@ -90,7 +90,7 @@ export const transformField = (field) => {
     //dev
     //  hidden:false,
   }
-}*/
+}
 
 export const mapArrayDiff = (array1, array2, unique = false) => {
   let result = [];
@@ -109,7 +109,7 @@ export const mapArrayDiff = (array1, array2, unique = false) => {
   }
   return result
 }
-
+*/
 export const arrayArrayToArray = (arrayArray) => {
   const array = []
 

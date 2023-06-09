@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { test } from "../../view/RequestSeats/MockRequest";
+
 
 const cartSlice = createSlice({
   name: "cart",

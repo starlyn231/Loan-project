@@ -1,21 +1,14 @@
 import { useEffect, useState } from "react";
 //mport DatePicker from '../../components/DatePicker/DatePicker'
-import { ButtonGeneral, Container, MediumHeightDivider } from "../../themes/Styles";
+import { Container, MediumHeightDivider } from "../../themes/Styles";
 //import LocalizationProvider from '@mui/lab/LocalizationProvider';
 //import AdapterDateFns from '@mui/lab/AdapterDateFns';
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import MobileTimePicker from "@mui/lab/MobileTimePicker";
 import EventSeatIcon from "@mui/icons-material/EventSeat";
-import { test, mySections, myTools } from "./TestContanst";
-import { ButtonContainer } from "../RequestSeats/styles/RequestSeatsStyles";
-import { TimePicker } from 'antd';
-import { styled } from '@mui/system';
-import { Button } from 'antd';
 import { Box, Popper } from "@mui/material";
-import SeatSelection from "./Test2";
-import SeatBooking from "./Test2";
-import { MapWithDirections } from "../information/components/MapWithDirections";
+import { styled } from '@mui/system';
+import { Button, TimePicker } from 'antd';
 import { MultiStepForm } from "./MultiStepForm";
+import { mySections, myTools, test } from "./TestContanst";
 
 
 
@@ -125,9 +118,7 @@ export const TestApp = () => {
 
 
       <div>
-        <button aria-describedby={id} type="button" onClick={handleClick}>
-          Toggle Popper
-        </button>
+     
         <Popper id={id} open={open} anchorEl={anchorEl}>
           <Box sx={{ border: 1, p: 1, bgcolor: 'black' }}>
             The content of the Popper.

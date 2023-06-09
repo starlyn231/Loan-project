@@ -3,8 +3,7 @@ import { Stack } from "@mui/system";
 import React from "react";
 import { SubHeaderLayout } from "../../Layout/public/components/subHeader/SubHeaderLayout";
 import { MediumHeightDivider, SmallHeightDivider } from "../../themes/Styles";
-import { ButtonGeneral } from "../RequestSeats/styles/RequestSeatsStyles";
-import { MapWithDirections } from "./components/MapWithDirections";
+
 import {
   BodyText,
   ButtonContainer,
@@ -33,16 +32,16 @@ export const Information = () => {
           mb='20px'
         >
           <Grid item xs={12} sm={6} md={3} sx={{ m: "5px" }}>
-            <ButtonGeneral style={{ backgroundColor: "black", color: "white" }}>
+            <p style={{ backgroundColor: "black", color: "white" }}>
               General RD$ 2,000.00
-            </ButtonGeneral>
+            </p>
           </Grid>
           <Grid item xs={12} sm={6} md={3} sx={{ m: "5px" }}>
-            <ButtonGeneral>Vip Platinum RD$ 4,000.00</ButtonGeneral>
+            <p>Vip Platinum RD$ 4,000.00</p>
           </Grid>
 
           <Grid item xs={12} sm={6} md={3} sx={{ m: "5px" }}>
-            <ButtonGeneral>Special Guest RD$ 4,000.00</ButtonGeneral>
+            <p>Special Guest RD$ 4,000.00</p>
           </Grid>
         </Grid>
         <Grid
@@ -78,11 +77,11 @@ export const Information = () => {
                     marginRight: "15px",
                   }}
                 >
-                  <ButtonGeneral>Viernes 30 de diciembre 9:30 PM</ButtonGeneral>
+                  <p>Viernes 30 de diciembre 9:30 PM</p>
                 </ButtonContainer>
 
                 <ButtonContainer style={{}}>
-                  <ButtonGeneral>Sabado 31 de diciembre 9:30 PM</ButtonGeneral>
+                  <p>Sabado 31 de diciembre 9:30 PM</p>
                 </ButtonContainer>
               </Content>
 
@@ -119,14 +118,14 @@ export const Information = () => {
             width: "290px",
           }}
         >
-          <ButtonGeneral
+          <p
             style={{
               backgroundColor: "black",
               color: "white",
             }}
           >
             Comprar Ticket
-          </ButtonGeneral>
+          </p>
         </ButtonContainer>
 
         <MediumHeightDivider />

@@ -10,12 +10,13 @@ import { StartLoginView } from "../view/auth/startLoginView/StartLoginView";
 import { Navigate } from "react-router-dom";
 import { RegisterEvents } from "../view/auth/registerEvents";
 import { TestApp } from "../view/testApp/TestApp";
-import { RequestSeats } from "../view/RequestSeats/RequestSeats";
-import { ViewCart } from "../view/cart/ViewCart";
+
+
 import { Contact } from "../view/contact/Contact";
-import { MyEvents } from "../view/myEvents/MyEvents";
+
 import { Calendar } from "../view/calendar/Calendar";
 import { Information } from "../view/information/Information";
+import CustomerPage from "../view/customer/CustomerPage";
 
 export const routes = [
   {
@@ -35,19 +36,12 @@ export const routes = [
         loginRequired: false,
       },
       {
-        path: "/requestseats",
-        element: <RequestSeats />,
+        path: "/customerView",
+        element: <CustomerPage />,
         layout: "/public",
         loginRequired: false,
       },
-
-      {
-        path: "/myevents",
-        element: <MyEvents />,
-
-        loginRequired: false,
-      },
-
+      
       {
         path: "/calendar",
         element: <Calendar />,
@@ -64,25 +58,7 @@ export const routes = [
       { path: "*", element: <Navigate to='/' /> },
     ],
   },
-  {
-    path: "/",
-    element: <PrivateLayout />,
-
-    //loader: rootLoader,
-    children: [
-
-
-      {
-        path: "/cart",
-        element: <ViewCart />,
-        loginRequired: true,
-      },
-
-      { path: "*", element: <Navigate to='/' /> },
-
-      { path: "*", element: <Navigate to='/' /> },
-    ],
-  },
+ 
   {
     path: "/",
     element: <AuthLayout />,
