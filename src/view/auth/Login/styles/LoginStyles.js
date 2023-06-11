@@ -94,7 +94,10 @@ export const LinkText = styled(Link)({
 
 
 export const Error = styled('span')({
-  color: 'red'
+  color: 'red',
+  fontSize: '15px',
+  fontWeight: 'bold',
+  margin: '0'
 })
 
 

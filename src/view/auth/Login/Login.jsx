@@ -1,18 +1,20 @@
 
-import { useState } from 'react'
-import { ButtonLogin, Container, Error, Form, Input, LinkText, Title, Wrapper } from './styles/LoginStyles'
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, Navigate } from 'react-router-dom';
-import { loginSchema } from './SchemaLogin';
-import TextField from '../../../components/TextField/TextField';
-import Avatar from '@mui/material/Avatar';
-import { Grid, Typography } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import { Grid, Typography } from '@mui/material';
+import Avatar from '@mui/material/Avatar';
+import { useState } from 'react';
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from 'react-router-dom';
+import TextField from '../../../components/TextField/TextField';
+import { loginSchema } from './SchemaLogin';
+import { ButtonLogin, Container, Error, Form, LinkText, Wrapper } from './styles/LoginStyles';
 //import { publicRequest } from '../../services/RequestMethods';
 //import { loginFailure, loginStart, loginSuccess } from '../../Redux/UserRedux';
 import { useFormik } from "formik";
-import { loginService } from '../../../callApi/Login';
+import { useMutation } from 'react-query';
 import { toast } from 'react-toastify';
+import { loginService } from '../../../callApi/Login';
+import { setTokenToLocalStorage } from '../../../requestManager/AxiosHandler';
 export const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -20,7 +22,7 @@ export const Login = () => {
   const dispatch = useDispatch();
   const { isFetching, error } = useSelector((state) => state.user);
   const navigation = useNavigate();
-
+  const mutation = useMutation(loginService);
   const formik = useFormik({
     initialValues: {
       password: "",
@@ -33,43 +35,23 @@ export const Login = () => {
     },
   });
   const HadleLogin = async (formData) => {
+    const authData = { email: formData.email, password: formData.password, };
 
-    const authData = {
-      email: formData.email,
-      password: formData.password,
+    mutation.mutate(authData, {
+      onSuccess: (response) => {
+        setTokenToLocalStorage(response?.token);
 
-    };
+        if (response?.success) {
+          navigation('/');
+        }
+      },
+      onError: (error) => {
+        setMssgError(error.response.data.msg)
+        toast.error(error.response.data.msg);
+      },
+    });
 
-    /*
-   const {email, password} =authData;
-   
-   //const response = await axios.post('http://127.0.0.1:5000/api/v1/login',{email, password});
-   
-   //console.log(response)
-   */
-
-    try {
-
-      const response = await loginService(authData);
-      console.log(response)
-      if (response?.success) {
-        navigation('/');
-       }
-
-    
-
-    } catch (error) {
-      if (error.response) {
-        // El servidor ha respondido con un código de error
-        console.error('Código de error:', error.response.status);
-        console.error(error.response.data.msg);
-        toast.error(error.response.data.msg)
-      } else {
-        // Ocurrió un error durante la solicitud
-        console.error('No se recibió ninguna respuesta del servidor');
-      }
- }
-}
+  }
 
   return (
     <Container>
@@ -134,7 +116,9 @@ export const Login = () => {
                   formik.errors.password
                 }
                 required
-              /></Grid>
+              />
+              <Error>{mssgError}</Error>
+            </Grid>
             <Grid item xs={12} sm={12} md={12}>
               <ButtonLogin variant="contained" type={"submit"} disabled={isFetching}>LOGIN</ButtonLogin>
             </Grid>

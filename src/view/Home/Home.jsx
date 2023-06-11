@@ -22,14 +22,15 @@ import { FilterEvents } from "./components/filterEvents/FilterEvents";
 import ImageHomeOffice from "../../assets/image/ImageHomeOffice.png";
 import { OwnEvents } from "./components/ownEvents/OwnEvents";
 import SubHeader from "./components/subHeader/SubHeader";
+import { useQuery } from "react-query";
+import { getUser } from "../../callApi/Login";
 
 
 export const Home = () => {
-
-
+  const { data: listUser, Loading } = useQuery(['listUser'], () => getUser())
+//console.log(listUser)
   return (
     <>
-
       <Box
         sx={{
           marginTop: '30px',
@@ -39,7 +40,6 @@ export const Home = () => {
         }}
       >
 
-    
       </Box>
       <Stack
         direction={"column"}
