@@ -9,6 +9,8 @@ import { ReactQueryDevtools } from 'react-query/devtools'
 import { ThemeProvider } from "@mui/material";
 import { themeSettings } from './themes/theme';
 import { createTheme } from "@mui/material/styles";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const queryClient = new QueryClient()
 
 function App() {
@@ -45,6 +47,7 @@ function App() {
       <RouterProvider router={router} />
       <ReactQueryDevtools initialIsOpen={false} position='bottom-right' />
       </ThemeProvider>
+      <ToastContainer />
     </QueryClientProvider>
 
   );

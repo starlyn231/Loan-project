@@ -11,6 +11,8 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 //import { publicRequest } from '../../services/RequestMethods';
 //import { loginFailure, loginStart, loginSuccess } from '../../Redux/UserRedux';
 import { useFormik } from "formik";
+import { loginService } from '../../../callApi/Login';
+import { toast } from 'react-toastify';
 export const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -31,30 +33,44 @@ export const Login = () => {
     },
   });
   const HadleLogin = async (formData) => {
-   
+
     const authData = {
       email: formData.email,
       password: formData.password,
-      
+
     };
-    console.log(authData)
-    // e.preventDefault()
-    // dispatch(loginStart());
+
+    /*
+   const {email, password} =authData;
+   
+   //const response = await axios.post('http://127.0.0.1:5000/api/v1/login',{email, password});
+   
+   //console.log(response)
+   */
+
     try {
-      //  const res = await publicRequest.post("/auth/login", { username, password });
-      //dispatch(loginSuccess(res.data));
-      //navigation('/');
-    } catch (err) {
-      // dispatch(loginFailure());
-      // setMssgError(err.response.data)
 
-    }
+      const response = await loginService(authData);
+      console.log(response)
+      if (response?.success) {
+        navigation('/');
+       }
 
+    
 
+    } catch (error) {
+      if (error.response) {
+        // El servidor ha respondido con un código de error
+        console.error('Código de error:', error.response.status);
+        console.error(error.response.data.msg);
+        toast.error(error.response.data.msg)
+      } else {
+        // Ocurrió un error durante la solicitud
+        console.error('No se recibió ninguna respuesta del servidor');
+      }
+ }
+}
 
-
-  }
-  console.log(isFetching)
   return (
     <Container>
       <Wrapper>
@@ -68,7 +84,7 @@ export const Login = () => {
           Inicia sesión
         </Typography>
         <Form
-           onSubmit={(e) => {
+          onSubmit={(e) => {
             e.preventDefault();
             formik.handleSubmit();
           }}
