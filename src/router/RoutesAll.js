@@ -23,7 +23,7 @@ export const routes = [
     element: <RootLayout />,
     children: [
       {
-        path: "/",
+        path: "/home",
         element: <Home />,
         layout: "/public",
         loginRequired: false,
@@ -93,7 +93,7 @@ export const routes = [
       },
 
       {
-        path: "/login",
+        path: "/",
         element: <Login />,
         layout: "/AuthLayout ",
         loginRequired: false,

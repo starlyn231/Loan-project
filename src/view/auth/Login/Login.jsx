@@ -15,6 +15,7 @@ import { useMutation } from 'react-query';
 import { toast } from 'react-toastify';
 import { loginService } from '../../../callApi/Login';
 import { setTokenToLocalStorage } from '../../../requestManager/AxiosHandler';
+import { loginFailure, loginStart, loginSuccess } from '../../../Redux/UserRedux';
 export const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -22,7 +23,8 @@ export const Login = () => {
   const dispatch = useDispatch();
   const { isFetching, error } = useSelector((state) => state.user);
   const navigation = useNavigate();
-  const mutation = useMutation(loginService);
+ 
+
   const formik = useFormik({
     initialValues: {
       password: "",
@@ -34,7 +36,11 @@ export const Login = () => {
       HadleLogin(values);
     },
   });
+
+  const mutation = useMutation(loginService);
+
   const HadleLogin = async (formData) => {
+    dispatch(loginStart());
     const authData = { email: formData.email, password: formData.password, };
 
     mutation.mutate(authData, {
@@ -42,10 +48,12 @@ export const Login = () => {
         setTokenToLocalStorage(response?.token);
 
         if (response?.success) {
-          navigation('/');
+          dispatch(loginSuccess(response));
+          navigation('/home');
         }
       },
       onError: (error) => {
+        dispatch(loginFailure());
         setMssgError(error.response.data.msg)
         toast.error(error.response.data.msg);
       },

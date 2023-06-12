@@ -10,10 +10,10 @@ import NotificationsOutlined from '@mui/icons-material/Notifications';
 import PersonAdd from "@mui/icons-material/PersonAdd";
 import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
-
 import userimg from "../../assets/image/users/user.jpg";
-
+import {  persistor } from "../../Redux/store";
 function Header(props) {
+
   const matchesWidth = useMediaQuery("(min-width:768px)");
   const navigation = useNavigate();
   const dispatch = useDispatch();
@@ -58,6 +58,8 @@ function Header(props) {
 
   const handleLogout = (route) => {
     setAnchorEl4(null);
+
+    persistor.purge();
     navigation(route);
     };
   return (
@@ -264,7 +266,7 @@ function Header(props) {
             </ListItemIcon>
             Settings
           </MenuItem>
-          <MenuItem onClick={() => handleLogout("/login")}   >
+          <MenuItem onClick={() => handleLogout("/")}   >
             <ListItemIcon>
               <Logout fontSize="small" />
             </ListItemIcon>

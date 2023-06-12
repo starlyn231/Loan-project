@@ -5,7 +5,7 @@ const Menuitems = [
   {
     title: "Dashboard",
     icon: DashboardOutlinedIcon,
-    href: "/public",
+    href: "/home",
   },{
     title: "Dashboard",
     icon: DashboardOutlinedIcon,
