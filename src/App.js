@@ -44,7 +44,7 @@ function App() {
 
     
 
-      <RouterProvider router={router} />
+      <RouterProvider router={router}  />
       <ReactQueryDevtools initialIsOpen={false} position='bottom-right' />
       </ThemeProvider>
       <ToastContainer />

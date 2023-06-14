@@ -14,12 +14,14 @@ import {
 } from 'redux-persist'
 import storage from "redux-persist/lib/storage";
 import { combineReducers } from 'redux'
+import UiReducer from "./UiReducer";
 const persistConfig = {
   key: "root",
   version: 1,
   storage,
+ //whitelist: [], // No persistir ningún estado específico
 };
-const rootReducer = combineReducers({ user: userReducer, cart: cartReducer, imgAuth: imgChangedReducer });
+const rootReducer = combineReducers({ user: userReducer, cart: cartReducer, imgAuth: imgChangedReducer, uiFunction:UiReducer });
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({

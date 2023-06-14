@@ -13,7 +13,7 @@ const Menuitems = [
   },
 
   {
-    title: "Gestion de Clientes",
+    title: "Clientes",
     icon: DashboardOutlinedIcon,
     href: "/customerView", 
   },

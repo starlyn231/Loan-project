@@ -1,7 +1,5 @@
 import {
-  Route,
-  createBrowserRouter,
-
+  createBrowserRouter
 } from "react-router-dom";
 import { routes } from './RoutesAll';
 //import { useRoutes } from "react-router-dom";

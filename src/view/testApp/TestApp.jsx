@@ -9,10 +9,17 @@ import { styled } from '@mui/system';
 import { Button, TimePicker } from 'antd';
 import { MultiStepForm } from "./MultiStepForm";
 import { mySections, myTools, test } from "./TestContanst";
+import { useQuery } from "react-query";
+import { getCustomers } from "../../callApi/Customer";
 
 
 
 export const TestApp = () => {
+  const { data: listCustomers, isLoading, isError } = useQuery(
+    ["listCustomers"],
+    () => getCustomers()
+  );
+ 
   //Using prevState with React, basic and complex
   const [sections, setSections] = useState([]);
   useEffect(() => {

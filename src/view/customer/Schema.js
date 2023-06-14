@@ -5,6 +5,7 @@ export const SchemaCustomer = yup.object({
     lastName:yup.string().required('Este campo es requerido'),
     job:yup.string().required('Este campo es requerido'),
   address: yup.string().required('Este campo es requerido'),
+  cedula: yup.string().required('Este campo es requerido'),
   province: yup.string().required('Este campo es requerido'),
   country: yup.string().required('Este campo es requerido'),
   sector: yup.string().required('Este campo es requerido'),

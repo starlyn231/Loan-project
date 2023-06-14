@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react';
 import { Box, useMediaQuery } from '@mui/material';
 import Sidebar from '../../components/Sidebar/Sidebar';
 import { useSelector } from 'react-redux';
+import ErrorBoundary  from '../../router/ErrorFallback';
 
 const RootLayout = ({ children }) => {
 
@@ -55,7 +56,11 @@ const RootLayout = ({ children }) => {
           }}
         >
           <Box sx={{ minHeight: "calc(100vh - 170px)" }}>
+     
             <Outlet />
+
+        
+           
           </Box>
           <Footer />
         </Container>

@@ -1,6 +1,6 @@
 import { Button } from '@mui/material'
 import { useState } from 'react';
-import { useSuperHeroesData } from '../../hooks/useSuperHeroesData';
+import { useSuperHeroesData } from '../../hooks/UseQueryHook';
 
 export const HomeWork = () => {
   const [isdataFetching, setisdataFetching] = useState(false)
