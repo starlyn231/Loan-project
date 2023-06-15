@@ -1,13 +1,11 @@
+import React from 'react'
 
-
-
-export default function TableComponent({onModal, data}) {
-
-
+const TableComponent = () => {
   return (
-    <>
-    
-    
-    </>
-  );
+    <div>
+      
+    </div>
+  )
 }
+
+export default TableComponent

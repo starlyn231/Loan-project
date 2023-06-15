@@ -1,3 +1,14 @@
+import { useEffect, useState } from 'react';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { toast } from 'react-toastify';
+
+import { UpdateCustomer, createCustomers, deleteCustomer, getCustomers } from '../../callApi/Customer';
+import FormModal from '../../components/FormModal/FormModal';
+import TableComponent from '../../components/Table/TableComponent';
+import TextField from '../../components/TextField/TextField';
+import { SmallHeightDivider } from '../../themes/Styles';
+import { SchemaCustomer } from './Schema';
+//MUI IMPORT
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
 import {
@@ -11,29 +22,18 @@ import {
   TableRow,
   Typography
 } from '@mui/material';
-import { useFormik } from "formik";
-
-import React, { useEffect, useState } from 'react';
-import { useMutation, useQuery, useQueryClient } from 'react-query';
-import { useDispatch } from 'react-redux';
-import { toast } from 'react-toastify';
-import LogoDark from '../../assets/image/logo-dark.svg';
-import { UpdateCustomer, createCustomers, getCustomers } from '../../callApi/Customer';
-import FormModal from '../../components/FormModal/FormModal';
-import TableComponent from '../../components/Table/TableComponent';
-import TextField from '../../components/TextField/TextField';
-import { SmallHeightDivider } from '../../themes/Styles';
-import { SchemaCustomer } from './Schema';
-
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import LibraryAddOutlinedIcon from '@mui/icons-material/LibraryAddOutlined';
 import Label from '../../components/label/Label';
 import Scrollbar from '../../components/scrollbar/Scrollbar';
 import UserListHead from '../../sections/@dashboard/user/UserListHead';
 import UserListToolbar from '../../sections/@dashboard/user/UserListToolbar';
-import { TABLE_HEAD, applySortFilter, getComparator } from './UtilCustomer';
-
-
+import { TABLE_HEAD } from './UtilCustomer';
+import LogoDark from '../../assets/image/logo-dark.svg';
+import { filter } from 'lodash';
+import USERLIST from './user';
+import AxiosHandler from '../../requestManager/AxiosHandler';
+import { useFormik } from "formik";
 export const CustomerPage = () => {
   const queryClient = useQueryClient();
   const [page, setPage] = useState(0);
@@ -42,7 +42,7 @@ export const CustomerPage = () => {
   const [orderBy, setOrderBy] = useState('name');
   const [filterName, setFilterName] = useState('');
   const [rowsPerPage, setRowsPerPage] = useState(10);
-
+  // const [eventsData, setEventsData] = useState([]);
 
   const [modalOpen, setModalOpen] = useState(false);
   const [open, setOpen] = useState(null);
@@ -65,7 +65,7 @@ export const CustomerPage = () => {
     validationSchema: SchemaCustomer,
     enableReinitialize: true,
     onSubmit: (values) => {
-      console.log(values.id)
+
       if (values.id !== null) {
         handleUpdateCustomer(values);
       } else {
@@ -76,11 +76,18 @@ export const CustomerPage = () => {
 
   const mutation = useMutation(createCustomers);
   const updateMutation = useMutation(UpdateCustomer);
-  
+
   const { data: listCustomers, isLoading, isError } = useQuery(
     ["listCustomers"],
     () => getCustomers()
   );
+  /*
+    const getListCustomers = async () => {
+      let data = await AxiosHandler().get("/customers");
+      setEventsData(data);
+    };
+    */
+
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -90,7 +97,7 @@ export const CustomerPage = () => {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = listCustomers.data.map((n) => n.name);
+      const newSelecteds = listCustomers?.data.map((n) => n.name);
       setSelected(newSelecteds);
       return;
     }
@@ -126,11 +133,46 @@ export const CustomerPage = () => {
     setFilterName(event.target.value);
   };
 
-  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - listCustomers.data.length) : 0;
-  const filteredData = applySortFilter(listCustomers?.data, getComparator(order, orderBy), filterName);
-  const isNotFound = !filteredData.length && !!filterName;
+  function descendingComparator(a, b, orderBy) {
+    if (b[orderBy] < a[orderBy]) {
+      return -1;
+    }
+    if (b[orderBy] > a[orderBy]) {
+      return 1;
+    }
+    return 0;
+  }
+
+  function getComparator(order, orderBy) {
+    return order === 'desc'
+      ? (a, b) => descendingComparator(a, b, orderBy)
+      : (a, b) => -descendingComparator(a, b, orderBy);
+  }
+  /*
+  //replace this function because it has error 
+  
+    function applySortFilter(array, comparator, query) {
+      const stabilizedThis = array.map((el, index) => [el, index]);
+      stabilizedThis.sort((a, b) => {
+        const order = comparator(a[0], b[0]);
+        if (order !== 0) return order;
+        return a[1] - b[1];
+      });
+      if (query) {
+        return filter(array, (_user) => _user.name.toLowerCase().indexOf(query.toLowerCase()) !== -1);
+      }
+      return stabilizedThis.map((el) => el[0]);
+    }
+  
+    */
 
 
+  //const filteredData = applySortFilter(USERLIST, getComparator(order, orderBy), filterName);
+
+  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - listCustomers?.length) : 0;
+  /*const filteredData =   applySortFilter(listCustomers?.data, getComparator(order, orderBy), filterName); 
+  const isNotFound = !filteredData.length && !!filterName;*/
+  const isNotFound = !listCustomers?.data.length && !!filterName;
   const handleModal = () => {
     setModalOpen(!modalOpen);
     setTimeout(() => {
@@ -138,6 +180,7 @@ export const CustomerPage = () => {
     }, 500);
 
   };
+
 
   const handleCloseMenu = () => {
     setOpen(null);
@@ -152,6 +195,9 @@ export const CustomerPage = () => {
     }
 
   }
+
+
+  //add data of customer 
   const handleAddCustomer = async (formData) => {
     const requestCustomer = {
       name: formData.name,
@@ -184,6 +230,7 @@ export const CustomerPage = () => {
 
   };
 
+  //update data of customer 
   const handleUpdateCustomer = async (formData) => {
     const request = {
       id: formData.id,
@@ -221,36 +268,44 @@ export const CustomerPage = () => {
 
   };
 
+const handleDelete = async (id)=>{
+  try {
+    const response = await deleteCustomer(id);
+    if (response.success) {
+      toast.success('Cliente eliminado correctamente ')
+      queryClient.invalidateQueries('listCustomers');
+    } else {
+      toast.error('Ha ocurrido un error')
+    }
+  } catch (error) {
+    toast.error('Error eliminando cliente', error)
+  }
 
-  useEffect(() => {
+}
 
 
-  }, []);
 
 
   if (isLoading) {
     return <div>Loading...</div>
   }
-  if (isError) {
-    return <div>Error! {isError.message}</div>
-  }
+
   return (
 
-    <div style={{ margin: '10px' }}>
-      <TableComponent />
-      <div style={{ border: '1px solid red' }} >
+    <>
+
+      <div style={{}} >
         <Stack direction="row" alignItems="center" justifyContent="space-between" mr={5} ml={5}>
           <Typography variant="h4" gutterBottom sx={{ fontSize: '1.5rem' }}>
             Clientes
           </Typography>
-          <Button variant="contained" startIcon={<AddOutlinedIcon />} onClick={handleModal} >
+          <Button sx={{ minHeight: '42px', borderRadius:' 47px'}}variant="contained" startIcon={<AddOutlinedIcon />} onClick={handleModal} >
             {formik.values.id !== null ? "Actualizar informacion" : "Agregar Cliente nuevo"}
           </Button>
         </Stack>
 
         <Card sx={{}}>
           <UserListToolbar numSelected={selected.length} filterName={filterName} onFilterName={handleFilterByName} />
-
           <Scrollbar>
             <TableContainer sx={{ minWidth: 800 }}>
               <Table>
@@ -258,13 +313,14 @@ export const CustomerPage = () => {
                   order={order}
                   orderBy={orderBy}
                   headLabel={TABLE_HEAD}
-                  rowCount={listCustomers.data.length}
-                  numSelected={selected.length}
+                  rowCount={listCustomers?.data?.length}
+                  numSelected={selected?.length}
                   onRequestSort={handleRequestSort}
                   onSelectAllClick={handleSelectAllClick}
                 />
                 <TableBody>
-                  {filteredData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
+                  {/* {filteredData?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => { */}
+                  {listCustomers.data.map((row) => {
                     const { id, name, lastName, cedula, job, role, status, company, avatarUrl, isVerified } = row;
                     const selectedUser = selected.indexOf(name) !== -1;
 
@@ -296,7 +352,7 @@ export const CustomerPage = () => {
 
                         <TableCell align="right">
                           <ModeEditOutlineOutlinedIcon sx={{ mr: 2 }} onClick={() => handleEditRow(row)} />
-                          <DeleteForeverOutlinedIcon sx={{ mr: 2 }} />
+                          <DeleteForeverOutlinedIcon sx={{ mr: 2 }}  onClick={() => handleDelete(row.id)} />
                         </TableCell>
                       </TableRow>
                     );
@@ -338,7 +394,7 @@ export const CustomerPage = () => {
           <TablePagination
             rowsPerPageOptions={[5, 10, 25]}
             component="div"
-            count={listCustomers?.data.length}
+            count={listCustomers?.data?.length}
             rowsPerPage={rowsPerPage}
             page={page}
             onPageChange={handleChangePage}
@@ -410,6 +466,10 @@ export const CustomerPage = () => {
               title='Cedula'
               type='text'
               id='cedula'
+              mask={
+                 "999-9999999-9"
+              }
+              unMaskedValue={true}
               value={formik.values.cedula}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
@@ -449,8 +509,9 @@ export const CustomerPage = () => {
           <Grid item xs={12} sm={4} md={6}>
             <TextField
               title='Salario Actual'
-              type='text'
+              type='number'
               id='salary'
+            
               value={formik.values.salary}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
@@ -525,6 +586,10 @@ export const CustomerPage = () => {
               type='text'
               id='phone'
               required
+              mask={
+                "(999)-999-9999"
+             }
+              unMaskedValue={true}
               value={formik.values.phone}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
@@ -572,21 +637,20 @@ export const CustomerPage = () => {
 
         <Box component="div" width={{ xs: " 100%", md: "50%", lg: "30%", xl: "30%" }} >
           <Button sx={{
-            minHeight: '38px',
+            minHeight: '48px',
             width: '100%',
-            borderRadius: '12px',
+            borderRadius: '47px',
             color: ' white',
             backgroundColor: (theme) => `${theme.palette.primary.main}!important`
-          }} onClick={() => formik.handleSubmit()} 
-          startIcon={<LibraryAddOutlinedIcon />} >
-          {formik.values.id !== null ? "ACTUALIZAR REGISTRO" : "AGREGAR CLIENTE"}
-          
-            
+          }} onClick={() => formik.handleSubmit()}
+            startIcon={<LibraryAddOutlinedIcon />} >
+            {formik.values.id !== null ? "ACTUALIZAR REGISTRO" : "AGREGAR CLIENTE"}
+
           </Button>
         </Box>
 
       </FormModal>
-    </div>
+    </>
 
   )
 }

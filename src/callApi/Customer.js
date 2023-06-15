@@ -16,9 +16,9 @@ export const UpdateCustomer = ({id, request}) => {
 
     return AxiosHandler().put(`/edit-customer/${id}` ,request ).then(({ data }) => data);
 }
-export const deleteCustomer = (customerId) => {
+export const deleteCustomer = (id) => {
 
-    return AxiosHandler().delete('/delete-custome', customerId).then(({ data }) => data);
+    return AxiosHandler().delete(`/delete-customer/${id}`).then(({ data }) => data);
 }
 
 

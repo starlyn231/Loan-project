@@ -7,10 +7,10 @@ export const Container = styled("div")({
   minHeight: "100vh",
   overflow: "hidden",
   "@media (min-width:768px)": {
-    paddingTop:'60px'
+    paddingTop:'40px'
   },
   "@media (min-width:1200px)": {
- paddingTop:'70px'
+ paddingTop:'45px'
   },
   "&:hover": {
  
