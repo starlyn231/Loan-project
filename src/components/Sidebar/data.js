@@ -3,21 +3,34 @@ import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
 
 const Menuitems = [
   {
-    title: "Dashboard",
+    title: "Home",
     icon: DashboardOutlinedIcon,
     href: "/home",
-  },{
-    title: "Dashboard",
-    icon: DashboardOutlinedIcon,
-    href: "/testapp", 
   },
-
   {
     title: "Clientes",
     icon: DashboardOutlinedIcon,
     href: "/customerView", 
   },
   
+  {
+    title: "Prestamos",
+    icon: DashboardOutlinedIcon,
+    href: "/loanView", 
+  },
+
+  {
+    title: "Configuracion",
+    icon: DashboardOutlinedIcon,
+    href: "/configuration", 
+  },
+  
+
+  {
+    title: "Test",
+    icon: DashboardOutlinedIcon,
+    href: "/testapp", 
+  },
 /*  {
     title: "Clientes",
     icon: DashboardOutlinedIcon,

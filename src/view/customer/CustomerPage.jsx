@@ -469,6 +469,8 @@ const handleDelete = async (id)=>{
               mask={
                  "999-9999999-9"
               }
+     
+              disabled={formik.values.id !== null ? true : false} 
               unMaskedValue={true}
               value={formik.values.cedula}
               onChange={formik.handleChange}

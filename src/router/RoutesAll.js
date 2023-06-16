@@ -15,21 +15,23 @@ import { TestApp } from "../view/testApp/TestApp";
 import { ErrorBoundary } from "react-error-boundary";
 import ErrorFallback from "./ErrorFallback";
 import { CustomerPage } from "../view/customer/CustomerPage";
+import LoanPage from "../view/Loan/LoanPage";
+import ConfigurationPage from "../view/Configurations/ConfigurationPage";
 
 
 export const routes = [
   {
     element: <RootLayout />,
- 
+
     children: [
       {
         path: "/home",
-        element:   <ErrorBoundary FallbackComponent={ErrorFallback}>
-        <Home />
-      </ErrorBoundary>,
+        element: <ErrorBoundary FallbackComponent={ErrorFallback}>
+          <Home />
+        </ErrorBoundary>,
         layout: "/public",
         loginRequired: false,
-       
+
 
       },
 
@@ -41,13 +43,28 @@ export const routes = [
       },
       {
         path: "/customerView",
-        element:   <ErrorBoundary FallbackComponent={ErrorFallback}>
-   <CustomerPage />,
-      </ErrorBoundary>,
+        element: <ErrorBoundary FallbackComponent={ErrorFallback}>
+          <CustomerPage />,
+        </ErrorBoundary>,
         layout: "/public",
         loginRequired: false,
       },
-      
+      {
+        path: "/loanView",
+        element: <ErrorBoundary FallbackComponent={ErrorFallback}>
+          <LoanPage />,
+        </ErrorBoundary>,
+        layout: "/public",
+        loginRequired: false,
+      },
+      {
+        path: "/configuration",
+        element: <ErrorBoundary FallbackComponent={ErrorFallback}>
+          <ConfigurationPage />,
+        </ErrorBoundary>,
+        layout: "/public",
+        loginRequired: false,
+      },
       {
         path: "/calendar",
         element: <Calendar />,
@@ -60,14 +77,14 @@ export const routes = [
 
         loginRequired: false,
       },
-      
+
 
       { path: "*", element: <Navigate to='/home' /> },
 
     ],
 
   },
- 
+
   {
     path: "/",
     element: <AuthLayout />,

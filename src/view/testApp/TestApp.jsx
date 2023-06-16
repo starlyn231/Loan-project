@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 //mport DatePicker from '../../components/DatePicker/DatePicker'
 import { Container, MediumHeightDivider } from "../../themes/Styles";
 //import LocalizationProvider from '@mui/lab/LocalizationProvider';
@@ -7,11 +7,23 @@ import EventSeatIcon from "@mui/icons-material/EventSeat";
 import { Box, Popper } from "@mui/material";
 import { styled } from '@mui/system';
 import { Button, TimePicker } from 'antd';
-import { MultiStepForm } from "./MultiStepForm";
-import { mySections, myTools, test } from "./TestContanst";
 import { useQuery } from "react-query";
 import { getCustomers } from "../../callApi/Customer";
+import { MultiStepForm } from "./MultiStepForm";
+import { mySections, myTools, test } from "./TestContanst";
 
+import DraftsIcon from '@mui/icons-material/Drafts';
+import ExpandLess from '@mui/icons-material/ExpandLess';
+import ExpandMore from '@mui/icons-material/ExpandMore';
+import InboxIcon from '@mui/icons-material/MoveToInbox';
+import SendIcon from '@mui/icons-material/Send';
+import StarBorder from '@mui/icons-material/StarBorder';
+import Collapse from '@mui/material/Collapse';
+import List from '@mui/material/List';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import ListSubheader from '@mui/material/ListSubheader';
 
 
 export const TestApp = () => {
@@ -19,9 +31,9 @@ export const TestApp = () => {
     ["listCustomers"],
     () => getCustomers()
   );
- 
-  //Using prevState with React, basic and complex
   const [sections, setSections] = useState([]);
+  //Using prevState with React, basic and complex
+  const [open, setOpen] = useState(false);
   useEffect(() => {
     const loadSections = async () => {
       return await mySections();
@@ -55,10 +67,10 @@ export const TestApp = () => {
   const handleClick = (event) => {
     setAnchorEl(anchorEl ? null : event.currentTarget);
   };
-
+/*
   const open = Boolean(anchorEl);
   const id = open ? 'simple-popper' : undefined;
-
+*/
   const [value, setValue] = useState("2014-08-18T21:11:54");
   const [selectedSeats, setSelectedSeats] = useState([]);
 
@@ -120,10 +132,64 @@ export const TestApp = () => {
     },
 
   }))
+
+
+
+  const handleClickEvent= () => {
+    setOpen(!open);
+  };
+
   return (
     <Container>
 
 
+
+<List
+      sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}
+      component="nav"
+      aria-labelledby="nested-list-subheader"
+      subheader={
+        <ListSubheader component="div" id="nested-list-subheader">
+          Nested List Items
+        </ListSubheader>
+      }
+    >
+      <ListItemButton>
+        <ListItemIcon>
+          <SendIcon />
+        </ListItemIcon>
+        <ListItemText primary="Sent mail" />
+      </ListItemButton>
+      <ListItemButton>
+        <ListItemIcon>
+          <DraftsIcon />
+        </ListItemIcon>
+        <ListItemText primary="Drafts" />
+      </ListItemButton>
+      <ListItemButton onClick={handleClickEvent}>
+        <ListItemIcon>
+          <InboxIcon />
+        </ListItemIcon>
+        <ListItemText primary="Inbox" />
+        {open ? <ExpandLess /> : <ExpandMore />}
+      </ListItemButton>
+      <Collapse in={open}  >
+      
+     
+      
+        <List component="div" disablePadding>
+          <ListItemButton sx={{ pl: 4 }}>
+            <ListItemIcon>
+              <StarBorder />
+            </ListItemIcon>
+            <ListItemText primary="Starred" />
+          </ListItemButton>
+        </List>
+      </Collapse>
+    </List>
+
+
+{ /*
       <div>
      
         <Popper id={id} open={open} anchorEl={anchorEl}>
@@ -134,7 +200,7 @@ export const TestApp = () => {
       </div>
       <MediumHeightDivider />
 
-
+ */}
 
 
       <div style={{
