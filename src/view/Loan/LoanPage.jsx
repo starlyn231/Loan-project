@@ -21,45 +21,38 @@ import AxiosHandler from '../../requestManager/AxiosHandler';
 const LoanPage = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [CustomerData, setCustomerData] = useState([]);
-
+  const [CustomerId, setCustomerId] = useState(null);
   const theme = useTheme();
   const colors = tokens;
 
-  const { data: listCustomers, isLoading, isError } = useQuery(
+ /* const { data: listCustomers, isLoading, isError } = useQuery(
     ["listCustomers"],
     () => getCustomers()
   );
-
+*/
   const { data: listLoans, isLoadingLoan, isErrorLoan } = useQuery(
     ["listLoans"],
     () => getLoans()
-  )/*
-  const { data:customer, loadingCustomer} = useQuery(
-    ["customer"],
-    () => getCustomerById()
   )
-  const { data: customer,loadingCustomer } = useQuery(
-    ["customer", serviceID],
-    async () => {
-      try {
-        
-        const response = await getCustomerById(serviceID);
-
-        return response;
-      } catch (error) {
-  console.log(customer)
-      }
+/*
+ 
+  const { data: customer,loadingCustomer , refetch} = useQuery(
+    ["customer", CustomerId], () => getCustomerById(CustomerId),{
+    enabled:   false,
     }
+     
+    
   );
- */
-
+ 
+console.log(customer?.data)
+*/
   const formik = useFormik({
     initialValues: {
       name: '',
       // lastName: "",
       salary: "",
       job: "",
-      cedula: '',
+      cedula:  '',
       customerid: null,
       id: null,
       amount: '',
@@ -123,46 +116,52 @@ const LoanPage = () => {
     };
 
   }
-  const getData = (values) => {
-    console.log(values)
-  }
+
 
 
   const getDataCustomer = async (id) => {
-
-    /*  let municipalitiesData = await apiCall().get(
-        `/get/municipalities/${value}`
-      );*/
+   
     try {
-      let customerData = await AxiosHandler().get(
-        `/customer/${id}`
-      );
       console.log(id)
-
-      console.log(customerData.data.data)
-      if (listCustomers) {
-        formik.setFieldValue('id', id);
-
-        //console.log('mmg  ', CustomerData , formik.values.id)
+ 
+  let listCustomers = await AxiosHandler().get(`/customers/`)
+console.log(listCustomers.data.success)
+      if (listCustomers.data.success) {
         setCustomerData(
-          listCustomers.data?.map((item) => ({
+          listCustomers?.data?.data.map((item) => ({
             value: item.id,
             label: item.name + ' ' + item.lastName,
           }))
         );
       }
-    } catch (error) { }
+    } catch (error) {
+      console.log(error)
+     }
+
+  if (id !== null && id !== undefined) {
+    
+        let customerData = await AxiosHandler().get(
+          `/customer/${id}`
+        );
+        console.log(customerData?.data);
+formik.setFieldValue('cedula', customerData?.data?.data?.cedula);
+formik.setFieldValue('job', customerData?.data?.data?.job);
+formik.setFieldValue('salary', customerData?.data?.data?.salary);
+        
+        }
+
+ 
+    }
 
 
-  };
+//};
 
 
 
   useEffect(() => {
-    (async () => {
-      await getDataCustomer();
 
-    })();
+  getDataCustomer();
+
   }, []);
   return (
     <Box m="10px">
@@ -301,6 +300,7 @@ const LoanPage = () => {
 
           <Grid item xs={12} sm={4} md={6}>
             <TextField
+           disabled={true}
               title='Cedula'
               type='text'
               id='cedula'
@@ -329,6 +329,7 @@ const LoanPage = () => {
               title='Donde trabaja actualmente'
               type='text'
               id='job'
+              disabled={true}
               value={formik.values.job}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
@@ -351,7 +352,7 @@ const LoanPage = () => {
               title='Salario Actual'
               type='number'
               id='salary'
-
+              disabled={true}
               value={formik.values.salary}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
