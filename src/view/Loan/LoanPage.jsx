@@ -25,34 +25,34 @@ const LoanPage = () => {
   const theme = useTheme();
   const colors = tokens;
 
- /* const { data: listCustomers, isLoading, isError } = useQuery(
-    ["listCustomers"],
-    () => getCustomers()
-  );
-*/
+  /* const { data: listCustomers, isLoading, isError } = useQuery(
+     ["listCustomers"],
+     () => getCustomers()
+   );
+ */
   const { data: listLoans, isLoadingLoan, isErrorLoan } = useQuery(
     ["listLoans"],
     () => getLoans()
   )
-/*
- 
-  const { data: customer,loadingCustomer , refetch} = useQuery(
-    ["customer", CustomerId], () => getCustomerById(CustomerId),{
-    enabled:   false,
-    }
-     
-    
-  );
- 
-console.log(customer?.data)
-*/
+  /*
+   
+    const { data: customer,loadingCustomer , refetch} = useQuery(
+      ["customer", CustomerId], () => getCustomerById(CustomerId),{
+      enabled:   false,
+      }
+       
+      
+    );
+   
+  console.log(customer?.data)
+  */
   const formik = useFormik({
     initialValues: {
       name: '',
       // lastName: "",
       salary: "",
       job: "",
-      cedula:  '',
+      cedula: '',
       customerid: null,
       id: null,
       amount: '',
@@ -67,6 +67,7 @@ console.log(customer?.data)
     onSubmit: (values) => {
 
       if (values.id !== null) {
+
         handleUpdateLoan(values);
       } else {
         handleAddLoan(values);
@@ -117,15 +118,10 @@ console.log(customer?.data)
 
   }
 
-
-
   const getDataCustomer = async (id) => {
-   
     try {
-      console.log(id)
- 
-  let listCustomers = await AxiosHandler().get(`/customers/`)
-console.log(listCustomers.data.success)
+      let listCustomers = await AxiosHandler().get(`/customers/`)
+      console.log(listCustomers.data.success)
       if (listCustomers.data.success) {
         setCustomerData(
           listCustomers?.data?.data.map((item) => ({
@@ -136,31 +132,29 @@ console.log(listCustomers.data.success)
       }
     } catch (error) {
       console.log(error)
-     }
-
-  if (id !== null && id !== undefined) {
-    
-        let customerData = await AxiosHandler().get(
-          `/customer/${id}`
-        );
-        console.log(customerData?.data);
-formik.setFieldValue('cedula', customerData?.data?.data?.cedula);
-formik.setFieldValue('job', customerData?.data?.data?.job);
-formik.setFieldValue('salary', customerData?.data?.data?.salary);
-        
-        }
-
- 
     }
 
+    if (id !== null && id !== undefined) {
+      let customerData = await AxiosHandler().get(
+        `/customer/${id}`
+      );
+    // set value of  formik field 
+      formik.setFieldValue('cedula', customerData?.data?.data?.cedula);
+      formik.setFieldValue('job', customerData?.data?.data?.job);
+      formik.setFieldValue('salary', customerData?.data?.data?.salary);
 
-//};
+   }
+
+  }
+
+
+  //};
 
 
 
   useEffect(() => {
 
-  getDataCustomer();
+    getDataCustomer();
 
   }, []);
   return (
@@ -300,7 +294,7 @@ formik.setFieldValue('salary', customerData?.data?.data?.salary);
 
           <Grid item xs={12} sm={4} md={6}>
             <TextField
-           disabled={true}
+              disabled={true}
               title='Cedula'
               type='text'
               id='cedula'
