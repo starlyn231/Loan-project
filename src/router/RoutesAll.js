@@ -58,7 +58,7 @@ export const routes = [
         loginRequired: false,
       },
       {
-        path: "/configuration",
+        path: "/setting",
         element: <ErrorBoundary FallbackComponent={ErrorFallback}>
           <ConfigurationPage />,
         </ErrorBoundary>,

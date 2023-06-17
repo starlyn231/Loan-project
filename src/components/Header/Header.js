@@ -53,6 +53,7 @@ function Header(props) {
   // const { authenticated, profileImg } = useSelector((state) => state.authReducer);
   const authenticated = false;
   const goToRoute = (route) => {
+    setAnchorEl4(null);
     navigation(route);
   };
 
@@ -260,7 +261,7 @@ function Header(props) {
             </ListItemIcon>
             Add another account
           </MenuItem>
-          <MenuItem onClick={handleClose4}>
+          <MenuItem onClick={() => goToRoute('setting')}>
             <ListItemIcon>
               <Settings fontSize="small" />
             </ListItemIcon>

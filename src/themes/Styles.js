@@ -140,15 +140,15 @@ export const StyledTextInput = styled(TextField)(props => ({
         width: '100%',
         fontSize: '17px',
         backgroundColor: 'transparent',
-        padding: 7,
+        padding: 10,
 
 
     },
     '& .MuiOutlinedInput-root': {
         '& fieldset': {
             borderColor: COLORS.lightGray,
-            borderRadius: '8px',
-            minHeight: '44px',
+            //borderRadius: '8px',
+           // minHeight: '44px',
             borderWidth: props.hiddenBorder ? 0 : '1px',
             boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
 
@@ -307,7 +307,7 @@ export const CardTextContainer = styled('div')({
 });
 
 export const FieldTitle = styled('p')({
-    marginTop: '2px',
+  //  marginTop: '2px',
     color: COLORS.black,
     fontFamily: FONTS_FAMILY.regular.title,
     '@media (min-width:320px)': {

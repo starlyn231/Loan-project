@@ -1,15 +1,16 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { toast } from 'react-toastify';
 
 import { UpdateCustomer, createCustomers, deleteCustomer, getCustomers } from '../../callApi/Customer';
 import FormModal from '../../components/FormModal/FormModal';
-import TableComponent from '../../components/Table/TableComponent';
 import TextField from '../../components/TextField/TextField';
 import { SmallHeightDivider } from '../../themes/Styles';
 import { SchemaCustomer } from './Schema';
 //MUI IMPORT
+import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
+import LibraryAddOutlinedIcon from '@mui/icons-material/LibraryAddOutlined';
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
 import {
   Avatar, Box, Button, Card,
@@ -20,20 +21,18 @@ import {
   TableContainer,
   TablePagination,
   TableRow,
-  Typography
+  Typography,
+  useTheme
 } from '@mui/material';
-import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
-import LibraryAddOutlinedIcon from '@mui/icons-material/LibraryAddOutlined';
+import { useFormik } from "formik";
+import LogoDark from '../../assets/image/logo-dark.svg';
 import Label from '../../components/label/Label';
 import Scrollbar from '../../components/scrollbar/Scrollbar';
 import UserListHead from '../../sections/@dashboard/user/UserListHead';
 import UserListToolbar from '../../sections/@dashboard/user/UserListToolbar';
+import { tokens } from '../../themes/theme';
+import Header from '../Home/components/Header';
 import { TABLE_HEAD } from './UtilCustomer';
-import LogoDark from '../../assets/image/logo-dark.svg';
-import { filter } from 'lodash';
-import USERLIST from './user';
-import AxiosHandler from '../../requestManager/AxiosHandler';
-import { useFormik } from "formik";
 export const CustomerPage = () => {
   const queryClient = useQueryClient();
   const [page, setPage] = useState(0);
@@ -46,7 +45,8 @@ export const CustomerPage = () => {
 
   const [modalOpen, setModalOpen] = useState(false);
   const [open, setOpen] = useState(null);
-
+  const theme = useTheme();
+  const colors = tokens;
   const formik = useFormik({
     initialValues: {
       id: null,
@@ -81,12 +81,6 @@ export const CustomerPage = () => {
     ["listCustomers"],
     () => getCustomers()
   );
-  /*
-    const getListCustomers = async () => {
-      let data = await AxiosHandler().get("/customers");
-      setEventsData(data);
-    };
-    */
 
 
   const handleRequestSort = (event, property) => {
@@ -133,53 +127,8 @@ export const CustomerPage = () => {
     setFilterName(event.target.value);
   };
 
-  function descendingComparator(a, b, orderBy) {
-    if (b[orderBy] < a[orderBy]) {
-      return -1;
-    }
-    if (b[orderBy] > a[orderBy]) {
-      return 1;
-    }
-    return 0;
-  }
-
-  function getComparator(order, orderBy) {
-    return order === 'desc'
-      ? (a, b) => descendingComparator(a, b, orderBy)
-      : (a, b) => -descendingComparator(a, b, orderBy);
-  }
-  /*
-  //replace this function because it has error 
-  
-    function applySortFilter(array, comparator, query) {
-      const stabilizedThis = array.map((el, index) => [el, index]);
-      stabilizedThis.sort((a, b) => {
-        const order = comparator(a[0], b[0]);
-        if (order !== 0) return order;
-        return a[1] - b[1];
-      });
-      if (query) {
-        return filter(array, (_user) => _user.name.toLowerCase().indexOf(query.toLowerCase()) !== -1);
-      }
-      return stabilizedThis.map((el) => el[0]);
-    }
-  
-    */
-
-
-  //const filteredData = applySortFilter(USERLIST, getComparator(order, orderBy), filterName);
-
   const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - listCustomers?.length) : 0;
-  /*const filteredData =   applySortFilter(listCustomers?.data, getComparator(order, orderBy), filterName); 
-  const isNotFound = !filteredData.length && !!filterName;*/
   const isNotFound = !listCustomers?.data.length && !!filterName;
-  const handleModal = () => {
-    setModalOpen(!modalOpen);
-    setTimeout(() => {
-      formik.resetForm();
-    }, 500);
-
-  };
 
 
   const handleCloseMenu = () => {
@@ -195,7 +144,13 @@ export const CustomerPage = () => {
     }
 
   }
+  const handleModal = () => {
+    setModalOpen(!modalOpen);
+    setTimeout(() => {
+      formik.resetForm();
+    }, 500);
 
+  };
 
   //add data of customer 
   const handleAddCustomer = async (formData) => {
@@ -268,20 +223,20 @@ export const CustomerPage = () => {
 
   };
 
-const handleDelete = async (id)=>{
-  try {
-    const response = await deleteCustomer(id);
-    if (response.success) {
-      toast.success('Cliente eliminado correctamente ')
-      queryClient.invalidateQueries('listCustomers');
-    } else {
-      toast.error('Ha ocurrido un error')
+  const handleDelete = async (id) => {
+    try {
+      const response = await deleteCustomer(id);
+      if (response.success) {
+        toast.success('Cliente eliminado correctamente ')
+        queryClient.invalidateQueries('listCustomers');
+      } else {
+        toast.error('Ha ocurrido un error')
+      }
+    } catch (error) {
+      toast.error('Error eliminando cliente', error)
     }
-  } catch (error) {
-    toast.error('Error eliminando cliente', error)
-  }
 
-}
+  }
 
 
 
@@ -289,20 +244,46 @@ const handleDelete = async (id)=>{
   if (isLoading) {
     return <div>Loading...</div>
   }
+  console.log(filterName)
+
+
 
   return (
 
     <>
-
       <div style={{}} >
-        <Stack direction="row" alignItems="center" justifyContent="space-between" mr={5} ml={5}>
-          <Typography variant="h4" gutterBottom sx={{ fontSize: '1.5rem' }}>
-            Clientes
-          </Typography>
-          <Button sx={{ minHeight: '42px', borderRadius:' 47px'}}variant="contained" startIcon={<AddOutlinedIcon />} onClick={handleModal} >
-            {formik.values.id !== null ? "Actualizar informacion" : "Agregar Cliente nuevo"}
-          </Button>
-        </Stack>
+        <Box display="flex" justifyContent="space-between" alignItems="center">
+          <Header title="Solicitudes de prestamos" subtitle="Todo a tu alcance" />
+
+        </Box>
+        <Grid
+      
+          alignItems='flex-start'
+          justifyContent='center'
+          container
+          direction='row'
+          x
+          spacing={{ xs: 2, md: 3 }}
+          columns={{ xs: 4, sm: 8, md: 12 }}
+        >
+          <Grid item xs={12} sm={12} md={12}>
+
+          <Stack direction="row" justifyContent="flex-end"
+            mr={5} >
+
+            
+              <Button sx={{
+                color: colors.grey[100],
+                fontSize: "14px",
+                fontWeight: "bold",
+                padding: "10px 20px",
+                minHeight: '42px', borderRadius: ' 47px'
+              }} variant="contained" startIcon={<AddOutlinedIcon />} onClick={handleModal} >
+                Agregar Cliente nuevo
+              </Button>
+            </Stack>
+          </Grid>
+        </Grid>
 
         <Card sx={{}}>
           <UserListToolbar numSelected={selected.length} filterName={filterName} onFilterName={handleFilterByName} />
@@ -352,7 +333,7 @@ const handleDelete = async (id)=>{
 
                         <TableCell align="right">
                           <ModeEditOutlineOutlinedIcon sx={{ mr: 2 }} onClick={() => handleEditRow(row)} />
-                          <DeleteForeverOutlinedIcon sx={{ mr: 2 }}  onClick={() => handleDelete(row.id)} />
+                          <DeleteForeverOutlinedIcon sx={{ mr: 2 }} onClick={() => handleDelete(row.id)} />
                         </TableCell>
                       </TableRow>
                     );
@@ -402,15 +383,18 @@ const handleDelete = async (id)=>{
           />
         </Card>
       </div>
-
+    
 
 
       <FormModal
+        sx={{ zIndex: 1000 }}
         onClose={handleModal}
         open={modalOpen}
         title='Agregar Cliente Nuevo'
-        icon={LogoDark} bodyText='! administrador de eventos de Tveo.'
-        btnText='Ir al administrador de eventos'
+        icon={LogoDark}
+        disableEscapeKeyDown
+        maxWidth='xl'
+        fullScreen
       >
         <SmallHeightDivider />
         <Grid
@@ -467,10 +451,10 @@ const handleDelete = async (id)=>{
               type='text'
               id='cedula'
               mask={
-                 "999-9999999-9"
+                "999-9999999-9"
               }
-     
-              disabled={formik.values.id !== null ? true : false} 
+
+              disabled={formik.values.id !== null ? true : false}
               unMaskedValue={true}
               value={formik.values.cedula}
               onChange={formik.handleChange}
@@ -513,7 +497,7 @@ const handleDelete = async (id)=>{
               title='Salario Actual'
               type='number'
               id='salary'
-            
+
               value={formik.values.salary}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
@@ -590,7 +574,7 @@ const handleDelete = async (id)=>{
               required
               mask={
                 "(999)-999-9999"
-             }
+              }
               unMaskedValue={true}
               value={formik.values.phone}
               onChange={formik.handleChange}
@@ -634,7 +618,7 @@ const handleDelete = async (id)=>{
           </Grid>
         </Grid>
 
-        <SmallHeightDivider />
+
         <SmallHeightDivider />
 
         <Box component="div" width={{ xs: " 100%", md: "50%", lg: "30%", xl: "30%" }} >

@@ -26,7 +26,7 @@ function FormModal({ children, title, btnText, icon, bodyText, open, onClose,
       open={open}
       onClose={conditionalClose ? null : onClose}
       onBackdropClick={conditionalClose ? null : onClose}
-      maxWidth='xl'
+      maxWidth={maxWidth}
       fullWidth={fullWidth}
       fullScreen={fullScreen}
       sx={{
@@ -77,7 +77,8 @@ function FormModal({ children, title, btnText, icon, bodyText, open, onClose,
             >{btnText}</ButtonGeneral>
 
           </ButtonContainer> */}
-          <SmallHeightDivider />
+          
+
         </ContentContainer>
       </Container>
 

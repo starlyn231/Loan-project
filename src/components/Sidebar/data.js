@@ -22,7 +22,7 @@ const Menuitems = [
   {
     title: "Configuracion",
     icon: DashboardOutlinedIcon,
-    href: "/configuration", 
+    href: "/setting", 
   },
   
 
