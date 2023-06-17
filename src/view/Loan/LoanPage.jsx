@@ -121,7 +121,8 @@ const LoanPage = () => {
   const getDataCustomer = async (id) => {
     try {
       let listCustomers = await AxiosHandler().get(`/customers/`)
-      console.log(listCustomers.data.success)
+      //console.log(listCustomers.data.success)
+      //test
       if (listCustomers.data.success) {
         setCustomerData(
           listCustomers?.data?.data.map((item) => ({
