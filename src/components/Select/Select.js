@@ -6,7 +6,7 @@ import { Autocomplete } from '@mui/material';
 
 function Select({ id, title, data, placeholder, helperText = " ", value, onChange, onBlur, error, required, disabled, search = false, disableEmptyValue = false, selectIsInsideModal = false }) {
     let objectValue = value === undefined ? null : data?.find((item) => item.value == value)
-   console.log(data)
+
     
     return (
         <Container>
@@ -50,6 +50,7 @@ function Select({ id, title, data, placeholder, helperText = " ", value, onChang
                                     value:newValue.value
                                 }
                             })}*/
+                            
                         renderInput={(params) =>
                             <StyledTextInput {...params}
                                 InputProps={{ ...params.InputProps, style: { padding: 3 } }}

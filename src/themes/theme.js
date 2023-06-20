@@ -3,7 +3,14 @@ import typography from "./Typography";
 import shadows from "./Shadows";
 export const tokens = {
 
-
+  info: {
+    lighter: '#D0F2FF',
+    light: '#74CAFF',
+    main: '#1890FF',
+    dark: '#0C53B7',
+    darker: '#04297A',
+    contrastText: '#fff',
+  },
     grey: {
       100: "#f0f0f3",
       200: "#e1e2e7",

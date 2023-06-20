@@ -17,6 +17,7 @@ import ErrorFallback from "./ErrorFallback";
 import { CustomerPage } from "../view/customer/CustomerPage";
 import LoanPage from "../view/Loan/LoanPage";
 import ConfigurationPage from "../view/Configurations/ConfigurationPage";
+import DetailLoan from "../view/DetailLoan/DetailLoan";
 
 
 export const routes = [
@@ -68,6 +69,12 @@ export const routes = [
       {
         path: "/calendar",
         element: <Calendar />,
+
+        loginRequired: false,
+      },
+      {
+        path: "/detailLoan/:id",
+        element: <DetailLoan />,
 
         loginRequired: false,
       },

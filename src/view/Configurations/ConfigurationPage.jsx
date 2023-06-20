@@ -3,7 +3,7 @@ import React from 'react'
 const ConfigurationPage = () => {
   return (
     <div>
-      ConfigurationPage
+      ConfigurationPagedd
     </div>
   )
 }
