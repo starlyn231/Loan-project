@@ -16,7 +16,8 @@ export const Container = styled('div')(props => ({
         minWidth: '700px',
     },
     '@media(min-width:1200px)': {
-        minWidth: props.maxWidth === 'xl' ? '1000px' : '600px',
+      minWidth: props.maxWidth === 'xl' ? '1000px' : '600px',
+       minHeight: '90vh'
     },
 }));
 

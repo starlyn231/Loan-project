@@ -46,6 +46,7 @@ import Label from '../../components/label/Label';
 import { getCustomers } from '../../callApi/Customer';
 import SelectStatus from './SelectStatus';
 import { useNavigate } from 'react-router-dom';
+import LoadingIndicator from '../../components/LoadingIndicator/LoadingIndicator';
 const LoanPage = () => {
   const navigation = useNavigate();
   const [modalOpen, setModalOpen] = useState(false);
@@ -62,9 +63,10 @@ const LoanPage = () => {
   const [selectedName, setName] = useState('');
   const [orderBy, setOrderBy] = useState('nameClient');
   const [filterName, setFilterName] = useState('');
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
   const queryClient = useQueryClient();
   const [searchTerm, setSearchTerm] = useState('');
+  const [MonthlyPayment, setMonthlyPayment] = useState();
 
   const { data: listLoans, isLoadingLoan, isErrorLoan } = useQuery(
     ["listLoans"],
@@ -83,11 +85,11 @@ const LoanPage = () => {
       customerid: null,
       id: null,
       amount: '',
-      loanPayment: "",
+
       time: "",
       categories: "",
       motiveLoan: "",
-      interestRate: "",
+      interestRate: 16.5,
     },
     validationSchema: SchemaLoan,
     enableReinitialize: true,
@@ -128,8 +130,21 @@ const LoanPage = () => {
   }
 
   const mutation = useMutation(createLoan);
+
   const handleAddLoan = async (formData) => {
-    console.log(formData)
+    console.log(formData);
+    //calculate loan
+
+    const monthlyInterestRate = formData?.interestRate / 12 / 100; // Tasa de interés periódica
+    const numerator = formData.amount * monthlyInterestRate;
+    const denominator = 1 - Math.pow(1 + monthlyInterestRate, -formData.time,);
+    const payment = numerator / denominator;
+
+    setMonthlyPayment(payment.toFixed(2));
+    let totalAmount;
+    totalAmount = payment * formData.time;
+    console.log(MonthlyPayment)
+    console.log(totalAmount)
     const request = {
       name: selectedName,
       id: formData.name,
@@ -137,21 +152,29 @@ const LoanPage = () => {
       cedula: formData.cedula,
       job: formData.job,
       salary: formData.salary,
-      loanPayment: formData.loanPayment,
+      loanPayment: payment.toFixed(2),
       amount: formData.amount,
+      totalPayment: totalAmount,
       time: formData.time,
       categories: formData.categories,
       motiveLoan: formData.motiveLoan,
-      interestRate: formData.interestRate
+      interestRate: formData.interestRate,
     };
 
+    // Wait for a brief delay (e.g., 1 second) before making the additional request
+    //await new Promise((resolve) => setTimeout(resolve, 1000));
     mutation.mutate(request, {
       onSuccess: (response) => {
         if (response?.success) {
           queryClient.invalidateQueries('listLoans');
+          console.log(response)
           handleModal();
-          toast.success(' Solicitud realizada correctamente');
-          //formik.resetForm();
+          setTimeout(() => {
+            toast.success(' Prestamo creado correctamente correctamente');
+            navigation(`/detailLoan/${response.loan._id}`);
+
+          }, 1000);
+
         }
       },
       onError: (error) => {
@@ -160,7 +183,7 @@ const LoanPage = () => {
     });
 
   }
-
+  console.log(MonthlyPayment)
 
   const getDataCustomer = async (id, test) => {
 
@@ -232,19 +255,16 @@ const LoanPage = () => {
 
 
   const goToRoute = (route) => {
- 
     navigation(route);
   };
 
   useEffect(() => {
-
     getDataCustomer();
+  }, [MonthlyPayment]);
 
-  }, []);
 
-  
 
-  if (isLoadingLoan || isErrorLoan) return <div>Cargando...</div>;
+  if (isLoadingLoan || isErrorLoan) return <LoadingIndicator />;
   //const filteredUsers = applySortFilter(listLoans?.data, getComparator(order, orderBy), filterName);
   // const isNotFound = !filteredUsers.length && !!filterName;
   // console.log(listLoans?.data)
@@ -288,7 +308,7 @@ const LoanPage = () => {
         <Stack direction="row" alignItems="center" justifyContent="space-between"  >
           <UserListToolbar filterName={searchTerm} onFilterName={handleFilterByName} placeholderProp={'Filtrar Cliente'} />
 
-          <SelectStatus options={statusLoan}/>
+          <SelectStatus options={statusLoan} />
         </Stack>
         <Scrollbar>
           <TableContainer sx={{ minWidth: 800 }}>
@@ -332,7 +352,7 @@ const LoanPage = () => {
                       </TableCell>
                       <TableCell align="right">
                         <Tooltip title="Ver detalle de este prestamo">
-                     
+
                           <IconButton onClick={() => navigation(`/detailLoan/${id}`)}>
                             <RemoveRedEyeOutlinedIcon />
                           </IconButton>
@@ -510,12 +530,13 @@ const LoanPage = () => {
 
 
 
-          <Grid item xs={12} sm={4} md={4}>
+          <Grid item xs={12} sm={4} md={3}>
             <TextField
               title='Salario Actual'
               type='number'
               id='salary'
               disabled={true}
+
               value={formik.values.salary}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
@@ -530,9 +551,9 @@ const LoanPage = () => {
               required
             />
           </Grid>
-          <Grid item xs={12} sm={4} md={4}>
+          <Grid item xs={12} sm={4} md={3}>
             <TextField
-              title='Monto Total del prestamo'
+              title='Cantidad a solicitar'
               type='number'
               id='amount'
               value={formik.values.amount}
@@ -549,21 +570,9 @@ const LoanPage = () => {
               required
             />
           </Grid>
-          <Grid item xs={8} sm={4} md={4}>
-            <TextField
-              title='Monto de las Cuotas '
-              type='number'
-              id='loanPayment'
-              required
-              value={formik.values.loanPayment}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              error={formik.touched.loanPayment && Boolean(formik.errors.loanPayment)}
-              helperText={formik.touched.loanPayment && formik.errors.loanPayment}
-            />
-          </Grid>
 
-          <Grid item xs={12} sm={4} md={4}>
+
+          <Grid item xs={12} sm={6} md={6}>
             <TextField
               title='Cantidad Cuotas '
               type='number'
@@ -584,7 +593,7 @@ const LoanPage = () => {
           </Grid>
 
 
-          <Grid item xs={12} sm={4} md={4}>
+          <Grid item xs={12} sm={6} md={6}>
             <TextField
               title='Categoria de este prestamo'
               type='text'
@@ -598,10 +607,12 @@ const LoanPage = () => {
             />
           </Grid>
 
-          <Grid item xs={12} sm={4} md={4}>
+          <Grid item xs={12} sm={4} md={12}>
             <TextField
               title='Motivo  del prestamo'
               type='text'
+              multiline
+              maxRows={2}
               id='motiveLoan'
               value={formik.values.motiveLoan}
               onChange={formik.handleChange}
@@ -617,19 +628,20 @@ const LoanPage = () => {
               required
             />
           </Grid>
-          <Grid item xs={12} sm={4} md={4}>
+          {/*  <Grid item xs={12} sm={4} md={4}>
             <TextField
               title='Tasa de Interes'
               type='number'
               id='interestRate'
+              disabled={true}
               required
-              value={formik.values.interestRate}
+              value={16.5}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               error={formik.touched.interestRate && Boolean(formik.errors.interestRate)}
               helperText={formik.touched.interestRate && formik.errors.interestRate}
             />
-          </Grid>
+          </Grid>*/}
         </Grid>
 
 

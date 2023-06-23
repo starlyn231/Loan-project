@@ -33,6 +33,7 @@ import UserListToolbar from '../../sections/@dashboard/user/UserListToolbar';
 import { tokens } from '../../themes/theme';
 import Header from '../Home/components/Header';
 import { TABLE_HEAD } from './UtilCustomer';
+import LoadingIndicator from '../../components/LoadingIndicator/LoadingIndicator';
 export const CustomerPage = () => {
   const queryClient = useQueryClient();
   const [page, setPage] = useState(0);
@@ -241,10 +242,7 @@ export const CustomerPage = () => {
 
 
 
-  if (isLoading) {
-    return <div>Loading...</div>
-  }
-  console.log(filterName)
+  if (isLoading || isError) return <LoadingIndicator/>;
 
 
 

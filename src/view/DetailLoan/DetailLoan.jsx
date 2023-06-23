@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
 //MUI IMPORT
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 //import { sentenceCase } from 'change-case';
@@ -30,6 +30,7 @@ const DetailLoan = () => {
   const colors = tokens;
   const { id } = useParams();
 
+
   const { data: dataLoan, loadingLoan, errorLoan } = useQuery(
     ["dataLoan", id],
     () => getLoanById(id)
@@ -37,13 +38,22 @@ const DetailLoan = () => {
 
   const navigation = useNavigate();
 
+  const [monthlyPayment, setMonthlyPayment] = useState(0);
 
-  console.log(dataLoan)
 
+  useLayoutEffect(() => {
+
+  },
+    [dataLoan]
+  )
+  console.log(monthlyPayment, id)
+
+  console.log(loadingLoan)
   if (loadingLoan || errorLoan) return <div>Cargando...</div>;
   //    color: colors.grey[100],
   return (
     <Box mt="10px">
+
       <Card
         sx={{
           display: 'flex',
@@ -130,34 +140,31 @@ const DetailLoan = () => {
 
               spacing={{ xs: 2, md: 3 }}
               columns={{ xs: 6, sm: 8, md: 12 }}>
-              <Grid item xs={12} md={6} lg={6}     >
-                <TextContent>Balance pendiente </TextContent>
-                <SubtitleText>10,000</SubtitleText>
-              </Grid>
+
               <Grid item xs={12} md={6} lg={6}     >
                 <TextContent> Numeracion del prestamo  </TextContent>
                 <SubtitleText> {dataLoan?.data?.id} </SubtitleText>
               </Grid>
               <Grid item xs={12} md={6} lg={6}     >
-                <TextContent> Monto Total Inicial:  </TextContent>
-                <SubtitleText> 
-                {
-                        Intl.NumberFormat('en-US',
-                          { style: 'currency', currency: 'USD' }
-                        ).format(dataLoan?.data?.amount)
-                      }
-                   </SubtitleText>
+                <TextContent> Monto solicitado:  </TextContent>
+                <SubtitleText>
+                  {
+                    Intl.NumberFormat('en-US',
+                      { style: 'currency', currency: 'USD' }
+                    ).format(dataLoan?.data?.amount)
+                  }
+                </SubtitleText>
 
               </Grid>
               <Grid item xs={12} md={6} lg={6}     >
-                <TextContent> Cuota:  </TextContent>
-                <SubtitleText> 
-                {
-                        Intl.NumberFormat('en-US',
-                          { style: 'currency', currency: 'USD' }
-                        ).format(dataLoan?.data?.loanPayment)
-                      }
-                   </SubtitleText>
+                <TextContent>  Cuota mensual:  </TextContent>
+                <SubtitleText>
+                  {
+                    Intl.NumberFormat('en-US',
+                      { style: 'currency', currency: 'USD' }
+                    ).format(dataLoan?.data?.loanPayment)
+                  }
+                </SubtitleText>
               </Grid>
 
               <Grid item xs={12} md={6} lg={6}     >
@@ -166,15 +173,18 @@ const DetailLoan = () => {
               </Grid>
 
               <Grid item xs={12} md={6} lg={6}     >
-                <TextContent> Interes Inicial:  </TextContent>
+                <TextContent> Tasa de interés:  </TextContent>
                 <SubtitleText> {dataLoan?.data?.interestRate} </SubtitleText>
               </Grid>
 
-
+              <Grid item xs={12} md={6} lg={6}     >
+                <TextContent>Balance insoluto </TextContent>
+                <SubtitleText>10,000</SubtitleText>
+              </Grid>
 
 
               <Grid item xs={12} md={6} lg={6}     >
-                <TextContent> Estado Del Prestamo:  </TextContent>
+                <TextContent> Estado:  </TextContent>
                 <SubtitleText> {dataLoan?.data?.status} </SubtitleText>
               </Grid>
               <Grid item xs={12} md={6} lg={6}     >
@@ -182,14 +192,10 @@ const DetailLoan = () => {
                 <SubtitleText> {dataLoan?.data?.motiveLoan} </SubtitleText>
               </Grid>
 
-              <Grid item xs={12} md={6} lg={6}     >
-                <TextContent> Status:  </TextContent>
-                <SubtitleText> {dataLoan?.data?.status} </SubtitleText>
-              </Grid>
 
               <Grid item xs={12} md={6} lg={6}     >
-                <TextContent> Status:  </TextContent>
-                <SubtitleText> {dataLoan?.data?.status} </SubtitleText>
+                <TextContent>  Último pago en :  </TextContent>
+                <SubtitleText>  2023/05/30</SubtitleText>
               </Grid>
 
               <Grid item xs={12} md={6} lg={6}     >
@@ -197,10 +203,7 @@ const DetailLoan = () => {
                 <SubtitleText>31/07/2020 </SubtitleText>
               </Grid>
 
-              <Grid item xs={12} md={6} lg={6}     >
-                <TextContent>Ultimo pago  </TextContent>
-                <SubtitleText>31/07/2020 </SubtitleText>
-              </Grid>
+
 
               <Grid item xs={12} md={6} lg={6}     >
                 <TextContent>Cuotas en Atrasos </TextContent>
@@ -234,7 +237,7 @@ const DetailLoan = () => {
               </Typography>
               <Typography
                 sx={{ m: "0 0 10px 0" }} variant="h5" color={colors.grey[600]}>
-                Transacciones entre mis productos
+                Ver pagos realizados
               </Typography>
               <Typography variant="h5"
                 sx={{ m: "0 0 10px 0" }} color={colors.grey[600]}>
@@ -243,6 +246,14 @@ const DetailLoan = () => {
               <Typography variant="h5"
                 sx={{ m: "0 0 10px 0" }} color={colors.grey[600]}>
                 Beneficiarios
+              </Typography>
+              <Typography variant="h5"
+                sx={{ m: "0 0 10px 0" }} color={colors.grey[600]}>
+                Mi perfil y ajustes
+              </Typography>
+              <Typography variant="h5"
+                sx={{ m: "0 0 10px 0" }} color={colors.grey[600]}>
+                Servicios
               </Typography>
             </Box>
 

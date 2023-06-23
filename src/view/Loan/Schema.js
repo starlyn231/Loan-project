@@ -7,7 +7,7 @@ export const SchemaLoan= yup.object({
 cedula: yup.string().required('Este campo es requerido'),
 salary:yup.string().required('Este campo es requerido'),
   amount:yup.string().required('Este campo es requerido'),
-  loanPayment:yup.string().required('Este campo es requerido'),
+  //loanPayment:yup.string().required('Este campo es requerido'),
   time:yup.string().required('Este campo es requerido'),
   categories: yup.string().required('Este campo es requerido'),
   interestRate: yup.string().required('Este campo es requerido'),
