@@ -7,7 +7,7 @@ import { Autocomplete } from '@mui/material';
 function Select({ id, title, data, placeholder, helperText = " ", value, onChange, onBlur, error, required, disabled, search = false, disableEmptyValue = false, selectIsInsideModal = false }) {
     let objectValue = value === undefined ? null : data?.find((item) => item.value == value)
 
-    
+
     return (
         <Container>
             <Row>

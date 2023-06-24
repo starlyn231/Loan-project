@@ -18,6 +18,7 @@ import { CustomerPage } from "../view/customer/CustomerPage";
 import LoanPage from "../view/Loan/LoanPage";
 import ConfigurationPage from "../view/Configurations/ConfigurationPage";
 import DetailLoan from "../view/DetailLoan/DetailLoan";
+import Payments from "../view/payments/Payments";
 
 
 export const routes = [
@@ -75,7 +76,11 @@ export const routes = [
       {
         path: "/detailLoan/:id",
         element: <DetailLoan />,
-
+        loginRequired: false,
+      },
+      {
+        path: "/payments",
+        element: <Payments />,
         loginRequired: false,
       },
       {

@@ -29,6 +29,10 @@ export const StyledSearch = styled(OutlinedInput)(({ theme }) => ({
     borderWidth: `1px !important`,
     borderColor: `${alpha(theme.palette.grey[500], 0.32)} !important`,
   },
+  [theme.breakpoints.down("sm")]: {
+    width: '100%',
+   },
+
 }));
 
 // ----------------------------------------------------------------------

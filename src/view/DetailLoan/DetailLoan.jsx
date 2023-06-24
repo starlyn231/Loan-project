@@ -23,7 +23,7 @@ import Scrollbar from '../../components/scrollbar/Scrollbar';
 import { useNavigate, useParams } from 'react-router-dom';
 import { SubtitleText, TextContent } from './styles/DetailLoanStyles';
 import PaidOutlinedIcon from '@mui/icons-material/PaidOutlined';
-
+import { Link } from '@mui/material';
 const DetailLoan = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [CustomerData, setCustomerData] = useState([]);
@@ -43,12 +43,15 @@ const DetailLoan = () => {
 
   useLayoutEffect(() => {
 
+
   },
     [dataLoan]
   )
-  console.log(monthlyPayment, id)
 
-  console.log(loadingLoan)
+
+
+
+
   if (loadingLoan || errorLoan) return <div>Cargando...</div>;
   //    color: colors.grey[100],
   return (
@@ -235,10 +238,21 @@ const DetailLoan = () => {
               >
                 Accesos Rapidos
               </Typography>
+
+
               <Typography
-                sx={{ m: "0 0 10px 0" }} variant="h5" color={colors.grey[600]}>
-                Ver pagos realizados
+                onClick={() => navigation(`/Payments`)}
+                variant="h5" color={colors.grey[600]}
+                sx={{
+                  m: "0 0 10px 0", cursor: 'pointer',
+                  '&:hover': {
+                    outline: 'underline',
+                    color: 'primary'
+                  }
+                }}>
+               Realizar pago realizados 
               </Typography>
+
               <Typography variant="h5"
                 sx={{ m: "0 0 10px 0" }} color={colors.grey[600]}>
                 Beneficiarios Inscritos

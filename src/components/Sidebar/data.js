@@ -1,6 +1,7 @@
 import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
-
-
+import PaidOutlinedIcon from '@mui/icons-material/PaidOutlined';
+import ManageAccountsOutlinedIcon from '@mui/icons-material/ManageAccountsOutlined';
+import CreditScoreIcon from '@mui/icons-material/CreditScore';
 const Menuitems = [
   {
     title: "Home",
@@ -9,19 +10,23 @@ const Menuitems = [
   },
   {
     title: "Clientes",
-    icon: DashboardOutlinedIcon,
+    icon: ManageAccountsOutlinedIcon,
     href: "/customerView", 
   },
   
   {
     title: "Prestamos",
-    icon: DashboardOutlinedIcon,
+    icon: CreditScoreIcon,
     href: "/loanView", 
   },
-
+  {
+    title: "Pagos",
+    icon: PaidOutlinedIcon,
+    href: "/payments", 
+  },
   {
     title: "Configuracion",
-    icon: DashboardOutlinedIcon,
+    icon: ManageAccountsOutlinedIcon,
     href: "/setting", 
   },
   
