@@ -178,7 +178,7 @@ const Payments = () => {
               display: 'flex',
               py: 2,
 
-              // boxShadow: boxShadowConfig,
+     
               textAlign: 'center',
               direction: "row",
               justifyContent: 'center'
