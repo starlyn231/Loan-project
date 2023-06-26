@@ -10,10 +10,10 @@ import NotificationsOutlined from '@mui/icons-material/Notifications';
 import PersonAdd from "@mui/icons-material/PersonAdd";
 import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
-
 import userimg from "../../assets/image/users/user.jpg";
-
+import {  persistor } from "../../Redux/store";
 function Header(props) {
+
   const matchesWidth = useMediaQuery("(min-width:768px)");
   const navigation = useNavigate();
   const dispatch = useDispatch();
@@ -53,9 +53,16 @@ function Header(props) {
   // const { authenticated, profileImg } = useSelector((state) => state.authReducer);
   const authenticated = false;
   const goToRoute = (route) => {
+    setAnchorEl4(null);
     navigation(route);
   };
 
+  const handleLogout = (route) => {
+    setAnchorEl4(null);
+
+    persistor.purge();
+    navigation(route);
+    };
   return (
     <AppBar sx={props.sx} elevation={0} className={props.customClass}>
       <Toolbar>
@@ -254,13 +261,13 @@ function Header(props) {
             </ListItemIcon>
             Add another account
           </MenuItem>
-          <MenuItem onClick={handleClose4}>
+          <MenuItem onClick={() => goToRoute('setting')}>
             <ListItemIcon>
               <Settings fontSize="small" />
             </ListItemIcon>
             Settings
           </MenuItem>
-          <MenuItem onClick={handleClose4}>
+          <MenuItem onClick={() => handleLogout("/")}   >
             <ListItemIcon>
               <Logout fontSize="small" />
             </ListItemIcon>

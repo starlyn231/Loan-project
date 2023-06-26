@@ -1,32 +1,40 @@
 
-import ErrorPage from "./ErrorPage";
-import PrivateLayout from "../Layout/private/PrivateLayout";
+import { Navigate } from "react-router-dom";
 import AuthLayout from "../Layout/authLayout/AuthLayout";
 import RootLayout from "../Layout/public/PublicLayout";
 import { Home } from "../view/Home/Home";
-import { Register } from "../view/auth/register";
 import { Login } from "../view/auth/Login";
-import { StartLoginView } from "../view/auth/startLoginView/StartLoginView";
-import { Navigate } from "react-router-dom";
+import { Register } from "../view/auth/register";
 import { RegisterEvents } from "../view/auth/registerEvents";
-import { TestApp } from "../view/testApp/TestApp";
-
-
+import { StartLoginView } from "../view/auth/startLoginView/StartLoginView";
+import { Calendar } from "../view/calendar/Calendar";
 import { Contact } from "../view/contact/Contact";
 
-import { Calendar } from "../view/calendar/Calendar";
 import { Information } from "../view/information/Information";
-import CustomerPage from "../view/customer/CustomerPage";
+import { TestApp } from "../view/testApp/TestApp";
+import { ErrorBoundary } from "react-error-boundary";
+import ErrorFallback from "./ErrorFallback";
+import { CustomerPage } from "../view/customer/CustomerPage";
+import LoanPage from "../view/Loan/LoanPage";
+import ConfigurationPage from "../view/Configurations/ConfigurationPage";
+import DetailLoan from "../view/DetailLoan/DetailLoan";
+import Payments from "../view/payments/Payments";
+
 
 export const routes = [
   {
     element: <RootLayout />,
+
     children: [
       {
-        path: "/",
-        element: <Home />,
+        path: "/home",
+        element: <ErrorBoundary FallbackComponent={ErrorFallback}>
+          <Home />
+        </ErrorBoundary>,
         layout: "/public",
         loginRequired: false,
+
+
       },
 
       {
@@ -37,15 +45,42 @@ export const routes = [
       },
       {
         path: "/customerView",
-        element: <CustomerPage />,
+        element: <ErrorBoundary FallbackComponent={ErrorFallback}>
+          <CustomerPage />,
+        </ErrorBoundary>,
         layout: "/public",
         loginRequired: false,
       },
-      
+      {
+        path: "/loanView",
+        element: <ErrorBoundary FallbackComponent={ErrorFallback}>
+          <LoanPage />,
+        </ErrorBoundary>,
+        layout: "/public",
+        loginRequired: false,
+      },
+      {
+        path: "/setting",
+        element: <ErrorBoundary FallbackComponent={ErrorFallback}>
+          <ConfigurationPage />,
+        </ErrorBoundary>,
+        layout: "/public",
+        loginRequired: false,
+      },
       {
         path: "/calendar",
         element: <Calendar />,
 
+        loginRequired: false,
+      },
+      {
+        path: "/detailLoan/:id",
+        element: <DetailLoan />,
+        loginRequired: false,
+      },
+      {
+        path: "/payments",
+        element: <Payments />,
         loginRequired: false,
       },
       {
@@ -55,10 +90,13 @@ export const routes = [
         loginRequired: false,
       },
 
-      { path: "*", element: <Navigate to='/' /> },
+
+      { path: "*", element: <Navigate to='/home' /> },
+
     ],
+
   },
- 
+
   {
     path: "/",
     element: <AuthLayout />,
@@ -93,7 +131,7 @@ export const routes = [
       },
 
       {
-        path: "/login",
+        path: "/",
         element: <Login />,
         layout: "/AuthLayout ",
         loginRequired: false,

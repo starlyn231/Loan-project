@@ -6,12 +6,19 @@ export const Container = styled("div")({
   width: "100%",
   minHeight: "100vh",
   overflow: "hidden",
+  paddingTop:'45px',
+  /*
   "@media (min-width:768px)": {
-    paddingTop:'60px'
+    paddingTop:'40px'
   },
   "@media (min-width:1200px)": {
- paddingTop:'70px'
+
   },
+
+  "@media (min-width:3px)": {
+    paddingTop:'45px'
+     },
+     */
   "&:hover": {
  
   },

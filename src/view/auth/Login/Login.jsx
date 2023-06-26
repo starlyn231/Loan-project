@@ -1,110 +1,142 @@
-import { Checkbox, FormControlLabel, FormGroup, Grid } from "@mui/material";
-import CheckBox from "../../../CheckBox/CheckBox";
-import TextField from "../../../components/TextField/TextField";
-import {
-  ButtonGeneral,
-  MediumHeightDivider,
-  SmallHeightDivider,
-} from "../../../themes/Styles";
-import {
-  BodyText,
-  ButtonAuth,
-  ButtonAuthContainer,
-  ButtonContainer,
-  Container,
-  LinkText,
-  TextFieldContainer,
-  Title,
-} from "./styles/LoginStyles";
 
-import { Stack } from "@mui/system";
-import { useNavigate } from "react-router-dom";
-import { ViewAuthComponent } from "../../../components/viewAuth/ViewAuthComponent";
-import GoogleIcon from '@mui/icons-material/Google';
-import AppleIcon from '@mui/icons-material/Apple';
-import FacebookRoundedIcon from '@mui/icons-material/FacebookRounded';
-import { useLayoutEffect } from "react";
-import { useDispatch } from "react-redux";
-import AuthLayoutLogin from '../../../assets/image/noah-rosenfield1.png'
-import { changeImgLayout } from "../../../Redux/UiReducerSlices";
-
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import { Grid, Typography } from '@mui/material';
+import Avatar from '@mui/material/Avatar';
+import { useState } from 'react';
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from 'react-router-dom';
+import TextField from '../../../components/TextField/TextField';
+import { loginSchema } from './SchemaLogin';
+import { ButtonLogin, Container, Error, Form, LinkText, Wrapper } from './styles/LoginStyles';
+//import { publicRequest } from '../../services/RequestMethods';
+//import { loginFailure, loginStart, loginSuccess } from '../../Redux/UserRedux';
+import { useFormik } from "formik";
+import { useMutation } from 'react-query';
+import { toast } from 'react-toastify';
+import { loginService } from '../../../callApi/Login';
+import { setTokenToLocalStorage } from '../../../requestManager/AxiosHandler';
+import { loginFailure, loginStart, loginSuccess } from '../../../Redux/UserRedux';
 export const Login = () => {
-  const example = () => {
-    console.log("hola");
-  };
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [mssgError, setMssgError] = useState("");
   const dispatch = useDispatch();
+  const { isFetching, error } = useSelector((state) => state.user);
   const navigation = useNavigate();
+ 
 
+  const formik = useFormik({
+    initialValues: {
+      password: "",
+      email: "",
+    },
+    validationSchema: loginSchema,
+    enableReinitialize: true,
+    onSubmit: (values) => {
+      HadleLogin(values);
+    },
+  });
 
-  useLayoutEffect(() => {
+  const mutation = useMutation(loginService);
 
-    // changed img of layout auth
-    dispatch(changeImgLayout(AuthLayoutLogin))
+  const HadleLogin = async (formData) => {
+    dispatch(loginStart());
+    const authData = { email: formData.email, password: formData.password, };
 
-  }, []);
+    mutation.mutate(authData, {
+      onSuccess: (response) => {
+        setTokenToLocalStorage(response?.token);
+
+        if (response?.success) {
+          dispatch(loginSuccess(response));
+          navigation('/home');
+        }
+      },
+      onError: (error) => {
+        dispatch(loginFailure());
+        setMssgError(error.response.data.msg)
+        toast.error(error.response.data.msg);
+      },
+    });
+
+  }
+
   return (
-    <ViewAuthComponent
-      condicionRenderIcon={true}
-      title={"Iniciar sesión"}
-      bodyText='Ahora solo tienes que introducir tu nombre de usuario y contraseña y a
-      disfrutar de todo lo que Tveo te ofrece.'
-      messageRegister={"¿Aún no tienes una cuenta? Registrarme"}
-      message='No recuerdo mi contraseña'
-      btnTitle='Iniciar Sesion'
-      onClickPress={() => example()}
-      reDirect={'/login'}
-    >
-      <TextFieldContainer>
-        <TextField
-          title='Nombre de usuario o Email'
-          type='text'
-          id='user'
-          required
-        />
-      </TextFieldContainer>
+    <Container>
+      <Wrapper>
+        <Avatar sx={{ m: 1, bgcolor: 'secondary.main', width: 56, height: 56 }}>
+          <LockOutlinedIcon />
+        </Avatar>
+        <Typography component="h1" variant="h2" sx={{
+          fontsize: '24px',
+          fontWeight: 300,
+        }}>
+          Inicia sesión
+        </Typography>
+        <Form
+          onSubmit={(e) => {
+            e.preventDefault();
+            formik.handleSubmit();
+          }}
+        >
 
-      <TextFieldContainer>
-        <TextField title='Contraseña' type='password' id='password' required />
-      </TextFieldContainer>
+          <Grid
+            alignItems='flex-start'
+            justifyContent='center'
+            container
+            direction='row'
+            x
+            spacing={{ xs: 2, md: 3 }}
+            columns={{ xs: 12, sm: 12, md: 12 }}
+          >
+            <Grid item xs={12} sm={12} md={12}>
+              <TextField
+                title='Email o usuario'
+                type='text'
+                id='email'
+                value={formik.values.email}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                error={
+                  formik.touched.email &&
+                  Boolean(formik.errors.email)
+                }
+                helperText={
+                  formik.touched.email &&
+                  formik.errors.email
+                }
+                required
+              />        </Grid>
+            <Grid item xs={12} sm={12} md={12}>
+              <TextField
+                title='Contraseña'
+                type='password'
+                id='password'
+                value={formik.values.password}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                error={
+                  formik.touched.password &&
+                  Boolean(formik.errors.password)
+                }
+                helperText={
+                  formik.touched.password &&
+                  formik.errors.password
+                }
+                required
+              />
+              <Error>{mssgError}</Error>
+            </Grid>
+            <Grid item xs={12} sm={12} md={12}>
+              <ButtonLogin variant="contained" type={"submit"} disabled={isFetching}>LOGIN</ButtonLogin>
+            </Grid>
+          </Grid>
 
-      <TextFieldContainer style={{}}>
-        <FormGroup>
-          <FormControlLabel control={<Checkbox defaultChecked />} label="No soy robot" />
-
-        </FormGroup>
-      </TextFieldContainer>
-
-      <ButtonContainer style={{}}>
-        <ButtonGeneral backgroundColor='black' color='white'>Iniciar Sesion</ButtonGeneral>
-      </ButtonContainer>
-      <SmallHeightDivider />
-
-      <LinkText to='/requestPassword'>No recuerdo mi contraseña</LinkText>
-      <SmallHeightDivider />
-      <Grid justifyContent="center" container direction="row" spacing={{ xs: 1, md: 3 }} columns={{ xs: 12, sm: 12, md: 12 }}>
-        <Grid item xs={12} sm={3} md={4}>
-          <ButtonAuth variant="outlined" startIcon={<GoogleIcon />}>
-            GOOGLE
-          </ButtonAuth>
-        </Grid>
-
-        <Grid item xs={12} sm={3} md={4}>
-          <ButtonAuth variant="outlined" startIcon={<FacebookRoundedIcon sx={{ color: 'blue' }} />}>
-            FACEBOOK
-          </ButtonAuth>
-        </Grid>
-
-        <Grid item xs={12} sm={3} md={4}>
-          <ButtonAuth backgroundColor="black" sx={{ color: 'white' }} startIcon={<AppleIcon />}>
-            APPLE
-          </ButtonAuth>
-        </Grid>
-      </Grid>
-      <SmallHeightDivider />
-
-      <LinkText to='/register'>¿Aún no tienes una cuenta? Registrarme</LinkText>
-
-
-    </ViewAuthComponent>
-  );
-};
+          {error && <Error>{mssgError}.</Error>}
+          <LinkText>DO NOT YOU REMEMBER THE PASSWORD?</LinkText>
+          <LinkText>CREATE A NEW ACCOUNT</LinkText>
+        </Form>
+      </Wrapper>
+    </Container>
+  )
+}

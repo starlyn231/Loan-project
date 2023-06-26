@@ -1,23 +1,41 @@
 import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
-
-
+import PaidOutlinedIcon from '@mui/icons-material/PaidOutlined';
+import ManageAccountsOutlinedIcon from '@mui/icons-material/ManageAccountsOutlined';
+import CreditScoreIcon from '@mui/icons-material/CreditScore';
 const Menuitems = [
   {
-    title: "Dashboard",
+    title: "Home",
     icon: DashboardOutlinedIcon,
-    href: "/public",
-  },{
-    title: "Dashboard",
-    icon: DashboardOutlinedIcon,
-    href: "/testapp", 
+    href: "/home",
   },
-
   {
-    title: "Gestion de Clientes",
-    icon: DashboardOutlinedIcon,
+    title: "Clientes",
+    icon: ManageAccountsOutlinedIcon,
     href: "/customerView", 
   },
   
+  {
+    title: "Prestamos",
+    icon: CreditScoreIcon,
+    href: "/loanView", 
+  },
+  {
+    title: "Pagos",
+    icon: PaidOutlinedIcon,
+    href: "/payments", 
+  },
+  {
+    title: "Configuracion",
+    icon: ManageAccountsOutlinedIcon,
+    href: "/setting", 
+  },
+  
+
+  {
+    title: "Test",
+    icon: DashboardOutlinedIcon,
+    href: "/testapp", 
+  },
 /*  {
     title: "Clientes",
     icon: DashboardOutlinedIcon,

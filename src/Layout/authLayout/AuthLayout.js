@@ -17,17 +17,15 @@ const AuthLayout = ({ children }) => {
 
 */
   return (
-    <LayoutAuthContainer>
+    <>
 
-      <ImgLayoutLeft />
-
-      <RightPanelContainer>
+   
 
         <Outlet />
 
-      </RightPanelContainer>
 
-    </LayoutAuthContainer>
+
+    </>
 
 
 

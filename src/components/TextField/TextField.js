@@ -23,7 +23,7 @@ function TextField({ id, title, placeholder, value, onChange, onBlur, type, erro
         passport: "*",
         rnc: "9-99-99999-9",
         'solo numero': "999999999999999999999999999",
-        mascaraRut: "aa-aaaa-9999-99999"
+    
     }
 
     return (
@@ -113,6 +113,7 @@ function TextField({ id, title, placeholder, value, onChange, onBlur, type, erro
                         FormHelperTextProps={{ sx: { fontSize: '0.90rem' } }}
                         error={error}
                         minRows={minRows}
+                     
                         inputProps={{
                             maxLength: maxLength,
                             minLength: minLength,

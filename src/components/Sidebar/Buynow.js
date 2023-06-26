@@ -7,7 +7,7 @@ const Buynow = () => {
   //const customizer = useSelector((state)=> state.CustomizerReducer);
 
   return (
-    <Box pb={5} mt={5}>
+    <Box pb={5} mt={5} sx={{ position: 'absolute', bottom: 0 }}>
       <Box
         p={2}
         sx={{
@@ -33,9 +33,10 @@ const Buynow = () => {
               color: (theme) => theme.palette.secondary.main,
               zIndex: "9",
               position: "relative",
+              fontWeight:' bold'
             }}
           >
-  Mejo app
+          Gestion prestamos
           </Typography>
           <Button
             color="success"
@@ -44,7 +45,7 @@ const Buynow = () => {
             disableElevation
             variant="contained"
           >
-          Ir a la pagina web principal
+            Ir a la pagina web principal
           </Button>
         </Box>
       </Box>

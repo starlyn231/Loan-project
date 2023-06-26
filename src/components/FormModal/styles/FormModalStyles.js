@@ -8,7 +8,7 @@ export const Container = styled('div')(props => ({
     flexDirection: 'column',
 
     backgroundColor: props.backgroundColor === 'black' ? COLORS.primary : 'white',
-    minHeight: '350px',
+   // minHeight: '350px',
     '@media(min-width:320px)': {
         minWidth: '300px',
     },
@@ -16,12 +16,13 @@ export const Container = styled('div')(props => ({
         minWidth: '700px',
     },
     '@media(min-width:1200px)': {
-        minWidth: props.maxWidth === 'xl' ? '1000px' : '600px',
+      minWidth: props.maxWidth === 'xl' ? '1000px' : '600px',
+       //minHeight: '90vh'
     },
 }));
 
 export const ContentContainer = styled('div')({
-    marginTop: '10px',
+
     alignSelf: 'center',
     margin: '10px',
     width: '80%',

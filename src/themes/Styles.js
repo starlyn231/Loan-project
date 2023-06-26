@@ -140,15 +140,15 @@ export const StyledTextInput = styled(TextField)(props => ({
         width: '100%',
         fontSize: '17px',
         backgroundColor: 'transparent',
-        padding: 7,
+        padding: 10,
 
 
     },
     '& .MuiOutlinedInput-root': {
         '& fieldset': {
             borderColor: COLORS.lightGray,
-            borderRadius: '8px',
-            minHeight: '44px',
+            //borderRadius: '8px',
+           // minHeight: '44px',
             borderWidth: props.hiddenBorder ? 0 : '1px',
             boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
 
@@ -233,20 +233,20 @@ export const WpRichTextContainer = styled('div')({
 export const ButtonsMenuContainer = styled('div')({
     display: 'flex',
     flexDirection: 'column',
-    alignSelf: 'center',
-    border: ' 1px solid #1D1D1D',
+ 
+   
     filter: 'drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))',
     borderRadius: '50px',
 
-    '@media (min-width:320px)': {
-        width: '100%',
+    alignSelf: "flex-start",
+    "@media (min-width:320px)": {
+      width: "100%",
     },
-    '@media (min-width:768px)': {
-        width: '80%',
+    "@media (min-width:768px)": {
+      width: "50%",
     },
-    '@media (min-width:1200px)': {
-        width: '95%',
-
+    "@media (min-width:1200px)": {
+      width: "30%",
     },
 });
 
@@ -307,7 +307,7 @@ export const CardTextContainer = styled('div')({
 });
 
 export const FieldTitle = styled('p')({
-    marginTop: '2px',
+  //  marginTop: '2px',
     color: COLORS.black,
     fontFamily: FONTS_FAMILY.regular.title,
     '@media (min-width:320px)': {
