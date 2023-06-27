@@ -87,9 +87,16 @@ const Payments = () => {
 
   };
 
-  const { data: dataLoanUnique, loadingLoan, errorLoan } = useQuery(
+  const { data: dataLoanUnique, loadingLoan, errorLoan,refetch } = useQuery(
     ["dataLoanUnique", formik.values.id],
-    () => getLoanById(formik.values.id)
+    () =>{ if (formik.values.id !== null) {
+      return getLoanById(formik.values.id);
+    }
+    return Promise.resolve(null); // Devuelve una promesa resuelta con valor null cuando formik.values.id es null
+  },
+  {
+    enabled: formik.values.id !== null, // Habilita la consulta solo cuando formik.values.id no es null
+  }
   )
 
   const { data: listPayments, loadingPayments, errorPayments } = useQuery(
@@ -98,9 +105,10 @@ const Payments = () => {
   )
   const getDataLoan = async () => {
     const response = await AxiosHandler().get(`/loan`);
-
+    console.log(formik.values.id)
+  
     if (response?.data?.success) {
-
+ //
       setLoanData(
         response?.data?.data.map((item) => ({
           value: item._id,
@@ -157,7 +165,10 @@ const Payments = () => {
 
   useEffect(() => {
     getDataLoan()
-
+   /* if (formik.values.id !== null) {
+      refetch();
+    }*/
+    
   }, [])
   return (
 
@@ -168,7 +179,7 @@ const Payments = () => {
       height='100vh'
       spacing={{ xs: 2, md: 1 }}
       columns={{ xs: 6, sm: 8, md: 12 }}>
-      <Grid item xs={12} md={8} lg={8}     >
+      <Grid item xs={12} md={10} lg={10}     >
         <Box sx={{ height: 400, width: '100%', }}>
           {/*  TOP PAYMENTS */}
 
@@ -226,10 +237,10 @@ const Payments = () => {
           />
         </Box>
       </Grid>
-      <Grid item xs={12} md={4} lg={4} sx={{ p: 2, display: 'flex', justifyContent: 'center' }}   >
+     { /*  <Grid item xs={12} md={4} lg={4} sx={{ p: 2, display: 'flex', justifyContent: 'center' }}   >
 
         <PaymentsAside />
-      </Grid>
+      </Grid>*/} 
 
       <FormModal
         onClose={handleModal}
@@ -259,7 +270,7 @@ const Payments = () => {
               value={formik.values.id}
               onChange={(e) => {
                 formik.handleChange(e);
-
+                
                 getDataLoan(e.target.value)
               }}
               onBlur={formik.handleBlur}
