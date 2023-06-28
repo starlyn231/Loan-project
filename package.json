@@ -52,6 +52,7 @@
     "simplebar-react": "^3.2.4",
     "slick-carousel": "^1.8.1",
     "styled-components": "^5.3.6",
+    "sweetalert2": "^11.7.12",
     "swiper": "^8.4.2",
     "web-vitals": "^2.1.4",
     "yup": "^0.32.11"
@@ -60,7 +61,7 @@
     "start": "env-cmd -f .env.development react-scripts start",
     "start:prod": "env-cmd -f .env.production react-scripts start",
     "build:staging": "env-cmd -f .env.staging react-scripts build",
-    "build":"env-cmd -f .env.production react-scripts build",
+    "build": "env-cmd -f .env.production react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

@@ -21,6 +21,7 @@ import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { getLoanById, getLoans } from '../../callApi/Loan';
 import AxiosHandler from '../../requestManager/AxiosHandler';
 import { toast } from 'react-toastify';
+import Swal from 'sweetalert2'
 const columns = [
   { field: 'id', headerName: 'ID', width: 90 },
 
@@ -87,16 +88,17 @@ const Payments = () => {
 
   };
 
-  const { data: dataLoanUnique, loadingLoan, errorLoan,refetch } = useQuery(
+  const { data: dataLoanUnique, loadingLoan, errorLoan, refetch } = useQuery(
     ["dataLoanUnique", formik.values.id],
-    () =>{ if (formik.values.id !== null) {
-      return getLoanById(formik.values.id);
+    () => {
+      if (formik.values.id !== null) {
+        return getLoanById(formik.values.id);
+      }
+      return Promise.resolve(null); // Devuelve una promesa resuelta con valor null cuando formik.values.id es null
+    },
+    {
+      enabled: formik.values.id !== null, // Habilita la consulta solo cuando formik.values.id no es null
     }
-    return Promise.resolve(null); // Devuelve una promesa resuelta con valor null cuando formik.values.id es null
-  },
-  {
-    enabled: formik.values.id !== null, // Habilita la consulta solo cuando formik.values.id no es null
-  }
   )
 
   const { data: listPayments, loadingPayments, errorPayments } = useQuery(
@@ -106,9 +108,9 @@ const Payments = () => {
   const getDataLoan = async () => {
     const response = await AxiosHandler().get(`/loan`);
     console.log(formik.values.id)
-  
+
     if (response?.data?.success) {
- //
+      //
       setLoanData(
         response?.data?.data.map((item) => ({
           value: item._id,
@@ -153,6 +155,17 @@ const Payments = () => {
           console.log(response)
           handleModal();
           toast.success(' Pago realizado correctamente correctamente');
+
+          if (response?.notification && response?.loan?.loanPaymentMonth >0 ) {
+            Swal.fire({
+              title: ` ${response?.notification}`,
+              text: `Ten en cuenta si no pagas la cuota completa, se le puede general mora`,
+              icon: 'warning',
+              //timer: 1500,
+              confirmButtonText: 'ok'
+            })
+          }
+
         }
       },
       onError: (error) => {
@@ -165,10 +178,10 @@ const Payments = () => {
 
   useEffect(() => {
     getDataLoan()
-   /* if (formik.values.id !== null) {
-      refetch();
-    }*/
-    
+    /* if (formik.values.id !== null) {
+       refetch();
+     }*/
+
   }, [])
   return (
 
@@ -189,18 +202,18 @@ const Payments = () => {
               display: 'flex',
               py: 2,
 
-     
+
               textAlign: 'center',
               direction: "row",
               justifyContent: 'center'
             }}   >
 
-            <Stack display='flex' width="100%"     direction={{ xs: "column", md: "row" , lg:'row'}} alignItems="center" justifyContent='space-between'
+            <Stack display='flex' width="100%" direction={{ xs: "column", md: "row", lg: 'row' }} alignItems="center" justifyContent='space-between'
               ml={2} mr={2} >
-           
-                <UserListToolbar filterName={searchTerm} onFilterName={handleFilterByName} placeholderProp={'Filtrar pagos'} />
 
-       
+              <UserListToolbar filterName={searchTerm} onFilterName={handleFilterByName} placeholderProp={'Filtrar pagos'} />
+
+
               <ButtonsMenuContainer>
                 <Button sx={{
                   bgcolor: colors.info.primary,
@@ -237,10 +250,10 @@ const Payments = () => {
           />
         </Box>
       </Grid>
-     { /*  <Grid item xs={12} md={4} lg={4} sx={{ p: 2, display: 'flex', justifyContent: 'center' }}   >
+      { /*  <Grid item xs={12} md={4} lg={4} sx={{ p: 2, display: 'flex', justifyContent: 'center' }}   >
 
         <PaymentsAside />
-      </Grid>*/} 
+      </Grid>*/}
 
       <FormModal
         onClose={handleModal}
@@ -270,7 +283,7 @@ const Payments = () => {
               value={formik.values.id}
               onChange={(e) => {
                 formik.handleChange(e);
-                
+
                 getDataLoan(e.target.value)
               }}
               onBlur={formik.handleBlur}
@@ -312,12 +325,22 @@ const Payments = () => {
             <Alert severity="info" sx={{ display: 'flex', width: '100%', justifyContent: 'center', }}>
               <AlertTitle>Detalles del Pago</AlertTitle>
 
+{dataLoanUnique?.data?.loanPaymentMonth < dataLoanUnique?.data?.loanPayment ?
 
-              <Typography>
-                Monto: <strong>{Intl.NumberFormat('en-US',
-                  { style: 'currency', currency: 'USD' }
-                ).format(dataLoanUnique?.data?.loanPayment)}</strong>
-              </Typography>
+<Typography>
+Monto restante: <strong>{Intl.NumberFormat('en-US',
+  { style: 'currency', currency: 'USD' }
+).format(dataLoanUnique?.data?.loanPaymentMonth)}</strong>
+</Typography>
+:
+<Typography>
+Monto: <strong>{Intl.NumberFormat('en-US',
+  { style: 'currency', currency: 'USD' }
+).format(dataLoanUnique?.data?.loanPaymentMonth)}</strong>
+</Typography>
+
+}
+          
               <Typography>
                 Balance Insoluto:
                 <strong>{Intl.NumberFormat('en-US',

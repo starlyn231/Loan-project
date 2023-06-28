@@ -553,7 +553,7 @@ const LoanPage = () => {
           </Grid>
           <Grid item xs={12} sm={4} md={3}>
             <TextField
-              title='Cantidad a solicitar'
+              title='Monto a solicitar'
               type='number'
               id='amount'
               value={formik.values.amount}

@@ -24,6 +24,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { SubtitleText, TextContent } from './styles/DetailLoanStyles';
 import PaidOutlinedIcon from '@mui/icons-material/PaidOutlined';
 import { Link } from '@mui/material';
+import { format } from 'date-fns';
+import { es } from 'date-fns/locale';
 const DetailLoan = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [CustomerData, setCustomerData] = useState([]);
@@ -198,20 +200,34 @@ const DetailLoan = () => {
 
               <Grid item xs={12} md={6} lg={6}     >
                 <TextContent>  Último pago en :  </TextContent>
-                <SubtitleText>  2023/05/30</SubtitleText>
+               {/*    <SubtitleText>    {format(
+                  new Date(dataLoan?.data?.dueDate.replace(" ", "T")),
+                  "dd 'de' MMMM yyyy",
+                  { locale: es }
+               )}</SubtitleText>  */}
               </Grid>
 
               <Grid item xs={12} md={6} lg={6}     >
                 <TextContent> Fecha de apertura:  </TextContent>
-                <SubtitleText>31/07/2020 </SubtitleText>
+              {/*   <SubtitleText>    {format(
+                  new Date(dataLoan?.data?.created_at.replace(" ", "T")),
+                  "dd 'de' MMMM yyyy",
+                  { locale: es }
+                )}
+                </SubtitleText> */}
               </Grid>
-
 
 
               <Grid item xs={12} md={6} lg={6}     >
                 <TextContent>Cuotas en Atrasos </TextContent>
                 <SubtitleText>0</SubtitleText>
               </Grid>
+
+              <Grid item xs={12} md={6} lg={6}     >
+                <TextContent>Monto Pendiente </TextContent>
+                <SubtitleText>{dataLoan?.data?.loanPaymentMonth} </SubtitleText>
+              </Grid>
+
             </Grid>
           </Card>
 
@@ -250,7 +266,7 @@ const DetailLoan = () => {
                     color: 'primary'
                   }
                 }}>
-               Realizar pago realizados 
+                Realizar pago realizados
               </Typography>
 
               <Typography variant="h5"
