@@ -2,27 +2,25 @@
 import { tokens } from "../../themes/theme";
 
 //MUI IMPORT
-import { Box, Button, Grid, IconButton, Typography, useTheme } from "@mui/material";
 import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
-import EmailIcon from "@mui/icons-material/Email";
-import PointOfSaleIcon from "@mui/icons-material/PointOfSale";
-import PersonAddIcon from "@mui/icons-material/PersonAdd";
-import TrafficIcon from "@mui/icons-material/Traffic";
+import { Box, Button, Grid, IconButton, Typography, useTheme } from "@mui/material";
 
 
 
 
-import StatBox from "./components/StatBox";
-import ProgressCircle from "./components/ProgressCircle";
-import { mockTransactions } from "./mockData";
-import Widget from "./components/widget/Widget";
-import Header from "./components/Header";
 import Chart from "./components/Chart";
+import Header from "./components/Header";
+import Widget from "./components/widget/Widget";
 
-import TinyBarChart from "./components/TinyBarChart";
-//import LineChart from "./components/LineChart";
+import Barchart from "./components/Barchart";
+import { OverviewLatestProducts } from "./components/OverviewsLoans";
+import PiechartComponent from "./components/PiechartComponent";
+import OverviewTraffic from "./components/overview-traffic";
 
-
+import { subDays, subHours } from 'date-fns';
+import { productsLoans } from "./HomeMock";
+import CustomContentOfTooltip from "./components/CustomContentOfTooltip";
+const now = new Date();
 export const Home = () => {
   const theme = useTheme();
   const colors = tokens;
@@ -31,7 +29,7 @@ export const Home = () => {
     <Box m="10px">
       {/* HEADER */}
       <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Header title="DASHBOARD" subtitle="Welcome to your dashboard" />
+        <Header title="Estadisticas Generales" subtitle="El préstamo que te mereces" />
         <Box>
           <Button
             variant="contained"
@@ -63,7 +61,7 @@ export const Home = () => {
       >
         <Grid item xs={12} sm={4} md={3}>
 
-          <Widget type="user" />
+          <Widget type="prestamo" />
         </Grid>
 
         <Grid item xs={12} sm={4} md={3} display="flex"
@@ -75,114 +73,67 @@ export const Home = () => {
         <Grid item xs={12} sm={4} md={3} display="flex"
           alignItems="center"
           justifyContent="center">
-          <Widget type="order" />
+          <Widget type="payments" />
         </Grid>
 
         <Grid item xs={12} sm={4} md={3} display="flex"
           alignItems="center"
           justifyContent="center">
-          <Widget type="earning" />
+          <Widget type="mora" />
         </Grid>
 
-      {/* ROW 2 */}
-      
-        <Grid item xs={12} sm={4} md={8}>
+        {/* ROW 2 */}
 
-          <Box
-            mt="25px"
-            p="0 30px"
-            display="flex "
-            justifyContent="space-between"
-            alignItems="center"
-          >
-            <Box>
-              <Typography
-                variant="h5"
-                fontWeight="600"
-                color={colors.grey[100]}
-              >
-                Revenue Generated
-              </Typography>
-              <Typography
-                variant="h3"
-                fontWeight="bold"
-                color={colors.greenAccent[500]}
-              >
-                $59,342.32
-              </Typography>
-            </Box>
-            <Box>
-              <IconButton>
-                <DownloadOutlinedIcon
-                  sx={{ fontSize: "26px", color: colors.greenAccent[500] }}
-                />
-              </IconButton>
-            </Box>
-          </Box>
-          <Box height="250px" >
-            <Chart />
+        <Grid item xs={12} sm={4} md={4}>
+
+         
+          <Box  >
+            <CustomContentOfTooltip chartSeries={[63, 15, 22]}
+              labels={['Desktop', 'Tablet', 'Phone']}
+              sx={{ height: '100%' }} />
           </Box>
 
         </Grid>
         <Grid item xs={12} sm={4} md={4}>
 
-<Box
-  mt="25px"
-  p="0 30px"
-  display="flex "
-  justifyContent="space-between"
-  alignItems="center"
->
-  <Box>
-    <Typography
-      variant="h5"
-      fontWeight="600"
-      color={colors.grey[100]}
-    >
-      Revenue Generated 2
-    </Typography>
-    <Typography
-      variant="h3"
-      fontWeight="bold"
-      color={colors.greenAccent[500]}
-    >
-      $59,342.32
-    </Typography>
-  </Box>
-  <Box>
-    <IconButton>
-      <DownloadOutlinedIcon
-        sx={{ fontSize: "26px", color: colors.greenAccent[500] }}
-      />
-    </IconButton>
-  </Box>
-</Box>
-<Box height="250px" >
-  <Chart />
-</Box>
 
-</Grid>
-   
-      {/* ROW 3 */}
+          <Box  >
+            <OverviewTraffic chartSeries={[63, 15, 22]}
+              labels={['Desktop', 'Tablet', 'Phone']}
+              sx={{ height: '100%' }} />
+          </Box>
 
-   
-    
-        
-    
-          <Grid item xs={12} sm={4} md={6}    backgroundColor={colors.primary[400]}>
+        </Grid>
+        <Grid item xs={12} sm={4} md={4}>
+          <    OverviewLatestProducts
+            products={productsLoans}
+            sx={{ height: '100%' }}
+
+          />
+        </Grid>
+
+
+
+        {/* ROW 3 */}
+
+
+
+
+
+        <Grid item xs={12} sm={4} md={6}   >
           <Typography
             variant="h5"
             fontWeight="600"
             sx={{ marginBottom: "15px" }}
           >
-            Geography Based Traffic
+            Prestamos
           </Typography>
           <Box height="200px" >
-            <Chart />
+            <Barchart />
           </Box>
         </Grid>
 
-        <Grid item xs={12} sm={4} md={6}    backgroundColor={colors.primary[400]}>
+        <Grid item xs={12} sm={4} md={6}   >
           <Typography
             variant="h5"
             fontWeight="600"

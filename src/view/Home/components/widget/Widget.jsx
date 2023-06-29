@@ -1,10 +1,11 @@
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
-import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
+
 import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
-import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
+import AttachMoneyOutlinedIcon from '@mui/icons-material/AttachMoneyOutlined';
 import MonetizationOnOutlinedIcon from "@mui/icons-material/MonetizationOnOutlined";
 import { Box } from "@mui/material";
 import { ContainerWidget, ContentPercentage, RowLeft, RowRight, Title } from "./stylesWidget/WidgetStyles";
+import PriceChangeOutlinedIcon from '@mui/icons-material/PriceChangeOutlined';
 
 const Widget = ({ type }) => {
   let data;
@@ -14,51 +15,50 @@ const Widget = ({ type }) => {
   const diff = 20;
 
   switch (type) {
-    case "user":
+    case "prestamo":
       data = {
-        title: "USERS",
+        title: "PRESTAMOS",
         isMoney: false,
-        link: "See all users",
+        link: "Ver Todos ",
         icon: (
-          <PersonOutlinedIcon
+          <PriceChangeOutlinedIcon
             className="icon"
             style={{
               display: 'flex',
               alignItems: 'center',
 
-              color: "crimson",
-              backgroundColor: "rgba(255, 0, 0, 0.2)",
+             // color: "crimson",
+              //backgroundColor: "rgba(255, 0, 0, 0.2)",
             }}
           />
         ),
       };
       break;
-    case "order":
+    case "payments":
       data = {
-        title: "ORDERS",
+        title: "PAGOS",
         isMoney: false,
-        link: "View all orders",
+        link: "Ver Todos",
         icon: (
-          <ShoppingCartOutlinedIcon
+          <AttachMoneyOutlinedIcon
             className="icon"
             style={{
               display: 'flex',
               alignItems: 'center',
 
-              backgroundColor: "rgba(218, 165, 32, 0.2)",
-              color: "goldenrod",
+              backgroundColor: "rgba(0, 128, 0, 0.2)", color: "green"
             }}
           />
         ),
       };
       break;
-    case "earning":
+    case "mora":
       data = {
-        title: "EARNINGS",
+        title: "MORA",
         isMoney: true,
-        link: "View net earnings",
+        link: "Ver Todos",
         icon: (
-          <MonetizationOnOutlinedIcon
+          <AccountBalanceWalletOutlinedIcon
             className="icon"
             style={{
               display: 'flex',
@@ -103,15 +103,15 @@ const Widget = ({ type }) => {
         <span style={{ width: ' max-content', fontSize: '12px', borderBttom: '1px solid gray' }} className="link">{data.link}</span>
       </RowLeft>
       <RowRight style={{
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-between'
+
       }}>
         <ContentPercentage color={'positive'} className="percentage positive">
           <KeyboardArrowUpIcon />
           {diff} %
         </ContentPercentage>
-        {data.icon}
+  <span style={{ alignSelf:'flex-end'}}>
+  {data.icon}
+  </span>
       </RowRight>
 
     </ContainerWidget >

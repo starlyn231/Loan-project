@@ -6,11 +6,11 @@ export const ContainerWidget = styled("div")((props) => ({
     display: 'flex',
     justifyContent: 'space-between',
     flex: 1,
-    padding: '10px',
+ padding: '10px',
     WebkitBoxShadow: '2px 4px 10px 1px rgba(0, 0, 0, 0.47)',
     boxShadow: ' 2px 4px 10px 1px rgba(201, 201, 201, 0.47)',
-    borderRadius: '10px',
-    height: '100px'
+    borderRadius: '19px',
+    height: '140px'
 
 }));
 

@@ -62,7 +62,7 @@ const RootLayout = ({ children }) => {
         
            
           </Box>
-          <Footer />
+          {/*<Footer /> */}
         </Container>
       </PageWrapper>
 

@@ -16,7 +16,7 @@ export const LogoIcon = styled("img")({
     width: "170px",
   },
   "@media (min-width:1200px)": {
-    width: "190px",
+    width: "100px",
   },
 
   margin: "auto",

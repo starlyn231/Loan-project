@@ -6,9 +6,10 @@ import Menuitems from "./data";
 import Buynow from "./Buynow";
 
 import { Box, Drawer, List, ListItem, ListItemIcon, ListItemText, useMediaQuery } from "@mui/material";
-import LogoIcon from "../../Layout/public/components/Logo/LogoIcon";
 
 
+import ImgLogo from "../../assets/image/iconApp.png"
+import { LogoIcon } from "./LogoIcon";
 const Sidebar = (props) => {
   const [open, setOpen] = React.useState(true);
   const { pathname } = useLocation();
@@ -26,9 +27,9 @@ const Sidebar = (props) => {
   const SidebarContent = (
     <Box sx={{ p: 3, height: "calc(100vh - 40px)" }}>
       <Link to="/">
-        <Box sx={{ display: "flex", alignItems: "Center" }}>
-          <LogoIcon />
-        </Box>
+       { /*<Box sx={{ display: "flex", alignItems: "Center" }}>
+          <LogoIcon  src={ImgLogo}/>
+        </Box> */} 
       </Link>
 
       <Box>
